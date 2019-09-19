@@ -1,15 +1,14 @@
-#include "Lib\\TXLib.h"
+
+
+#include "TXLib.h"
 
 int main()
-{
-    txCreateWindow (1000, 800);
+    {
+    txCreateWindow (1200, 800);
+    txSetFillColor(TX_GRAY);
+    txRectangle(10,100,1200-150,800-2);
 
-    txSetColor(TX_RED);
-    txRectangle(100, 200, 350, 400);
-    txRectangle(600, 200, 850, 400);
-    txRectangle(100, 500, 350, 700);
-    txRectangle(600, 500, 850, 700);
 
     return 0;
-}
+    }
 
