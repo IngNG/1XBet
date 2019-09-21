@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="1xBet" />
+		<Option title="FlatRedactor" />
 		<Option pch_mode="2" />
 		<Option compiler="gnu_gcc_compiler__strict__fast_single_files_only" />
 		<Build>
