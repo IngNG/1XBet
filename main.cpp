@@ -20,7 +20,7 @@ Win32::TransparentBlt (txDC(), vk.x, vk.y, vk.shirina, vk.vasota, vk.img, 0, 0, 
 bool knopka(int x, int y)
 {
     if (txMouseX() > x and
-          txMouseX() < x + 100 and
+          txMouseX() < x + 120 and
           txMouseY() > y and
           txMouseY() < y + 50 and
           txMouseButtons() &1)
@@ -30,6 +30,30 @@ bool knopka(int x, int y)
 
     return false;
 }
+struct Knopka
+{
+	int x;
+	int y;
+	int x2;
+    int y2;
+	const char* text;
+	const char* textMessage;
+
+void drawButton()
+{
+			txDrawText(x,y,x2,y2,text);
+}
+
+void showMessage()
+{
+			if (knopka(x,y)and textMessage != "" )
+			{
+				txMessageBox(textMessage);
+			}
+}
+};
+
+
 
 
 int main()
@@ -38,12 +62,12 @@ int main()
 
     HDC  brick= txLoadImage ("Pics\\Wall\\brick.bmp");
     HDC wood = txLoadImage ("Pics\\Wall\\wood.bmp");
-    HDC  background  = txLoadImage ("Pics\\ôîí 2.bmp");
+    HDC  background  = txLoadImage ("Pics\\Ã´Ã®Ã­ 2.bmp");
 
-    HDC  pic1 = txLoadImage ("Äèâàí1.bmp");
-    HDC  pic2 = txLoadImage ("Äèâàí2.bmp");
-    HDC  pic3 = txLoadImage ("Äèâàí3.bmp");
-    HDC  pic4 = txLoadImage ("Äèâàí4.bmp");
+    HDC  pic1 = txLoadImage ("Ã„Ã¨Ã¢Ã Ã­1.bmp");
+    HDC  pic2 = txLoadImage ("Ã„Ã¨Ã¢Ã Ã­2.bmp");
+    HDC  pic3 = txLoadImage ("Ã„Ã¨Ã¢Ã Ã­3.bmp");
+    HDC  pic4 = txLoadImage ("Ã„Ã¨Ã¢Ã Ã­4.bmp");
 
     Picture pic[4];
     pic[0] = {1090, 110, 75, 190, pic1, 185, 451};
@@ -51,6 +75,13 @@ int main()
     bool exitProgram = false;
 
     int pageNumber = 0;
+
+    Knopka b[5];
+    b[0] = {530,270,650,320,"ÃÃ Ã·Ã Ã²Ã¼","" };
+    b[1] = {530,320,650,370,"ÃÃ°Ã®Ã¤Ã®Ã«Ã¦Ã¨Ã²Ã¼", "Ã‡Ã Ã£Ã°Ã³Ã§ÃªÃ "};
+    b[2] = {530,370,650,420,"ÃÃ Ã±Ã²Ã°Ã®Ã©ÃªÃ¨", "Ã­Ã Ã±Ã²Ã°Ã®Ã©ÃªÃ¨ Ã­Ã¥Ã¤Ã®Ã±Ã²Ã³Ã¯Ã­Ã»"};
+    b[3] = {530,420,650,470,"ÃˆÃ­Ã´Ã®Ã°Ã¬Ã Ã¶Ã¨Ã¿","CÃ¥Ã©Ã·Ã Ã± Ã­Ã Ã©Ã¤Â¸Ã¬"};
+    b[4] = {530,470,650,520,"Ã‚Ã»Ã©Ã²Ã¨",""};
 
 
     while(!exitProgram)
@@ -65,34 +96,23 @@ int main()
 			/*Win32::RoundRect (txDC(), 450, 230, 750,730,50,50); */
 
 			txSelectFont("Arial", 40);
-			txDrawText(300,100,900,150,"Ñîçäàé ñâîþ êâàðòèðó");
+			txDrawText(300,100,900,150,"Ã‘Ã®Ã§Ã¤Ã Ã© Ã±Ã¢Ã®Ã¾ ÃªÃ¢Ã Ã°Ã²Ã¨Ã°Ã³");
 
-			txDrawText(500,270,680,320,"Íà÷àòü");
-			if(knopka(530,270))
-			{
-				 if (pageNumber = 1);
+
+
+		for (int n = 0;   n < 5; n++)
+		  {
+			b[n].drawButton();
+			b[n].showMessage();
 			}
 
-			txDrawText(500,320,680,370,"Ïðîäîëæèòü");
-			if (knopka(530,320))
-			{
-				txMessageBox("Çàãðóçêà");
-			}
 
-			txDrawText(500,370,680,420,"Íàñòðîéêè");
-			if (knopka(530,370))
-			{
-				txMessageBox("íàñòðîéêè íåäîñòóïíû");
-			}
 
-			txDrawText(500,420,680,470,"Èíôîðìàöèÿ");
-			if (knopka(530,420))
+			if(knopka(b[0].x + 20,b[0].y))
 			{
-				txMessageBox("Cåé÷àñ íàéä¸ì");
+				 pageNumber = 1;
 			}
-
-			txDrawText(500,470,680,520,"Âûéòè");
-			if (knopka(530,470))
+			if (knopka(b[4].x + 20,b[4].y))
 			{
 				exitProgram = true;
 			}
@@ -109,25 +129,45 @@ int main()
 				txRectangle ( 10 , 100 , 1200 - 150 , 800 - 2 );
 
 
-				txDrawText(55,20,180,70,"äèâàíû");
+				txDrawText(55,20,180,70,"Ã¤Ã¨Ã¢Ã Ã­Ã»");
 			if(knopka(55,20))
+          {
+          }
+
+			txDrawText(255,20,380,70,"ÃªÃ®Ã©ÃªÃ ");
+			if(knopka(240,40))
+			{
+			 }
+
+			txDrawText(455,20,580,70,"Ã±Ã²Ã¥Ã­Ã»");
+			if(knopka(440,40))
+			{
+			 }
+
+			txDrawText(655,20,780,70,"Ã²Ã¥ÃµÃ­Ã¨ÃªÃ ");
+			if(knopka(640,40))
+			{
+			 }
+
+			txDrawText(855,20,980,70,"ÃªÃ®Ã¢Ã°Ã»");
+			if(knopka(840,40))
 			{
 			}
 
 			  /*
-				HDC  pic = txLoadImage ("Pics\\Furniture\\Äèâàí 1.bmp");
+				HDC  pic = txLoadImage ("Pics\\Furniture\\Ã„Ã¨Ã¢Ã Ã­ 1.bmp");
 				Win32::TransparentBlt (txDC(), 1090, 110, 75, 190, pic, 0, 0, 185, 451, TX_WHITE);
 				txDeleteDC(pic);
 
-				HDC  pic2 = txLoadImage ("Pics\\Furniture\\Äèâàí 2.bmp");
+				HDC  pic2 = txLoadImage ("Pics\\Furniture\\Ã„Ã¨Ã¢Ã Ã­ 2.bmp");
 				Win32::TransparentBlt (txDC(), 1090, 320, 75, 190, pic2, 0, 0, 185, 451, TX_WHITE);
 				txDeleteDC(pic2);
 
-				HDC  pic3 = txLoadImage ("Pics\\Furniture\\Äèâàí 3.bmp");
+				HDC  pic3 = txLoadImage ("Pics\\Furniture\\Ã„Ã¨Ã¢Ã Ã­ 3.bmp");
 				Win32::TransparentBlt (txDC(), 1060, 540, 120, 60, pic3, 0, 0, 451, 185, TX_WHITE);
 				txDeleteDC(pic3);
 
-				HDC  pic4 = txLoadImage ("Pics\\Furniture\\Äèâàí 4.bmp");
+				HDC  pic4 = txLoadImage ("Pics\\Furniture\\Ã„Ã¨Ã¢Ã Ã­ 4.bmp");
 				Win32::TransparentBlt (txDC(), 1060, 630, 120, 60, pic4, 0, 0, 451, 185, TX_WHITE);
 				txDeleteDC(pic4);
 								   */
@@ -169,7 +209,7 @@ drawPic(pic[1]);
     txDeleteDC(pic4);
                        */
     /*
-    HDC  brick= txLoadImage ("Êèðïè÷.bmp");
+    HDC  brick= txLoadImage ("ÃŠÃ¨Ã°Ã¯Ã¨Ã·.bmp");
     Win32::TransparentBlt (txDC(), 1060, 630, 100, 100, brick, 0, 0, 100, 100, TX_WHITE);
     txDeleteDC(brick);
 
