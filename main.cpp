@@ -5,12 +5,16 @@
     int y ;
     int shirina;
     int vasota;
-    HDC pic;
+    HDC img;
+    int src_shirina;
+    int src_vasota;
    };
 
    void drawPic (Picture vk)
    {
-    txBitBlt(txDC(), vk.x, vk.y, vk.shirina, vk.vasota, vk.pic);
+        //txBitBlt(txDC(), vk.x, vk.y, vk.shirina, vk.vasota, vk.img);
+
+Win32::TransparentBlt (txDC(), vk.x, vk.y, vk.shirina, vk.vasota, vk.img, 0, 0, vk.src_shirina, vk.src_vasota, TX_WHITE);
    }
 
 bool knopka(int x, int y)
@@ -36,6 +40,14 @@ int main()
     HDC wood = txLoadImage ("Pics\\Wall\\wood.bmp");
     HDC  background  = txLoadImage ("Pics\\фон 2.bmp");
 
+    HDC  pic1 = txLoadImage ("Диван1.bmp");
+    HDC  pic2 = txLoadImage ("Диван2.bmp");
+    HDC  pic3 = txLoadImage ("Диван3.bmp");
+    HDC  pic4 = txLoadImage ("Диван4.bmp");
+
+    Picture pic[4];
+    pic[0] = {1090, 110, 75, 190, pic1, 185, 451};
+    pic[1] = {1090, 320, 75, 190, pic2, 185, 451};
     bool exitProgram = false;
 
     int pageNumber = 0;
@@ -120,9 +132,10 @@ int main()
 				txDeleteDC(pic4);
 								   */
 
-				Win32::TransparentBlt (txDC(), 1060, 630, 100, 100, brick, 0, 0, 100, 100, TX_WHITE);
 
-				Win32::TransparentBlt (txDC(), 1060, 520, 100, 100, wood, 0, 0, 100, 100, TX_WHITE);
+drawPic(pic[0]);
+drawPic(pic[1]);
+
         }
 
 
@@ -140,6 +153,65 @@ int main()
 
     txDeleteDC(brick);
     txDeleteDC(wood);
+
+
+  /*
+    Win32::TransparentBlt (txDC(), 1090, 110, 75, 190, pic, 0, 0, 185, 451, TX_WHITE);
+    txDeleteDC(pic);
+
+    Win32::TransparentBlt (txDC(), 1090, 320, 75, 190, pic2, 0, 0, 185, 451, TX_WHITE);
+    txDeleteDC(pic2);
+
+    Win32::TransparentBlt (txDC(), 1060, 540, 120, 60, pic3, 0, 0, 451, 185, TX_WHITE);
+    txDeleteDC(pic3);
+
+    Win32::TransparentBlt (txDC(), 1060, 630, 120, 60, pic4, 0, 0, 451, 185, TX_WHITE);
+    txDeleteDC(pic4);
+                       */
+    /*
+    HDC  brick= txLoadImage ("Кирпич.bmp");
+    Win32::TransparentBlt (txDC(), 1060, 630, 100, 100, brick, 0, 0, 100, 100, TX_WHITE);
+    txDeleteDC(brick);
+
+    HDC wood = txLoadImage ("wood.bmp");
+    Win32::TransparentBlt (txDC(), 1060, 520, 100, 100, wood, 0, 0, 100, 100, TX_WHITE);
+    txDeleteDC(wood);
+
+
+    HDC mel = txLoadImage ("mel.bmp");
+    Win32::TransparentBlt (txDC(), 1060, 410, 100, 100, mel, 0, 0, 100, 100, TX_WHITE);
+    txDeleteDC(mel);
+*/
+/*
+   HDC bed = txLoadImage ("bed1.bmp");
+   Win32::TransparentBlt (txDC(), 1060, 110, 100,100, bed , 0,0,100, 100, TX_WHITE);
+   txDeleteDC(bed);
+
+   HDC bed2 = txLoadImage ("bed2.bmp");
+   Win32::TransparentBlt (txDC(), 1060, 270, 100,100, bed2, 0,0, 100,100, TX_WHITE);
+   txDeleteDC(bed2);
+
+   HDC bed3 = txLoadImage ("bed3.bmp");
+   Win32::TransparentBlt (txDC(), 1060, 430, 100,100, bed3, 0,0, 100,100, TX_WHITE);
+   txDeleteDC(bed3);
+
+   HDC bed4 = txLoadImage ("bed4.bmp");
+   Win32::TransparentBlt (txDC(), 1060, 590, 100,100, bed4, 0,0, 100,100, TX_WHITE);
+   txDeleteDC(bed4);
+   */
+/*
+   HDC carpet = txLoadImage ("carpet1.bmp");
+   Win32::TransparentBlt (txDC(), 1060,110,100,100, carpet,0,0,100,100, TX_WHITE);
+   txDeleteDC(carpet);
+
+   HDC carpet2 = txLoadImage ("carpet2.bmp");
+   Win32::TransparentBlt (txDC(),  1060,270,100,100, carpet2,0,0,100,100, TX_WHITE);
+   txDeleteDC(carpet2);
+
+   HDC carpet3 = txLoadImage ("carpet3.bmp");
+   Win32::TransparentBlt (txDC(),  1060,430,100,100, carpet3,0,0,100,100, TX_WHITE);
+   txDeleteDC(carpet3);
+   */
     txSleep(2000);
 
     return 0;
