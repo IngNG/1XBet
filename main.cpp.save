@@ -16,7 +16,7 @@
 bool knopka(int x, int y)
 {
     if (txMouseX() > x and
-          txMouseX() < x + 120 and
+          txMouseX() < x + 100 and
           txMouseY() > y and
           txMouseY() < y + 50 and
           txMouseButtons() &1)
@@ -42,7 +42,7 @@ void drawButton()
 
 void showMessage()
 {
-			if (knopka(x,y)and textMessage != "" )
+			if (knopka(x + 20,y))
 			{
 				txMessageBox(textMessage);
 			}
@@ -64,12 +64,11 @@ int main()
 
     int pageNumber = 0;
 
-    Knopka b[5];
-    b[0] = {530,270,650,320,"Начать","" };
-    b[1] = {530,320,650,370,"Продолжить", "Загрузка"};
-    b[2] = {530,370,650,420,"Настройки", "настройки недоступны"};
-    b[3] = {530,420,650,470,"Информация","Cейчас найдём"};
-    b[4] = {530,470,650,520,"Выйти",""};
+    Knopka b[3];
+    b[0] = {500,270,680,320,"Начать","" };
+    b[1] = {500,320,680,370,"Продолжить", "Загрузка"};
+    b[2] = {500,370,680,420,"Настройки", "настройки недоступны"};
+    b[2] = {500,370,680,420,"Настройки", "настройки недоступны"};
 
 
     while(!exitProgram)
@@ -87,20 +86,26 @@ int main()
 			txDrawText(300,100,900,150,"Создай свою квартиру");
 
 
+			if(knopka(b[0].x + 20,b[0].y))
+			{
+				 pageNumber = 1;
+			}
 
-		for (int n = 0;   n < 5; n++)
+		for (int n = 0;   n < 3; n++)
 		  {
 			b[n].drawButton();
 			b[n].showMessage();
 			}
 
 
-
-			if(knopka(b[0].x + 20,b[0].y))
+			txDrawText(500,420,680,470,"Информация");
+			if (knopka(530,420))
 			{
-				 pageNumber = 1;
+				txMessageBox("Cейчас найдём");
 			}
-			if (knopka(b[4].x + 20,b[4].y))
+
+			txDrawText(500,470,680,520,"Выйти");
+			if (knopka(530,470))
 			{
 				exitProgram = true;
 			}
@@ -180,6 +185,7 @@ int main()
 
     txDeleteDC(brick);
     txDeleteDC(wood);
+    txSleep(2000);
 
     return 0;
 }
