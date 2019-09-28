@@ -1,22 +1,24 @@
 #include "TXLib.h"
-   struct  Picture
-   {
+struct  Picture
+{
     int x  ;
     int y ;
     int shirina;
     int vasota;
-    HDC pic;
-   };
+    HDC img;
+    int src_shirina;
+    int src_vasota;
+};
 
-   void drawPic (Picture vk)
-   {
-    txBitBlt(txDC(), vk.x, vk.y, vk.shirina, vk.vasota, vk.pic);
-   }
+void drawPic (Picture vk)
+{
+    Win32::TransparentBlt (txDC(), vk.x, vk.y, vk.shirina, vk.vasota, vk.img, 0, 0, vk.src_shirina, vk.src_vasota, TX_WHITE);
+}
 
 bool knopka(int x, int y)
 {
     if (txMouseX() > x and
-          txMouseX() < x + 120 and
+          txMouseX() < x + 180 and
           txMouseY() > y and
           txMouseY() < y + 50 and
           txMouseButtons() &1)
@@ -26,6 +28,7 @@ bool knopka(int x, int y)
 
     return false;
 }
+
 struct Knopka
 {
 	int x;
@@ -35,18 +38,18 @@ struct Knopka
 	const char* text;
 	const char* textMessage;
 
-void drawButton()
-{
-			txDrawText(x,y,x2,y2,text);
-}
+    void drawButton()
+    {
+                txDrawText(x,y,x2,y2,text);
+    }
 
-void showMessage()
-{
-			if (knopka(x,y)and textMessage != "" )
-			{
-				txMessageBox(textMessage);
-			}
-}
+    void showMessage()
+    {
+        if (knopka(x,y) and textMessage != "" )
+        {
+            txMessageBox(textMessage);
+        }
+    }
 };
 
 
@@ -60,16 +63,24 @@ int main()
     HDC wood = txLoadImage ("Pics\\Wall\\wood.bmp");
     HDC  background  = txLoadImage ("Pics\\фон 2.bmp");
 
+    HDC  pic1 = txLoadImage ("Pics\\Furniture\\Диван1.bmp");
+    HDC  pic2 = txLoadImage ("Pics\\Furniture\\Диван2.bmp");
+    HDC  pic3 = txLoadImage ("Pics\\Furniture\\Диван3.bmp");
+    HDC  pic4 = txLoadImage ("Pics\\Furniture\\Диван4.bmp");
+
+    Picture pic[4];
+    pic[0] = {1090, 110, 75, 190, pic1, 185, 451};
+    pic[1] = {1090, 320, 75, 190, pic2, 185, 451};
     bool exitProgram = false;
 
     int pageNumber = 0;
 
-    Knopka b[5];
-    b[0] = {530,270,650,320,"Начать","" };
-    b[1] = {530,320,650,370,"Продолжить", "Загрузка"};
-    b[2] = {530,370,650,420,"Настройки", "настройки недоступны"};
-    b[3] = {530,420,650,470,"Информация","Cейчас найдём"};
-    b[4] = {530,470,650,520,"Выйти",""};
+    Knopka buttons[5];
+    buttons[0] = {500,270,680,320,"Начать","" };
+    buttons[1] = {500,320,680,370,"Продолжить", "Загрузка"};
+    buttons[2] = {500,370,680,420,"Настройки", "настройки недоступны"};
+    buttons[3] = {500,420,680,470,"Информация","Cейчас найдём"};
+    buttons[4] = {500,470,680,520,"Выйти",""};
 
 
     while(!exitProgram)
@@ -88,81 +99,60 @@ int main()
 
 
 
-		for (int n = 0;   n < 5; n++)
-		  {
-			b[n].drawButton();
-			b[n].showMessage();
-			}
+            for (int n = 0;   n < 5; n++)
+            {
+                buttons[n].drawButton();
+                buttons[n].showMessage();
+            }
 
-
-
-			if(knopka(b[0].x + 20,b[0].y))
+			if(knopka(buttons[0].x + 20,buttons[0].y))
 			{
-				 pageNumber = 1;
+                pageNumber = 1;
 			}
-			if (knopka(b[4].x + 20,b[4].y))
+			if (knopka(buttons[4].x + 20,buttons[4].y))
 			{
 				exitProgram = true;
 			}
 		}
 
-        /* txSetFillColor (TX_YELLOW);
-
-        txRectangle (425, 270, 775, 382); */
-
         if (pageNumber == 1 )
         {
+            txSetFillColor (TX_GRAY);
+            txRectangle ( 10 , 100 , 1200 - 150 , 800 - 2 );
 
-				txSetFillColor (TX_GRAY);
-				txRectangle ( 10 , 100 , 1200 - 150 , 800 - 2 );
 
+            txDrawText(55,20,180,70,"диваны");
+            if(knopka(55,20))
+            {
+            }
 
-				txDrawText(55,20,180,70,"диваны");
-			if(knopka(55,20))
-          {
-          }
+            txDrawText(255,20,380,70,"койка");
+            if(knopka(240,40))
+            {
+            }
 
-			txDrawText(255,20,380,70,"койка");
-			if(knopka(240,40))
-			{
-			 }
+            txDrawText(455,20,580,70,"стены");
+            if(knopka(440,40))
+            {
+            }
 
-			txDrawText(455,20,580,70,"стены");
-			if(knopka(440,40))
-			{
-			 }
+            txDrawText(655,20,780,70,"техника");
+            if(knopka(640,40))
+            {
+            }
 
-			txDrawText(655,20,780,70,"техника");
-			if(knopka(640,40))
-			{
-			 }
+            txDrawText(855,20,980,70,"ковры");
+            if(knopka(840,40))
+            {
+            }
 
-			txDrawText(855,20,980,70,"ковры");
-			if(knopka(840,40))
-			{
-			}
+            if (GetAsyncKeyState(VK_ESCAPE))
+            {
+                exitProgram = true;
+            }
 
-			  /*
-				HDC  pic = txLoadImage ("Pics\\Furniture\\Диван 1.bmp");
-				Win32::TransparentBlt (txDC(), 1090, 110, 75, 190, pic, 0, 0, 185, 451, TX_WHITE);
-				txDeleteDC(pic);
-
-				HDC  pic2 = txLoadImage ("Pics\\Furniture\\Диван 2.bmp");
-				Win32::TransparentBlt (txDC(), 1090, 320, 75, 190, pic2, 0, 0, 185, 451, TX_WHITE);
-				txDeleteDC(pic2);
-
-				HDC  pic3 = txLoadImage ("Pics\\Furniture\\Диван 3.bmp");
-				Win32::TransparentBlt (txDC(), 1060, 540, 120, 60, pic3, 0, 0, 451, 185, TX_WHITE);
-				txDeleteDC(pic3);
-
-				HDC  pic4 = txLoadImage ("Pics\\Furniture\\Диван 4.bmp");
-				Win32::TransparentBlt (txDC(), 1060, 630, 120, 60, pic4, 0, 0, 451, 185, TX_WHITE);
-				txDeleteDC(pic4);
-								   */
-
-				Win32::TransparentBlt (txDC(), 1060, 630, 100, 100, brick, 0, 0, 100, 100, TX_WHITE);
-
-				Win32::TransparentBlt (txDC(), 1060, 520, 100, 100, wood, 0, 0, 100, 100, TX_WHITE);
+            drawPic(pic[0]);
+            drawPic(pic[1]);
         }
 
 
@@ -180,6 +170,72 @@ int main()
 
     txDeleteDC(brick);
     txDeleteDC(wood);
+
+    txDeleteDC(pic1);
+    txDeleteDC(pic2);
+    txDeleteDC(pic3);
+    txDeleteDC(pic4);
+
+
+
+  /*
+    Win32::TransparentBlt (txDC(), 1090, 110, 75, 190, pic, 0, 0, 185, 451, TX_WHITE);
+    txDeleteDC(pic);
+
+    Win32::TransparentBlt (txDC(), 1090, 320, 75, 190, pic2, 0, 0, 185, 451, TX_WHITE);
+    txDeleteDC(pic2);
+
+    Win32::TransparentBlt (txDC(), 1060, 540, 120, 60, pic3, 0, 0, 451, 185, TX_WHITE);
+    txDeleteDC(pic3);
+
+    Win32::TransparentBlt (txDC(), 1060, 630, 120, 60, pic4, 0, 0, 451, 185, TX_WHITE);
+    txDeleteDC(pic4);
+                       */
+    /*
+    HDC  brick= txLoadImage ("Кирпич.bmp");
+    Win32::TransparentBlt (txDC(), 1060, 630, 100, 100, brick, 0, 0, 100, 100, TX_WHITE);
+    txDeleteDC(brick);
+
+    HDC wood = txLoadImage ("wood.bmp");
+    Win32::TransparentBlt (txDC(), 1060, 520, 100, 100, wood, 0, 0, 100, 100, TX_WHITE);
+    txDeleteDC(wood);
+
+
+    HDC mel = txLoadImage ("mel.bmp");
+    Win32::TransparentBlt (txDC(), 1060, 410, 100, 100, mel, 0, 0, 100, 100, TX_WHITE);
+    txDeleteDC(mel);
+*/
+/*
+   HDC bed = txLoadImage ("bed1.bmp");
+   Win32::TransparentBlt (txDC(), 1060, 110, 100,100, bed , 0,0,100, 100, TX_WHITE);
+   txDeleteDC(bed);
+
+   HDC bed2 = txLoadImage ("bed2.bmp");
+   Win32::TransparentBlt (txDC(), 1060, 270, 100,100, bed2, 0,0, 100,100, TX_WHITE);
+   txDeleteDC(bed2);
+
+   HDC bed3 = txLoadImage ("bed3.bmp");
+   Win32::TransparentBlt (txDC(), 1060, 430, 100,100, bed3, 0,0, 100,100, TX_WHITE);
+   txDeleteDC(bed3);
+
+   HDC bed4 = txLoadImage ("bed4.bmp");
+   Win32::TransparentBlt (txDC(), 1060, 590, 100,100, bed4, 0,0, 100,100, TX_WHITE);
+   txDeleteDC(bed4);
+   */
+/*
+   HDC carpet = txLoadImage ("carpet1.bmp");
+   Win32::TransparentBlt (txDC(), 1060,110,100,100, carpet,0,0,100,100, TX_WHITE);
+   txDeleteDC(carpet);
+
+   HDC carpet2 = txLoadImage ("carpet2.bmp");
+   Win32::TransparentBlt (txDC(),  1060,270,100,100, carpet2,0,0,100,100, TX_WHITE);
+   txDeleteDC(carpet2);
+
+   HDC carpet3 = txLoadImage ("carpet3.bmp");
+   Win32::TransparentBlt (txDC(),  1060,430,100,100, carpet3,0,0,100,100, TX_WHITE);
+   txDeleteDC(carpet3);
+   */
+
 
     return 0;
 }
