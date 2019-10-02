@@ -68,14 +68,31 @@ int main()
     HDC  pic3 = txLoadImage ("Pics\\Furniture\\Диван3.bmp");
     HDC  pic4 = txLoadImage ("Pics\\Furniture\\Диван4.bmp");
 
+    bool exitProgram = false;
+    Picture sofa[5];
+    sofa[0] = {390, 110, 75, 190, pic1, 185, 451};
+    bool mapvisible = false;
+
+     Picture sofa2[5];
+    sofa[1] = {390, 320, 75, 190, pic2, 185, 451};
+    bool mapvisible2 = false;
+
+
+
+
     Picture pic[4];
     pic[0] = {1090, 110, 75, 190, pic1, 185, 451};
     pic[1] = {1090, 320, 75, 190, pic2, 185, 451};
-    bool exitProgram = false;
+    bool visible = false;
+
+    Picture cover[5];
+    cover[0] = {1090, 110, 75, 190,  txLoadImage ("Pics\\ковёр1.bmp"), 300, 224};
+    cover[1] = {1090, 320, 75, 190,  txLoadImage ("Pics\\ковёр3.bmp"), 350, 350};
+    bool visible2 = false;
 
     int pageNumber = 0;
 
-    Knopka buttons[5];
+    Knopka buttons[6];
     buttons[0] = {500,270,680,320,"Начать","" };
     buttons[1] = {500,320,680,370,"Продолжить", "Загрузка"};
     buttons[2] = {500,370,680,420,"Настройки", "настройки недоступны"};
@@ -120,10 +137,14 @@ int main()
             txSetFillColor (TX_GRAY);
             txRectangle ( 10 , 100 , 1200 - 150 , 800 - 2 );
 
-
+            //Кнопки сверху
+            {
             txDrawText(55,20,180,70,"диваны");
             if(knopka(55,20))
             {
+            visible = true;
+            visible2 = false;
+            txSleep(200);
             }
 
             txDrawText(255,20,380,70,"койка");
@@ -139,20 +160,54 @@ int main()
             txDrawText(655,20,780,70,"техника");
             if(knopka(640,40))
             {
+
             }
 
             txDrawText(855,20,980,70,"ковры");
             if(knopka(840,40))
             {
+            visible2 = true;
+            visible = false;
+            txSleep(200);
             }
+            }
+
+			//Кнопки справа
+            if(knopka(1090,200))
+            {
+            mapvisible = !mapvisible;
+            txSleep(200);
+            }
+              if(knopka(1090,400))
+            {
+            mapvisible2 = !mapvisible2;
+            txSleep(200);
+            }
+
 
             if (GetAsyncKeyState(VK_ESCAPE))
             {
                 exitProgram = true;
             }
-
+             if (visible)
+             {
             drawPic(pic[0]);
             drawPic(pic[1]);
+            }
+             if (visible2)
+             {
+            drawPic(cover[0]);
+            drawPic(cover[1]);
+            }
+
+             if (mapvisible)
+             {
+            drawPic(sofa[0]);
+            }
+             if (mapvisible2)
+             {
+            drawPic(sofa[1]);
+            }
         }
 
 
@@ -238,4 +293,4 @@ int main()
 
 
     return 0;
-}
+ }
