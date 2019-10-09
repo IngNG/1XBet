@@ -8,6 +8,7 @@ struct  Picture
     HDC img;
     int src_shirina;
     int src_vasota;
+    bool visible;
 };
 
 void drawPic (Picture vk)

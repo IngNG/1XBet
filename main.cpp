@@ -20,15 +20,24 @@ int main()
     HDC  pic2 = txLoadImage ("Pics\\Furniture\\Диван2.bmp");
     HDC  pic3 = txLoadImage ("Pics\\Furniture\\Диван3.bmp");
     HDC  pic4 = txLoadImage ("Pics\\Furniture\\Диван4.bmp");
+	HDC  pic5 = txLoadImage ("Pics\\Wall\\brick.bmp");
+	HDC  pic6 = txLoadImage ("Pics\\Wall\\mel.bmp");
+	HDC  pic7 = txLoadImage ("Pics\\Wall\\wood.bmp");
+
 
     bool exitProgram = false;
-    Picture sofa[5];
-    sofa[0] = {390, 110, 75, 190, pic1, 185, 451};
+    Picture kartinkaVCentreEkrana[5];
+    kartinkaVCentreEkrana[0] = {390, 110, 75, 190, pic1, 185, 451, false};
+    kartinkaVCentreEkrana[1] = {390, 320, 75, 190, pic2, 185, 451,false};
     bool mapvisible = false;
-
-     Picture sofa2[5];
-    sofa[1] = {390, 320, 75, 190, pic2, 185, 451};
     bool mapvisible2 = false;
+
+    Picture wall1 [5];
+    wall1[0] = {1090, 110, 100, 100,  txLoadImage ("Pics\\Wall\\brick.bmp"), 60, 60};
+    wall1[1] = {1090, 210, 100, 100,  txLoadImage ("Pics\\Wall\\mel.bmp"), 60, 60};
+    wall1[2] = {1090, 310, 100, 100,  txLoadImage ("Pics\\Wall\\wood.bmp"), 100, 100};
+    bool wall3 = true;
+
 
 
 
@@ -39,7 +48,7 @@ int main()
     bool visible = false;
 
     Picture cover[5];
-    cover[0] = {1090, 110, 75, 190,  txLoadImage ("Pics\\ковёр1.bmp"), 300, 224};
+    cover[0] = {1090, 110, 100, 100,  txLoadImage ("Pics\\ковёр1.bmp"), 300, 224};
     cover[1] = {1090, 320, 75, 190,  txLoadImage ("Pics\\ковёр3.bmp"), 350, 350};
     bool visible2 = false;
 
@@ -108,6 +117,10 @@ int main()
             txDrawText(455,20,580,70,"стены");
             if(knopka(440,40))
             {
+            visible = false;
+            visible2 = false;
+            wall3 = true;
+            txSleep(200);
             }
 
             txDrawText(655,20,780,70,"техника");
@@ -128,14 +141,21 @@ int main()
 			//Кнопки справа
             if(knopka(1090,200))
             {
-            mapvisible = !mapvisible;
+            kartinkaVCentreEkrana[0].visible = !kartinkaVCentreEkrana[0].visible;
             txSleep(200);
             }
-              if(knopka(1090,400))
+              if(knopka(1090,600))
             {
-            mapvisible2 = !mapvisible2;
+            kartinkaVCentreEkrana[2].visible = !kartinkaVCentreEkrana[2].visible;
             txSleep(200);
             }
+            if(knopka(1090,400))
+            {
+            kartinkaVCentreEkrana[1].visible = !kartinkaVCentreEkrana[1].visible;
+            txSleep(200);
+            }
+
+
 
 
             if (GetAsyncKeyState(VK_ESCAPE))
@@ -153,13 +173,28 @@ int main()
             drawPic(cover[1]);
             }
 
-             if (mapvisible)
+             if (wall3)
              {
-            drawPic(sofa[0]);
+            drawPic(wall1[0]);
+            drawPic(wall1[1]);
+            drawPic(wall1[2]);
             }
-             if (mapvisible2)
+
+             if (kartinkaVCentreEkrana[0].visible)
              {
-            drawPic(sofa[1]);
+            drawPic(kartinkaVCentreEkrana[0]);
+            }
+             if (kartinkaVCentreEkrana[1].visible)
+             {
+            drawPic(kartinkaVCentreEkrana[1]);
+            }
+             if (kartinkaVCentreEkrana[2].visible)
+             {
+            drawPic(kartinkaVCentreEkrana[2]);
+            }
+             if (kartinkaVCentreEkrana[3].visible)
+             {
+            drawPic(kartinkaVCentreEkrana[3]);
             }
         }
 
