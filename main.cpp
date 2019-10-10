@@ -3,64 +3,47 @@
 #include "picture.cpp"
 
 
-
-
-
-
-
 int main()
 {
     txCreateWindow (1200, 800);
+    HDC  background  = txLoadImage ("Pics\\ГґГ®Г­ 2.bmp");
 
-    HDC  brick= txLoadImage ("Pics\\Wall\\brick.bmp");
-    HDC wood = txLoadImage ("Pics\\Wall\\wood.bmp");
-    HDC  background  = txLoadImage ("Pics\\фон 2.bmp");
-
-    HDC  pic1 = txLoadImage ("Pics\\Furniture\\Диван1.bmp");
-    HDC  pic2 = txLoadImage ("Pics\\Furniture\\Диван2.bmp");
-    HDC  pic3 = txLoadImage ("Pics\\Furniture\\Диван3.bmp");
-    HDC  pic4 = txLoadImage ("Pics\\Furniture\\Диван4.bmp");
-	HDC  pic5 = txLoadImage ("Pics\\Wall\\brick.bmp");
-	HDC  pic6 = txLoadImage ("Pics\\Wall\\mel.bmp");
-	HDC  pic7 = txLoadImage ("Pics\\Wall\\wood.bmp");
+    HDC  pic1 = txLoadImage ("Pics\\Furniture\\Г„ГЁГўГ Г­1.bmp");
+    HDC  pic2 = txLoadImage ("Pics\\Furniture\\Г„ГЁГўГ Г­2.bmp");
 
 
     bool exitProgram = false;
     Picture kartinkaVCentreEkrana[5];
     kartinkaVCentreEkrana[0] = {390, 110, 75, 190, pic1, 185, 451, false};
     kartinkaVCentreEkrana[1] = {390, 320, 75, 190, pic2, 185, 451,false};
-    bool mapvisible = false;
-    bool mapvisible2 = false;
-
-    Picture wall1 [5];
-    wall1[0] = {1090, 110, 100, 100,  txLoadImage ("Pics\\Wall\\brick.bmp"), 60, 60};
-    wall1[1] = {1090, 210, 100, 100,  txLoadImage ("Pics\\Wall\\mel.bmp"), 60, 60};
-    wall1[2] = {1090, 310, 100, 100,  txLoadImage ("Pics\\Wall\\wood.bmp"), 100, 100};
-    bool wall3 = true;
 
 
 
-
-
-    Picture pic[4];
-    pic[0] = {1090, 110, 75, 190, pic1, 185, 451};
-    pic[1] = {1090, 320, 75, 190, pic2, 185, 451};
-    bool visible = false;
-
-    Picture cover[5];
-    cover[0] = {1090, 110, 100, 100,  txLoadImage ("Pics\\ковёр1.bmp"), 300, 224};
-    cover[1] = {1090, 320, 75, 190,  txLoadImage ("Pics\\ковёр3.bmp"), 350, 350};
-    bool visible2 = false;
+    char* category;
+    Picture pic[15];
+    pic[0] = {1090, 110, 75, 190, txLoadImage ("Pics\\Furniture\\Г„ГЁГўГ Г­1.bmp"), 185, 450, "Г„ГЁГўГ Г­"};
+    pic[1] = {1090, 320, 75, 190, txLoadImage ("Pics\\Furniture\\Г„ГЁГўГ Г­2.bmp"), 185, 451, "Г„ГЁГўГ Г­"};
+    pic[2] = {1090, 110, 75, 190, txLoadImage ("Pics\\ГЄГ®ГўВёГ°1.bmp"), 300, 224, "ГЉГ®ГўГҐГ°"};
+    pic[3] = {1090, 320, 75, 190, txLoadImage ("Pics\\ГЄГ®ГўВёГ°3.bmp"), 350, 350, "ГЉГ®ГўГҐГ°"};
+    pic[4] = {1070, 580, 120,50,  txLoadImage ("Pics\\Furniture\\Г„ГЁГўГ Г­3.bmp"), 451, 185, "Г„ГЁГўГ Г­"};
+    pic[5] = {1070, 640, 120,50,  txLoadImage ("Pics\\Furniture\\Г„ГЁГўГ Г­4.bmp"), 451, 185, "Г„ГЁГўГ Г­"};
+    pic[6] = {1090, 110, 75, 190, txLoadImage ("Pics\\Furniture\\ГЄГ°ГҐГ±Г«Г®1.bmp"), 350, 250, "ГЄГ°ГҐГ±Г«Г®"};
+    pic[7] = {1090, 320, 75, 190, txLoadImage ("Pics\\Furniture\\ГЄГ°ГҐГ±Г«Г®2.bmp"), 250, 150, "ГЄГ°ГҐГ±Г«Г®"};
+    pic[8] = {1090, 580, 75, 190, txLoadImage ("Pics\\Furniture\\ГЄГ°ГҐГ±Г«Г®3.bmp"), 150, 150, "ГЄГ°ГҐГ±Г«Г®"};
+    pic[9] = {1090, 110, 75, 75, txLoadImage ("Pics\\Wall\\brick.bmp"),100, 100, "Г±ГІГҐГ­Г»"};
+    pic[10] = {1090,320, 75, 75, txLoadImage ("Pics\\Wall\\mel.bmp")  ,100, 100, "Г±ГІГҐГ­Г»"};
+    pic[11] = {1090,580, 75, 75, txLoadImage ("Pics\\Wall\\wood.bmp") ,100, 100, "Г±ГІГҐГ­Г»"};
 
     int pageNumber = 0;
 
     Knopka buttons[6];
-    buttons[0] = {500,270,680,320,"Начать","" };
-    buttons[1] = {500,320,680,370,"Продолжить", "Загрузка"};
-    buttons[2] = {500,370,680,420,"Настройки", "настройки недоступны"};
-    buttons[3] = {500,420,680,470,"Информация","Cейчас найдём"};
-    buttons[4] = {500,470,680,520,"Выйти",""};
+    buttons[0] = {500,270,680,320,"ГЌГ Г·Г ГІГј","" };
+    buttons[1] = {500,320,680,370,"ГЏГ°Г®Г¤Г®Г«Г¦ГЁГІГј", "Г‡Г ГЈГ°ГіГ§ГЄГ "};
+    buttons[2] = {500,370,680,420,"ГЌГ Г±ГІГ°Г®Г©ГЄГЁ", "Г­Г Г±ГІГ°Г®Г©ГЄГЁ Г­ГҐГ¤Г®Г±ГІГіГЇГ­Г»"};
+    buttons[3] = {500,420,680,470,"Г€Г­ГґГ®Г°Г¬Г Г¶ГЁГї","CГҐГ©Г·Г Г± Г­Г Г©Г¤ВёГ¬"};
+    buttons[4] = {500,470,680,520,"Г‚Г»Г©ГІГЁ",""};
 
+    bool exitProgram = false;
 
     while(!exitProgram)
     {
@@ -74,7 +57,7 @@ int main()
 			/*Win32::RoundRect (txDC(), 450, 230, 750,730,50,50); */
 
 			txSelectFont("Arial", 40);
-			txDrawText(300,100,900,150,"Создай свою квартиру");
+			txDrawText(300,100,900,150,"Г‘Г®Г§Г¤Г Г© Г±ГўГ®Гѕ ГЄГўГ Г°ГІГЁГ°Гі");
 
 
 
@@ -96,49 +79,48 @@ int main()
 
         if (pageNumber == 1 )
         {
+            txBitBlt (txDC(), 0, 0, 1200, 800, background, 0, 0);
             txSetFillColor (TX_GRAY);
             txRectangle ( 10 , 100 , 1200 - 150 , 800 - 2 );
 
-            //Кнопки сверху
+            //ГЉГ­Г®ГЇГЄГЁ Г±ГўГҐГ°ГµГі
             {
-            txDrawText(55,20,180,70,"диваны");
+            txDrawText(55,20,180,70,"Г¤ГЁГўГ Г­Г»");
             if(knopka(55,20))
             {
-            visible = true;
-            visible2 = false;
+            category = "Г„ГЁГўГ Г­";
             txSleep(200);
             }
 
-            txDrawText(255,20,380,70,"койка");
+            txDrawText(255,20,380,70,"ГЄГ®Г©ГЄГ ");
             if(knopka(240,40))
             {
             }
 
-            txDrawText(455,20,580,70,"стены");
+            txDrawText(455,20,580,70,"Г±ГІГҐГ­Г»");
             if(knopka(440,40))
             {
-            visible = false;
-            visible2 = false;
-            wall3 = true;
+            category = "Г±ГІГҐГ­Г»";
             txSleep(200);
             }
 
-            txDrawText(655,20,780,70,"техника");
+            txDrawText(655,20,780,70,"ГЄГ°ГҐГ±Г«Г®");
             if(knopka(640,40))
             {
-
-            }
-
-            txDrawText(855,20,980,70,"ковры");
-            if(knopka(840,40))
-            {
-            visible2 = true;
-            visible = false;
+            category = "ГЄГ°ГҐГ±Г«Г®";
             txSleep(200);
             }
+
+            txDrawText(855,20,980,70,"ГЄГ®ГўГ°Г»");
+            if(knopka(840,40))
+            {
+            txSleep(200);
+            category = "ГЉГ®ГўГҐГ°";
+            }
             }
 
-			//Кнопки справа
+
+			//ГЉГ­Г®ГЇГЄГЁ Г±ГЇГ°Г ГўГ 
             if(knopka(1090,200))
             {
             kartinkaVCentreEkrana[0].visible = !kartinkaVCentreEkrana[0].visible;
@@ -155,29 +137,21 @@ int main()
             txSleep(200);
             }
 
+for (int i = 0; i<15; i++)
+{
+ if (pic[i].category == category)
+ {
+  drawPic(pic[i]);
+ }
+}
+
+
 
 
 
             if (GetAsyncKeyState(VK_ESCAPE))
             {
                 exitProgram = true;
-            }
-             if (visible)
-             {
-            drawPic(pic[0]);
-            drawPic(pic[1]);
-            }
-             if (visible2)
-             {
-            drawPic(cover[0]);
-            drawPic(cover[1]);
-            }
-
-             if (wall3)
-             {
-            drawPic(wall1[0]);
-            drawPic(wall1[1]);
-            drawPic(wall1[2]);
             }
 
              if (kartinkaVCentreEkrana[0].visible)
@@ -211,13 +185,20 @@ int main()
     txDeleteDC(background);
 
 
-    txDeleteDC(brick);
-    txDeleteDC(wood);
+    txDeleteDC(pic[0].img);
+    txDeleteDC(pic[1].img);
+    txDeleteDC(pic[2].img);
+    txDeleteDC(pic[3].img);
+    txDeleteDC(pic[4].img);
+    txDeleteDC(pic[5].img);
+    txDeleteDC(pic[6].img);
+    txDeleteDC(pic[7].img);
+    txDeleteDC(pic[8].img);
+    txDeleteDC(pic[9].img);
+    txDeleteDC(pic[10].img);
+    txDeleteDC(pic[11].img);
+                              ;
 
-    txDeleteDC(pic1);
-    txDeleteDC(pic2);
-    txDeleteDC(pic3);
-    txDeleteDC(pic4);
 
 
 
@@ -235,7 +216,7 @@ int main()
     txDeleteDC(pic4);
                        */
     /*
-    HDC  brick= txLoadImage ("Кирпич.bmp");
+    HDC  brick= txLoadImage ("ГЉГЁГ°ГЇГЁГ·.bmp");
     Win32::TransparentBlt (txDC(), 1060, 630, 100, 100, brick, 0, 0, 100, 100, TX_WHITE);
     txDeleteDC(brick);
 

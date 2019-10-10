@@ -9,6 +9,7 @@ struct  Picture
     int src_shirina;
     int src_vasota;
     bool visible;
+    char* category ;
 };
 
 void drawPic (Picture vk)
