@@ -6,44 +6,42 @@
 int main()
 {
     txCreateWindow (1200, 800);
-    HDC  background  = txLoadImage ("Pics\\ГґГ®Г­ 2.bmp");
-
-    HDC  pic1 = txLoadImage ("Pics\\Furniture\\Г„ГЁГўГ Г­1.bmp");
-    HDC  pic2 = txLoadImage ("Pics\\Furniture\\Г„ГЁГўГ Г­2.bmp");
+    HDC  background  = txLoadImage ("Pics\\Background2.bmp");
 
 
     bool exitProgram = false;
     Picture kartinkaVCentreEkrana[5];
-    kartinkaVCentreEkrana[0] = {390, 110, 75, 190, pic1, 185, 451, false};
-    kartinkaVCentreEkrana[1] = {390, 320, 75, 190, pic2, 185, 451,false};
+    kartinkaVCentreEkrana[0] = {390, 110, 75, 190, txLoadImage ("Pics\\Furniture\\Divan1.bmp"), 185, 451, "", false};
+    kartinkaVCentreEkrana[1] = {390, 320, 75, 190, txLoadImage ("Pics\\Furniture\\Divan2.bmp"), 185, 451, "", false};
+    kartinkaVCentreEkrana[2] = {590, 320, 75, 190, txLoadImage ("Pics\\Furniture\\Divan2.bmp"), 185, 451, "", false};
+    kartinkaVCentreEkrana[3] = {590, 320, 75, 190, txLoadImage ("Pics\\Furniture\\Divan2.bmp"), 185, 451, "", false};
+    kartinkaVCentreEkrana[4] = {190, 320, 75, 190, txLoadImage ("Pics\\Furniture\\Divan2.bmp"), 185, 451, "", false};
 
 
 
     char* category;
     Picture pic[15];
-    pic[0] = {1090, 110, 75, 190, txLoadImage ("Pics\\Furniture\\Г„ГЁГўГ Г­1.bmp"), 185, 450, "Г„ГЁГўГ Г­"};
-    pic[1] = {1090, 320, 75, 190, txLoadImage ("Pics\\Furniture\\Г„ГЁГўГ Г­2.bmp"), 185, 451, "Г„ГЁГўГ Г­"};
-    pic[2] = {1090, 110, 75, 190, txLoadImage ("Pics\\ГЄГ®ГўВёГ°1.bmp"), 300, 224, "ГЉГ®ГўГҐГ°"};
-    pic[3] = {1090, 320, 75, 190, txLoadImage ("Pics\\ГЄГ®ГўВёГ°3.bmp"), 350, 350, "ГЉГ®ГўГҐГ°"};
-    pic[4] = {1070, 580, 120,50,  txLoadImage ("Pics\\Furniture\\Г„ГЁГўГ Г­3.bmp"), 451, 185, "Г„ГЁГўГ Г­"};
-    pic[5] = {1070, 640, 120,50,  txLoadImage ("Pics\\Furniture\\Г„ГЁГўГ Г­4.bmp"), 451, 185, "Г„ГЁГўГ Г­"};
-    pic[6] = {1090, 110, 75, 190, txLoadImage ("Pics\\Furniture\\ГЄГ°ГҐГ±Г«Г®1.bmp"), 350, 250, "ГЄГ°ГҐГ±Г«Г®"};
-    pic[7] = {1090, 320, 75, 190, txLoadImage ("Pics\\Furniture\\ГЄГ°ГҐГ±Г«Г®2.bmp"), 250, 150, "ГЄГ°ГҐГ±Г«Г®"};
-    pic[8] = {1090, 580, 75, 190, txLoadImage ("Pics\\Furniture\\ГЄГ°ГҐГ±Г«Г®3.bmp"), 150, 150, "ГЄГ°ГҐГ±Г«Г®"};
-    pic[9] = {1090, 110, 75, 75, txLoadImage ("Pics\\Wall\\brick.bmp"),100, 100, "Г±ГІГҐГ­Г»"};
-    pic[10] = {1090,320, 75, 75, txLoadImage ("Pics\\Wall\\mel.bmp")  ,100, 100, "Г±ГІГҐГ­Г»"};
-    pic[11] = {1090,580, 75, 75, txLoadImage ("Pics\\Wall\\wood.bmp") ,100, 100, "Г±ГІГҐГ­Г»"};
+    pic[0] = {1090, 110, 75, 190, txLoadImage ("Pics\\Furniture\\Divan1.bmp"), 185, 450, "Divan", true};
+    pic[1] = {1090, 320, 75, 190, txLoadImage ("Pics\\Furniture\\Divan2.bmp"), 185, 451, "Divan", true};
+    pic[2] = {1090, 110, 75, 190, txLoadImage ("Pics\\Cover\\Cover1.bmp"), 300, 224, "Cover", true};
+    pic[3] = {1090, 320, 75, 190, txLoadImage ("Pics\\Cover\\Cover3.bmp"), 350, 350, "Cover", true};
+    pic[4] = {1070, 580, 120,50,  txLoadImage ("Pics\\Furniture\\Divan3.bmp"), 451, 185, "Divan", true};
+    pic[5] = {1070, 640, 120,50,  txLoadImage ("Pics\\Furniture\\Divan4.bmp"), 451, 185, "Divan", true};
+    pic[6] = {1090, 110, 75, 190, txLoadImage ("Pics\\Furniture\\кресло1.bmp"), 350, 250, "кресло", true};
+    pic[7] = {1090, 320, 75, 190, txLoadImage ("Pics\\Furniture\\кресло2.bmp"), 250, 150, "кресло", true};
+    pic[8] = {1090, 580, 75, 190, txLoadImage ("Pics\\Furniture\\кресло3.bmp"), 150, 150, "кресло", true};
+    pic[9] = {1090, 110, 75, 75, txLoadImage ("Pics\\Wall\\brick.bmp"),100, 100, "стены", true};
+    pic[10] = {1090,320, 75, 75, txLoadImage ("Pics\\Wall\\mel.bmp")  ,100, 100, "стены", true};
+    pic[11] = {1090,580, 75, 75, txLoadImage ("Pics\\Wall\\wood.bmp") ,100, 100, "стены", true};
 
     int pageNumber = 0;
 
     Knopka buttons[6];
-    buttons[0] = {500,270,680,320,"ГЌГ Г·Г ГІГј","" };
-    buttons[1] = {500,320,680,370,"ГЏГ°Г®Г¤Г®Г«Г¦ГЁГІГј", "Г‡Г ГЈГ°ГіГ§ГЄГ "};
-    buttons[2] = {500,370,680,420,"ГЌГ Г±ГІГ°Г®Г©ГЄГЁ", "Г­Г Г±ГІГ°Г®Г©ГЄГЁ Г­ГҐГ¤Г®Г±ГІГіГЇГ­Г»"};
-    buttons[3] = {500,420,680,470,"Г€Г­ГґГ®Г°Г¬Г Г¶ГЁГї","CГҐГ©Г·Г Г± Г­Г Г©Г¤ВёГ¬"};
-    buttons[4] = {500,470,680,520,"Г‚Г»Г©ГІГЁ",""};
-
-    bool exitProgram = false;
+    buttons[0] = {500,270,680,320,"Начать","" };
+    buttons[1] = {500,320,680,370,"Продолжить", "Загрузка"};
+    buttons[2] = {500,370,680,420,"Настройки", "настройки недоступны"};
+    buttons[3] = {500,420,680,470,"Информация","Cейчас найдём"};
+    buttons[4] = {500,470,680,520,"Выйти",""};
 
     while(!exitProgram)
     {
@@ -57,7 +55,7 @@ int main()
 			/*Win32::RoundRect (txDC(), 450, 230, 750,730,50,50); */
 
 			txSelectFont("Arial", 40);
-			txDrawText(300,100,900,150,"Г‘Г®Г§Г¤Г Г© Г±ГўГ®Гѕ ГЄГўГ Г°ГІГЁГ°Гі");
+			txDrawText(300,100,900,150,"Создай свою квартиру");
 
 
 
@@ -83,44 +81,44 @@ int main()
             txSetFillColor (TX_GRAY);
             txRectangle ( 10 , 100 , 1200 - 150 , 800 - 2 );
 
-            //ГЉГ­Г®ГЇГЄГЁ Г±ГўГҐГ°ГµГі
+            //Кнопки сверху
             {
-            txDrawText(55,20,180,70,"Г¤ГЁГўГ Г­Г»");
+            txDrawText(55,20,180,70,"диваны");
             if(knopka(55,20))
             {
-            category = "Г„ГЁГўГ Г­";
-            txSleep(200);
+                category = "Divan";
+                txSleep(200);
             }
 
-            txDrawText(255,20,380,70,"ГЄГ®Г©ГЄГ ");
+            txDrawText(255,20,380,70,"койка");
             if(knopka(240,40))
             {
             }
 
-            txDrawText(455,20,580,70,"Г±ГІГҐГ­Г»");
+            txDrawText(455,20,580,70,"стены");
             if(knopka(440,40))
             {
-            category = "Г±ГІГҐГ­Г»";
-            txSleep(200);
+                category = "стены";
+                txSleep(200);
             }
 
-            txDrawText(655,20,780,70,"ГЄГ°ГҐГ±Г«Г®");
+            txDrawText(655,20,780,70,"кресло");
             if(knopka(640,40))
             {
-            category = "ГЄГ°ГҐГ±Г«Г®";
-            txSleep(200);
+                category = "кресло";
+                txSleep(200);
             }
 
-            txDrawText(855,20,980,70,"ГЄГ®ГўГ°Г»");
+            txDrawText(855,20,980,70,"ковры");
             if(knopka(840,40))
             {
-            txSleep(200);
-            category = "ГЉГ®ГўГҐГ°";
+                txSleep(200);
+                category = "Cover";
             }
             }
 
 
-			//ГЉГ­Г®ГЇГЄГЁ Г±ГЇГ°Г ГўГ 
+            //Кнопки справа
             if(knopka(1090,200))
             {
             kartinkaVCentreEkrana[0].visible = !kartinkaVCentreEkrana[0].visible;
@@ -137,13 +135,13 @@ int main()
             txSleep(200);
             }
 
-for (int i = 0; i<15; i++)
-{
- if (pic[i].category == category)
- {
-  drawPic(pic[i]);
- }
-}
+            for (int i = 0; i<15; i++)
+            {
+                if (pic[i].category == category)
+                {
+                    drawPic(pic[i]);
+                }
+            }
 
 
 
@@ -154,21 +152,12 @@ for (int i = 0; i<15; i++)
                 exitProgram = true;
             }
 
-             if (kartinkaVCentreEkrana[0].visible)
-             {
-            drawPic(kartinkaVCentreEkrana[0]);
-            }
-             if (kartinkaVCentreEkrana[1].visible)
-             {
-            drawPic(kartinkaVCentreEkrana[1]);
-            }
-             if (kartinkaVCentreEkrana[2].visible)
-             {
-            drawPic(kartinkaVCentreEkrana[2]);
-            }
-             if (kartinkaVCentreEkrana[3].visible)
-             {
-            drawPic(kartinkaVCentreEkrana[3]);
+            for (int i = 0; i < 5; i++)
+            {
+                if (kartinkaVCentreEkrana[i].visible)
+                {
+                    drawPic(kartinkaVCentreEkrana[i]);
+                }
             }
         }
 
@@ -185,19 +174,10 @@ for (int i = 0; i<15; i++)
     txDeleteDC(background);
 
 
-    txDeleteDC(pic[0].img);
-    txDeleteDC(pic[1].img);
-    txDeleteDC(pic[2].img);
-    txDeleteDC(pic[3].img);
-    txDeleteDC(pic[4].img);
-    txDeleteDC(pic[5].img);
-    txDeleteDC(pic[6].img);
-    txDeleteDC(pic[7].img);
-    txDeleteDC(pic[8].img);
-    txDeleteDC(pic[9].img);
-    txDeleteDC(pic[10].img);
-    txDeleteDC(pic[11].img);
-                              ;
+    for (int i = 0; i<15; i++)
+    {
+        txDeleteDC(pic[i].img);
+    }
 
 
 
