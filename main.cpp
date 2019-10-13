@@ -10,14 +10,15 @@ int main()
 
 
     bool exitProgram = false;
-    Picture kartinkaVCentreEkrana[5];
-    kartinkaVCentreEkrana[0] = {390, 110, 75, 190, txLoadImage ("Pics\\Furniture\\Divan1.bmp"), 185, 451, "", false};
+    int last_num_obj = 0;
+    Picture kartinkaVCentreEkrana[1000];
+    /*kartinkaVCentreEkrana[0] = {390, 110, 75, 190, txLoadImage ("Pics\\Furniture\\Divan1.bmp"), 185, 451, "", false};
     kartinkaVCentreEkrana[1] = {390, 320, 75, 190, txLoadImage ("Pics\\Furniture\\Divan2.bmp"), 185, 451, "", false};
     kartinkaVCentreEkrana[2] = {590, 320, 75, 190, txLoadImage ("Pics\\Furniture\\Divan2.bmp"), 185, 451, "", false};
     kartinkaVCentreEkrana[3] = {590, 320, 75, 190, txLoadImage ("Pics\\Furniture\\Divan2.bmp"), 185, 451, "", false};
     kartinkaVCentreEkrana[4] = {190, 320, 75, 190, txLoadImage ("Pics\\Furniture\\Divan2.bmp"), 185, 451, "", false};
 
-
+            */
 
     char* category;
     Picture pic[15];
@@ -119,21 +120,31 @@ int main()
 
 
             //Кнопки справа
-            if(knopka(1090,200))
+        for(int i = 0; i < 15; i++)
+        {
+            if(pic[i].knopka()and category == pic[i].category)
             {
-            kartinkaVCentreEkrana[0].visible = !kartinkaVCentreEkrana[0].visible;
-            txSleep(200);
-            }
-              if(knopka(1090,600))
-            {
-            kartinkaVCentreEkrana[2].visible = !kartinkaVCentreEkrana[2].visible;
-            txSleep(200);
-            }
-            if(knopka(1090,400))
-            {
-            kartinkaVCentreEkrana[1].visible = !kartinkaVCentreEkrana[1].visible;
-            txSleep(200);
-            }
+                int x = random (10, 900);
+                int y = random (70, 600)   ;
+
+                Picture tmp = {
+                    x,
+                    y,
+                    pic[i].shirina,
+                    pic[i].vasota,
+                    pic[i].img,
+                    pic[i].src_shirina,
+                    pic[i].src_vasota,
+                    "",
+                    true
+                };
+
+                kartinkaVCentreEkrana[last_num_obj] = tmp;
+                last_num_obj++;
+                txSleep(200);
+			}
+		}
+
 
             for (int i = 0; i<15; i++)
             {
@@ -152,7 +163,7 @@ int main()
                 exitProgram = true;
             }
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < last_num_obj; i++)
             {
                 if (kartinkaVCentreEkrana[i].visible)
                 {
