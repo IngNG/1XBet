@@ -20,11 +20,11 @@ struct Knopka
 	int x2;
     int y2;
 	const char* text;
-	const char* textMessage;
+	char* textMessage;
 
     void drawButton()
     {
-                txDrawText(x,y,x2,y2,text);
+        txDrawText(x,y,x2,y2,text);
     }
 
     void showMessage()

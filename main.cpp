@@ -5,6 +5,7 @@
 
 int main()
 {
+    txBegin();
     txCreateWindow (1200, 800);
     HDC  background  = txLoadImage ("Pics\\Background2.bmp");
 
@@ -43,6 +44,14 @@ int main()
     buttons[2] = {500,370,680,420,"Настройки", "настройки недоступны"};
     buttons[3] = {500,420,680,470,"Информация","Cейчас найдём"};
     buttons[4] = {500,470,680,520,"Выйти",""};
+
+
+    Knopka buttons2[6];
+    buttons2[0] = {55,20,180,70,"диваны","Divan" };
+    buttons2[1] = {255,20,380,70,"койка", "Divan"};
+    buttons2[2] = {455,20,580,70,"стены", "стены"};
+    buttons2[3] = {655,20,780,70,"кресло","кресло"};
+    buttons2[4] = {855,20,980,70,"ковры","Cover"};
 
     while(!exitProgram)
     {
@@ -83,39 +92,13 @@ int main()
             txRectangle ( 10 , 100 , 1200 - 150 , 800 - 2 );
 
             //Кнопки сверху
+            for (int n = 0;   n < 5; n++)
             {
-            txDrawText(55,20,180,70,"диваны");
-            if(knopka(55,20))
-            {
-                category = "Divan";
-                txSleep(200);
-            }
-
-            txDrawText(255,20,380,70,"койка");
-            if(knopka(240,40))
-            {
-            }
-
-            txDrawText(455,20,580,70,"стены");
-            if(knopka(440,40))
-            {
-                category = "стены";
-                txSleep(200);
-            }
-
-            txDrawText(655,20,780,70,"кресло");
-            if(knopka(640,40))
-            {
-                category = "кресло";
-                txSleep(200);
-            }
-
-            txDrawText(855,20,980,70,"ковры");
-            if(knopka(840,40))
-            {
-                txSleep(200);
-                category = "Cover";
-            }
+                buttons2[n].drawButton();
+                if(knopka(buttons2[n].x,buttons2[n].y))
+                {
+                    category = buttons2[n].textMessage;
+                }
             }
 
 
@@ -124,8 +107,8 @@ int main()
         {
             if(pic[i].knopka()and category == pic[i].category)
             {
-                int x = random (10, 900);
-                int y = random (70, 600)   ;
+                int x = random (10,  1050 - pic[i].shirina);
+                int y = random (100, 800 - pic[i].vasota);
 
                 Picture tmp = {
                     x,
@@ -176,9 +159,6 @@ int main()
 
         txSleep(10);
         txEnd();
-
-
-
     }
 
     txDisableAutoPause();
@@ -251,6 +231,7 @@ int main()
    txDeleteDC(carpet3);
    */
 
+    txEnd();
 
     return 0;
  }

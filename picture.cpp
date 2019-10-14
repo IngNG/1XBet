@@ -10,6 +10,21 @@ struct  Picture
     int src_vasota;
     char* category ;
     bool visible;
+
+    bool knopka()
+    {
+        if (txMouseX() > x and
+              txMouseX() < x + shirina and
+              txMouseY() > y and
+              txMouseY() < y + vasota and
+              txMouseButtons() &1)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 };
 
 void drawPic (Picture vk)
