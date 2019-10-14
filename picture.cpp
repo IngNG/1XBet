@@ -1,4 +1,5 @@
 #include "TXLib.h"
+
 struct Picture
 {
     int x;
@@ -14,10 +15,10 @@ struct Picture
     bool knopka()
     {
         if (txMouseX() > x and
-              txMouseX() < x + shirina and
-              txMouseY() > y and
-              txMouseY() < y + vasota and
-              txMouseButtons() & 1)
+            txMouseX() < x + shirina and
+            txMouseY() > y and
+            txMouseY() < y + vasota and
+            txMouseButtons() & 1)
         {
             while (txMouseButtons() & 1) {
                 txSleep(10);
@@ -28,7 +29,6 @@ struct Picture
 
         return false;
     }
-
 };
 
 void drawPic(Picture vk)
@@ -37,4 +37,3 @@ void drawPic(Picture vk)
                           vk.img, 0, 0, vk.src_shirina, vk.src_vasota,
                           TX_WHITE);
 }
-
