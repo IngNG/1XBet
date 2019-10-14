@@ -3,7 +3,7 @@
 #include "picture.cpp"
 
 //integer constant that mean lenght of pictures array
-const int PICT_LEN = 15;
+const int PICT_LEN = 12;
 
 int main()
 {
@@ -13,7 +13,7 @@ int main()
     bool exitProgram = false;
     int last_num_obj = 0;
 
-    char* category;
+    char* category = "";
     int pageNumber = 0;
 
     Picture kartinkaVCentreEkrana[1000];
@@ -25,26 +25,26 @@ int main()
     pic[3] = {1090, 320, 75, 190, txLoadImage("Pics\\Cover\\Cover3.bmp"),      350, 350, "Cover", true};
     pic[4] = {1070, 580, 120,50,  txLoadImage("Pics\\Furniture\\Divan3.bmp"),  451, 185, "Divan", true};
     pic[5] = {1070, 640, 120,50,  txLoadImage("Pics\\Furniture\\Divan4.bmp"),  451, 185, "Divan", true};
-    pic[6] = {1090, 110, 75, 190, txLoadImage("Pics\\Furniture\\ГЄГ°ГҐГ±Г«Г®1.bmp"), 350, 250, "ГЄГ°ГҐГ±Г«Г®", true};
-    pic[7] = {1090, 320, 75, 190, txLoadImage("Pics\\Furniture\\ГЄГ°ГҐГ±Г«Г®2.bmp"), 250, 150, "ГЄГ°ГҐГ±Г«Г®", true};
-    pic[8] = {1090, 580, 75, 190, txLoadImage("Pics\\Furniture\\ГЄГ°ГҐГ±Г«Г®3.bmp"), 150, 150, "ГЄГ°ГҐГ±Г«Г®", true};
-    pic[9] = {1090, 110, 75, 75,  txLoadImage("Pics\\Wall\\brick.bmp"),        100, 100, "Г±ГІГҐГ­Г»", true};
-    pic[10] = {1090,320, 75, 75,  txLoadImage("Pics\\Wall\\mel.bmp"),          100, 100, "Г±ГІГҐГ­Г»", true};
-    pic[11] = {1090,580, 75, 75,  txLoadImage("Pics\\Wall\\wood.bmp"),         100, 100, "Г±ГІГҐГ­Г»", true};
+    pic[6] = {1090, 110, 75, 190, txLoadImage("Pics\\Furniture\\кресло1.bmp"), 350, 250, "Chair", true};
+    pic[7] = {1090, 320, 75, 190, txLoadImage("Pics\\Furniture\\кресло2.bmp"), 250, 150, "Chair", true};
+    pic[8] = {1090, 580, 75, 190, txLoadImage("Pics\\Furniture\\кресло3.bmp"), 150, 150, "Chair", true};
+    pic[9] = {1090, 110, 75, 75,  txLoadImage("Pics\\Wall\\brick.bmp"),        100, 100, "Wall", true};
+    pic[10] = {1090,320, 75, 75,  txLoadImage("Pics\\Wall\\mel.bmp"),          100, 100, "Wall", true};
+    pic[11] = {1090,580, 75, 75,  txLoadImage("Pics\\Wall\\wood.bmp"),         100, 100, "Wall", true};
 
     Knopka buttons[6];
-    buttons[0] = {500, 270, 680, 320, "ГЌГ Г·Г ГІГј"};
-    buttons[1] = {500, 320, 680, 370, "ГЏГ°Г®Г¤Г®Г«Г¦ГЁГІГј", "Г‡Г ГЈГ°ГіГ§ГЄГ "};
-    buttons[2] = {500, 370, 680, 420, "ГЌГ Г±ГІГ°Г®Г©ГЄГЁ",  "ГЌГ Г±ГІГ°Г®Г©ГЄГЁ Г­ГҐГ¤Г®Г±ГІГіГЇГ­Г»", "ГЋГёГЁГЎГЄГ "};
-    buttons[3] = {500, 420, 680, 470, "Г€Г­ГґГ®Г°Г¬Г Г¶ГЁГї", "CГҐГ©Г·Г Г± Г­Г Г©Г¤ВёГ¬",        "ГЏГ®ГЁГ±ГЄ"};
-    buttons[4] = {500, 470, 680, 520, "Г‚Г»Г©ГІГЁ"};
+    buttons[0] = {500, 270, 680, 320, "Начать"};
+    buttons[1] = {500, 320, 680, 370, "Продолжить", "Загрузка"};
+    buttons[2] = {500, 370, 680, 420, "Настройки",  "Настройки недоступны", "Ошибка"};
+    buttons[3] = {500, 420, 680, 470, "Информация", "Cейчас найдём",        "Поиск"};
+    buttons[4] = {500, 470, 680, 520, "Выйти"};
 
     Knopka buttons2[6];
-    buttons2[0] = {55,20,180,70,"Г¤ГЁГўГ Г­Г»","Divan" };
-    buttons2[1] = {255,20,380,70,"ГЄГ®Г©ГЄГ ", "Divan"};
-    buttons2[2] = {455,20,580,70,"Г±ГІГҐГ­Г»", "Г±ГІГҐГ­Г»"};
-    buttons2[3] = {655,20,780,70,"ГЄГ°ГҐГ±Г«Г®","ГЄГ°ГҐГ±Г«Г®"};
-    buttons2[4] = {855,20,980,70,"ГЄГ®ГўГ°Г»","Cover"};
+    buttons2[0] = {55,20,180,70,"диваны","Divan" };
+    buttons2[1] = {255,20,380,70,"койка", "Divan"};
+    buttons2[2] = {455,20,580,70,"стены", "Wall"};
+    buttons2[3] = {655,20,780,70,"кресло","Chair"};
+    buttons2[4] = {855,20,980,70,"ковры","Cover"};
 
     while(!exitProgram)
     {
@@ -52,12 +52,12 @@ int main()
 
         if (pageNumber == 0)
         {
-      	    txBitBlt (txDC(), 0, 0, 1200, 800, background, 0, 0);
-			      txSetFillColor(TX_WHITE);
-			      txSetColor(TX_WHITE);
+            txBitBlt (txDC(), 0, 0, 1200, 800, background, 0, 0);
+            txSetFillColor(TX_WHITE);
+            txSetColor(TX_WHITE);
 
-			      txSelectFont("Arial", 40);
-    			  txDrawText(300,100,900,150,"Г‘Г®Г§Г¤Г Г© Г±ГўГ®Гѕ ГЄГўГ Г°ГІГЁГ°Гі");
+            txSelectFont("Arial", 40);
+            txDrawText(300,100,900,150,"Создай свою квартиру");
 
             for (int n = 0; n < 5; n++)
             {
@@ -65,15 +65,15 @@ int main()
                 buttons[n].showMessage();
             }
 
-			      if (knopka(buttons[0].x + 20,buttons[0].y))
-			      {
+            if (knopka(buttons[0].x + 20,buttons[0].y))
+            {
                 pageNumber = 1;
-			      }
-			      if (knopka(buttons[4].x + 20,buttons[4].y))
-			      {
-				        exitProgram = true;
-			      }
-		    }
+            }
+            if (knopka(buttons[4].x + 20,buttons[4].y))
+            {
+                exitProgram = true;
+            }
+        }
 
         if (pageNumber == 1)
         {
@@ -82,17 +82,13 @@ int main()
             txSetFillColor(TX_GRAY);
             txRectangle(10, 100, 1200 - 150, 800 - 2);
 
-            //ГЉГ­Г®ГЇГЄГЁ Г±ГўГҐГ°ГµГі
-            for (int n = 0;   n < 5; n++)
+            //Top buttons
+            for (int n = 0; n < 5; n++)
             {
                 buttons2[n].drawButton();
-                if(knopka(buttons2[n].x,buttons2[n].y))
-                {
-                    category = buttons2[n].textMessage;
-                }
             }
 
-            //ГЉГ­Г®ГЇГЄГЁ Г±ГЇГ°Г ГўГ 
+            //Right pictures 
             for (int i = 0; i < PICT_LEN; i++)
             {
                 if (pic[i].category == category)
@@ -109,9 +105,17 @@ int main()
                 }
             }
 
+            for (int n = 0; n < 5; n++)
+            {
+                if (knopka(buttons2[n].x,buttons2[n].y))
+                {
+                    category = buttons2[n].textMessage;
+                }
+            }
+
             for (int i = 0; i < PICT_LEN; i++)
             {
-                if (pic[i].knopka() and category == pic[i].category)
+                if (category == pic[i].category and pic[i].knopka())
                 {
                     int x = random (10,  1050 - pic[i].shirina);
                     int y = random (100, 800 - pic[i].vasota);
@@ -124,7 +128,7 @@ int main()
                         pic[i].img,
                         pic[i].src_shirina,
                         pic[i].src_vasota,
-                        "",
+                        pic[i].category,
                         true
                     };
 

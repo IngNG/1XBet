@@ -20,9 +20,9 @@ struct Knopka
 	int x;
 	int y;
 	int x2;
-  int y2;
+	int y2;
 	const char* text;
-	const char* textMessage;
+	char* textMessage;
 	const char* headerMessage;
 
     void drawButton()

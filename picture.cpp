@@ -18,7 +18,7 @@ struct Picture
             txMouseX() < x + shirina and
             txMouseY() > y and
             txMouseY() < y + vasota and
-              txMouseButtons() & 1)
+            txMouseButtons() & 1)
         {
             while (txMouseButtons() & 1) {
                 txSleep(10);
