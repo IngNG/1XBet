@@ -3,7 +3,7 @@
 #include "picture.cpp"
 
 //integer constant that mean lenght of pictures array
-const int PICT_LEN = 12;
+const int PICT_LEN = 14;
 
 int main()
 {
@@ -25,12 +25,14 @@ int main()
     pic[3] = {1090, 320, 75, 190, txLoadImage("Pics\\Cover\\Cover3.bmp"),      350, 350, "Cover", true};
     pic[4] = {1070, 580, 120,50,  txLoadImage("Pics\\Furniture\\Divan3.bmp"),  451, 185, "Divan", true};
     pic[5] = {1070, 640, 120,50,  txLoadImage("Pics\\Furniture\\Divan4.bmp"),  451, 185, "Divan", true};
-    pic[6] = {1090, 110, 75, 190, txLoadImage("Pics\\Furniture\\кресло1.bmp"), 350, 250, "Chair", true};
-    pic[7] = {1090, 320, 75, 190, txLoadImage("Pics\\Furniture\\кресло2.bmp"), 250, 150, "Chair", true};
-    pic[8] = {1090, 580, 75, 190, txLoadImage("Pics\\Furniture\\кресло3.bmp"), 150, 150, "Chair", true};
-    pic[9] = {1090, 110, 75, 75,  txLoadImage("Pics\\Wall\\brick.bmp"),        100, 100, "Wall", true};
-    pic[10] = {1090,320, 75, 75,  txLoadImage("Pics\\Wall\\mel.bmp"),          100, 100, "Wall", true};
-    pic[11] = {1090,580, 75, 75,  txLoadImage("Pics\\Wall\\wood.bmp"),         100, 100, "Wall", true};
+    pic[6] = {1090, 110, 100, 100, txLoadImage("Pics\\Furniture\\кресло1.bmp"), 350, 250, "Chair", true};
+    pic[7] = {1090, 220, 100, 100, txLoadImage("Pics\\Furniture\\кресло2.bmp"), 250, 150, "Chair", true};
+    pic[8] = {1090, 330, 100, 100, txLoadImage("Pics\\Furniture\\кресло3.bmp"), 150, 150, "Chair", true};
+    pic[9] = {1090, 440, 100, 100, txLoadImage("Pics\\Furniture\\Stul1.bmp"), 500, 500, "Chair", true};
+    pic[10] ={1090, 550, 100, 100, txLoadImage("Pics\\Furniture\\Stul2.bmp"), 221, 228, "Chair", true};
+    pic[11] ={1090, 110, 75, 75,  txLoadImage("Pics\\Wall\\brick.bmp"),        100, 100, "Wall", true};
+    pic[12] ={1090, 320, 75, 75,  txLoadImage("Pics\\Wall\\mel.bmp"),          100, 100, "Wall", true};
+    pic[13] ={1090, 580, 75, 75,  txLoadImage("Pics\\Wall\\wood.bmp"),         100, 100, "Wall", true};
 
     Knopka buttons[6];
     buttons[0] = {500, 270, 680, 320, "Ќачать"};
