@@ -48,6 +48,7 @@ int main()
     buttons2[3] = {655,20,780,70,"кресло","Chair"};
     buttons2[4] = {855,20,980,70,"ковры","Cover"};
 
+    int kartinka  = -100;
     while(!exitProgram)
     {
         txBegin();
@@ -83,6 +84,41 @@ int main()
 
             txSetFillColor(TX_GRAY);
             txRectangle(10, 100, 1200 - 150, 800 - 2);
+            //peremeshenie
+           for(int i = 0; i < last_num_obj; i++)
+           {
+            if(kartinkaVCentreEkrana[i].knopka2())
+            {
+              kartinka = i;
+            }
+           }
+
+           if(kartinka >= 0 && GetAsyncKeyState(VK_LEFT))
+           {
+            kartinkaVCentreEkrana[kartinka].x -= 3;
+           }
+
+           if(kartinka >= 0 && GetAsyncKeyState(VK_RIGHT))
+           {
+            kartinkaVCentreEkrana[kartinka].x += 3;
+           }
+           if(kartinka >= 0 && GetAsyncKeyState(VK_UP))
+           {
+            kartinkaVCentreEkrana[kartinka].y -= 3;
+           }
+           if(kartinka >= 0 && GetAsyncKeyState(VK_DOWN))
+           {
+            kartinkaVCentreEkrana[kartinka].y += 3;
+           }
+
+           if(kartinka >= 0 && GetAsyncKeyState(VK_DELETE))
+           {
+            kartinkaVCentreEkrana[kartinka] = kartinkaVCentreEkrana[last_num_obj - 1];
+            last_num_obj -= 1 ;
+            kartinka = - 100 ;
+           }
+
+
 
             //Top buttons
             for (int n = 0; n < 5; n++)
