@@ -48,6 +48,8 @@ int main()
     buttons2[3] = {655,20,780,70,"кресло","Chair"};
     buttons2[4] = {855,20,980,70,"ковры","Cover"};
 
+
+
     int kartinka  = -100;
     while(!exitProgram)
     {
@@ -80,6 +82,37 @@ int main()
 
         if (pageNumber == 1)
         {
+            //mouse
+            for (int i = 0; i < last_num_obj ; i++)
+            {
+                if(kartinkaVCentreEkrana[i].knopka2())
+                {
+                    kartinkaVCentreEkrana[i].clickedBlock = true;
+                }
+
+                if (!(txMouseButtons() & 1) && kartinkaVCentreEkrana[i].clickedBlock)
+                {
+                    kartinkaVCentreEkrana[i].x = txMouseX();
+                    kartinkaVCentreEkrana[i].y = txMouseY();
+
+                   kartinkaVCentreEkrana[i].clickedBlock = false;
+                }
+            }
+
+
+       //granica
+            for (int i = 0; i < last_num_obj ; i++)
+            {
+                  if (kartinkaVCentreEkrana[i].x < 10)
+                  {
+                   kartinkaVCentreEkrana[i].x = 10 ;
+                  }
+                  if (kartinkaVCentreEkrana[i].y < 100)
+                  {
+                  kartinkaVCentreEkrana[i].y = 100;
+                   }
+        }
+
             txBitBlt(txDC(), 0, 0, 1200, 800, background, 0, 0);
 
             txSetFillColor(TX_GRAY);
