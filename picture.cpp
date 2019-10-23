@@ -11,6 +11,7 @@ struct Picture
     int src_vasota;
     char* category;
     bool visible;
+    bool clickedBlock;
 
     bool knopka()
     {
