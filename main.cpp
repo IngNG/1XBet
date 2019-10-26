@@ -4,6 +4,7 @@
 
 //integer constant that mean lenght of pictures array
 const int PICT_LEN = 14;
+const int START_PAGE = 0;
 
 int main()
 {
@@ -12,6 +13,7 @@ int main()
 
     bool exitProgram = false;
     int last_num_obj = 0;
+    int bylo_kartinok = 0;
 
     char* category = "";
     int pageNumber = 0;
@@ -36,7 +38,7 @@ int main()
 
     Knopka buttons[6];
     buttons[0] = {500, 270, 680, 320, "Начать"};
-    buttons[1] = {500, 320, 680, 370, "Продолжить", "Загрузка"};
+    buttons[1] = {500, 320, 680, 370, "Продолжить"};
     buttons[2] = {500, 370, 680, 420, "Настройки",  "Настройки недоступны", "Ошибка"};
     buttons[3] = {500, 420, 680, 470, "Информация", "Cейчас найдём",        "Поиск"};
     buttons[4] = {500, 470, 680, 520, "Выйти"};
@@ -55,7 +57,7 @@ int main()
     {
         txBegin();
 
-        if (pageNumber == 0)
+        if (pageNumber == START_PAGE)
         {
             txBitBlt (txDC(), 0, 0, 1200, 800, background, 0, 0);
             txSetFillColor(TX_WHITE);
@@ -78,6 +80,12 @@ int main()
             {
                 exitProgram = true;
             }
+            //continued
+            if (knopka(buttons[1].x + 20,buttons[1].y))
+            {
+                last_num_obj = bylo_kartinok;
+                pageNumber = 1;
+            }
         }
 
         if (pageNumber == 1)
@@ -85,24 +93,33 @@ int main()
             //mouse
             for (int i = 0; i < last_num_obj ; i++)
             {
-                if(kartinkaVCentreEkrana[i].knopka2())
+                if (kartinkaVCentreEkrana[i].knopka2())
                 {
                     kartinkaVCentreEkrana[i].clickedBlock = true;
+
+
+
+
+                }
+
+                if ((txMouseButtons() & 1) && kartinkaVCentreEkrana[i].clickedBlock)
+                {
+                    kartinkaVCentreEkrana[i].x = txMouseX() - kartinkaVCentreEkrana[i].shirina/2;
+                    kartinkaVCentreEkrana[i].y = txMouseY() - kartinkaVCentreEkrana[i].vasota/2;
+
+                    drawPic(kartinkaVCentreEkrana[i]);
                 }
 
                 if (!(txMouseButtons() & 1) && kartinkaVCentreEkrana[i].clickedBlock)
                 {
-                    kartinkaVCentreEkrana[i].x = txMouseX();
-                    kartinkaVCentreEkrana[i].y = txMouseY();
-
                    kartinkaVCentreEkrana[i].clickedBlock = false;
                 }
             }
 
 
        //granica
-            for (int i = 0; i < last_num_obj ; i++)
-            {
+         for (int i = 0; i < last_num_obj ; i++)
+         {
                   if (kartinkaVCentreEkrana[i].x < 10)
                   {
                    kartinkaVCentreEkrana[i].x = 10 ;
@@ -111,12 +128,29 @@ int main()
                   {
                   kartinkaVCentreEkrana[i].y = 100;
                    }
+                  if (kartinkaVCentreEkrana[i].x + kartinkaVCentreEkrana[i].shirina > 1000)
+                   {
+                   kartinkaVCentreEkrana[i].x = 1048 - kartinkaVCentreEkrana[i].shirina;
+                   }
+                  if (kartinkaVCentreEkrana[i].y + kartinkaVCentreEkrana[i].vasota > 700)
+                  {
+                  kartinkaVCentreEkrana[i].y = 795- kartinkaVCentreEkrana[i].vasota;
+                  }
         }
 
             txBitBlt(txDC(), 0, 0, 1200, 800, background, 0, 0);
 
             txSetFillColor(TX_GRAY);
             txRectangle(10, 100, 1200 - 150, 800 - 2);
+            txTextOut (1050,30, "выход");
+            if (knopka(1050,30))
+            {
+               pageNumber = START_PAGE;
+               bylo_kartinok = last_num_obj;
+               last_num_obj = 0;
+
+            }
+
             //peremeshenie
            for(int i = 0; i < last_num_obj; i++)
            {
