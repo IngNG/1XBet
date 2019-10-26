@@ -38,9 +38,9 @@ int main()
     pic[11] ={1090, 110, 75, 75,  "Pics\\Wall\\brick.bmp", "Wall"};
     pic[12] ={1090, 320, 75, 75,  "Pics\\Wall\\mel.bmp", "Wall"};
     pic[13] ={1090, 580, 75, 75,  "Pics\\Wall\\wood.bmp", "Wall"};
-
-   pic[14] =
-
+    
+   pic[14] = 
+    
 
 	int sum = 0;
     for (int i = 0; i < PICT_LEN; i++)
