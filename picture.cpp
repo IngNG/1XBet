@@ -6,10 +6,11 @@ struct Picture
     int y;
     int shirina;
     int vasota;
+    string adress;
+    char* category;
     HDC img;
     int src_shirina;
     int src_vasota;
-    char* category;
     bool visible;
     bool clickedBlock;
 

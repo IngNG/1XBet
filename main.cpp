@@ -1,6 +1,7 @@
 #include "TXLib.h"
 #include "button.cpp"
 #include "picture.cpp"
+#include "files.cpp"
 
 //integer constant that mean lenght of pictures array
 const int PICT_LEN = 14;
@@ -21,21 +22,47 @@ int main()
     Picture kartinkaVCentreEkrana[1000];
 
     Picture pic[PICT_LEN];
-    pic[0] = {1090, 110, 75, 190, txLoadImage("Pics\\Furniture\\Divan1.bmp"),  185, 450, "Divan", true};
-    pic[1] = {1090, 320, 75, 190, txLoadImage("Pics\\Furniture\\Divan2.bmp"),  185, 451, "Divan", true};
-    pic[2] = {1090, 110, 75, 190, txLoadImage("Pics\\Cover\\Cover1.bmp"),      300, 224, "Cover", true};
-    pic[3] = {1090, 320, 75, 190, txLoadImage("Pics\\Cover\\Cover3.bmp"),      350, 350, "Cover", true};
-    pic[4] = {1070, 580, 120,50,  txLoadImage("Pics\\Furniture\\Divan3.bmp"),  451, 185, "Divan", true};
-    pic[5] = {1070, 640, 120,50,  txLoadImage("Pics\\Furniture\\Divan4.bmp"),  451, 185, "Divan", true};
-    pic[6] = {1090, 110, 100, 100, txLoadImage("Pics\\Furniture\\кресло1.bmp"), 350, 250, "Chair", true};
-    pic[7] = {1090, 220, 100, 100, txLoadImage("Pics\\Furniture\\кресло2.bmp"), 250, 150, "Chair", true};
-    pic[8] = {1090, 330, 100, 100, txLoadImage("Pics\\Furniture\\кресло3.bmp"), 150, 150, "Chair", true};
-    pic[9] = {1090, 440, 100, 100, txLoadImage("Pics\\Furniture\\Stul1.bmp"), 500, 500, "Chair", true};
-    pic[10] ={1090, 550, 100, 100, txLoadImage("Pics\\Furniture\\Stul2.bmp"), 221, 228, "Chair", true};
-    pic[11] ={1090, 110, 75, 75,  txLoadImage("Pics\\Wall\\brick.bmp"),        100, 100, "Wall", true};
-    pic[12] ={1090, 320, 75, 75,  txLoadImage("Pics\\Wall\\mel.bmp"),          100, 100, "Wall", true};
-    pic[13] ={1090, 580, 75, 75,  txLoadImage("Pics\\Wall\\wood.bmp"),         100, 100, "Wall", true};
+    pic[0] = {1090, 110,  75, 190, "Pics\\Furniture\\Divan1.bmp",  "Divan"};
+    pic[1] = {1090, 320,  75, 190, "Pics\\Furniture\\Divan2.bmp",  "Divan"};
+    pic[2] = {1090, 110,  75, 190, "Pics\\Cover\\Cover1.bmp",      "Cover"};
+    pic[3] = {1090, 320,  75, 190, "Pics\\Cover\\Cover3.bmp",      "Cover"};
+    pic[4] = {1070, 580, 120,  50, "Pics\\Furniture\\Divan3.bmp",  "Divan"};
+    pic[5] = {1070, 640, 120,  50, "Pics\\Furniture\\Divan4.bmp",  "Divan"};
+    pic[6] = {1090, 110, 100, 100, "Pics\\Furniture\\кресло1.bmp", "Chair"};
+    pic[7] = {1090, 220, 100, 100, "Pics\\Furniture\\кресло2.bmp", "Chair"};
+    pic[8] = {1090, 330, 100, 100, "Pics\\Furniture\\кресло3.bmp", "Chair"};
+    pic[9] = {1090, 440, 100, 100, "Pics\\Furniture\\Stul1.bmp",   "Chair"};
+    pic[10] ={1090, 550, 100, 100, "Pics\\Furniture\\Stul2.bmp",   "Chair"};
+    pic[11] ={1090, 110,  75,  75, "Pics\\Wall\\brick.bmp",        "Wall"};
+    pic[12] ={1090, 320,  75,  75, "Pics\\Wall\\mel.bmp",          "Wall"};
+    pic[13] ={1090, 580,  75,  75, "Pics\\Wall\\wood.bmp",         "Wall"};
 
+    for (int i = 0; i < PICT_LEN; i++)
+    {
+		pic[i].img = txLoadImage(pic[i].adress.c_str());
+		pic[i].src_shirina = get_width(pic[i].adress.c_str());
+		pic[i].src_vasota=get_height (pic[i].adress.c_str());
+		pic[i].visible = true;
+    }
+    /*int sum = 0;
+    for (int i = 0; i < PICT_LEN; i++)
+    {
+        if (pic[i].category == "Cover")
+        sum = sum+1;
+    }
+    int nomer = 0;
+    for (int i = 0; i < PICT_LEN; i++)
+    {
+        if (pic[i].category == "Cover")
+        {
+            pic[i].x =  100 + 600 * sum
+            nomer = nomer+1;
+        }
+    }
+
+    cout << sum;
+    txSleep(1000);
+    */
     Knopka buttons[6];
     buttons[0] = {500, 270, 680, 320, "Начать"};
     buttons[1] = {500, 320, 680, 370, "Продолжить"};
@@ -230,10 +257,11 @@ int main()
                         y,
                         pic[i].shirina,
                         pic[i].vasota,
+                        pic[i].adress,
+                        pic[i].category,
                         pic[i].img,
                         pic[i].src_shirina,
                         pic[i].src_vasota,
-                        pic[i].category,
                         true
                     };
 

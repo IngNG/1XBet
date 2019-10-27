@@ -34,6 +34,7 @@
 		</Compiler>
 		<Unit filename="Lib/TXLib.h" />
 		<Unit filename="button.cpp" />
+		<Unit filename="files.cpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="picture.cpp" />
 		<Extensions>
