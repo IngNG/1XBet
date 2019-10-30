@@ -32,7 +32,7 @@ int main()
     int last_num_obj = 0;
     int bylo_kartinok = 0;
 
-    char* selected_category = "";
+    char* selected_category = "1";
     int pageNumber = 0;
 
     Picture kartinkaVCentreEkrana[1000];
