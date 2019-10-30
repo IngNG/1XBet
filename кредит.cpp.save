@@ -1,0 +1,23 @@
+
+int get_width()
+    {
+    txCreateWindow (1200, 800);
+
+    HDC background = txLoadImage("Pics\\Background2.bmp");
+
+
+    unsigned char info[54];
+    FILE* f = fopen("Pics\\Background2.bmp", "rb");
+
+    fread(info, sizeof(unsigned char), 54, f); // read the 54-byte header
+
+    // extract image height and width from header
+    int width = *(int*)&info[18];
+    int height = *(int*)&info[22];
+
+
+    cout << width;
+
+    return 0;
+    }
+
