@@ -253,11 +253,9 @@ int main()
                 if (kartinkaVCentreEkrana[i].visible)
                 {
                 if (i == vybrannaya_kartinka)
-                {
-                Picture vk = kartinkaVCentreEkrana[i];
-
-                txSetColor(TX_RED, 3);
-					txRectangle (vk.x-2, vk.y-2, vk.x + vk.shirina+2, vk.y + vk.vasota+2);
+                { 
+                Picture vk = kartinkaVCentreEkrana[i];  
+					txRectangle (vk.x, vk.y, )
                 }
                     drawPic(kartinkaVCentreEkrana[i]);
                 }
