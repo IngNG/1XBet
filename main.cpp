@@ -4,9 +4,9 @@
 #include "files.cpp"
 
 //integer constant that mean lenght of pictures array
-const int PICT_LEN = 14;
+const int PICT_LEN = 19;
 const int START_PAGE = 0;
-
+const int MENU_PAGE = 1;
 void drawPeremennya(int x, int y, int perem)
 {
 	char str[100];
@@ -52,6 +52,12 @@ int main()
     pic[11] ={1090, 110,  75,  75, "Pics\\Wall\\brick.bmp",        "Wall"};
     pic[12] ={1090, 320,  75,  75, "Pics\\Wall\\mel.bmp",          "Wall"};
     pic[13] ={1090, 580,  75,  75, "Pics\\Wall\\wood.bmp",         "Wall"};
+    pic[14] ={1090, 560,  129,165, "Pics\\кровать.bmp" ,           "Krovat"};
+    pic[15] ={1090, 110, 100, 100, "Pics\\bed1.bmp",               "Krovat"};
+    pic[16] ={1090, 320, 100, 100, "Pics\\bed2.bmp",               "Krovat"};
+    pic[17] ={1090, 640, 100, 100, "Pics\\bed3.bmp",               "Krovat"};
+    pic[18] ={1090, 710, 100, 100, "Pics\\bed4.bmp",               "Krovat"};
+
 
     for (int i = 0; i < PICT_LEN; i++)
     {
@@ -79,7 +85,7 @@ int main()
     cout << sum;
     txSleep(1000);
     */
-    Knopka mainMenu[6];
+    Knopka mainMenu[5];
     mainMenu[0] = {500, 270, 680, 320, "Начать"};
     mainMenu[1] = {500, 320, 680, 370, "Продолжить"};
     mainMenu[2] = {500, 370, 680, 420, "Настройки",  "Настройки недоступны", "Ошибка"};
@@ -88,7 +94,7 @@ int main()
 
     Knopka topMenu[6];
     topMenu[0] = {55,20,180,70,"диваны","Divan" };
-    topMenu[1] = {255,20,380,70,"койка", "Divan"};
+    topMenu[1] = {255,20,380,70,"койка", "Krovat"};
     topMenu[2] = {455,20,580,70,"стены", "Wall"};
     topMenu[3] = {655,20,780,70,"кресло","Chair"};
     topMenu[4] = {855,20,980,70,"ковры","Cover"};
@@ -97,6 +103,7 @@ int main()
 
 
     int vybrannaya_kartinka  = -100;
+    bool clicked = false;
     while(!exitProgram)
     {
         txBegin();
@@ -132,29 +139,27 @@ int main()
             }
         }
 
-        if (pageNumber == 1)
+        if (pageNumber == MENU_PAGE)
         {
             //mouse
-            for (int i = 0; i < last_num_obj ; i++)
+            if (kartinkaVCentreEkrana[vybrannaya_kartinka].knopka2() && !clicked)
             {
-                if (kartinkaVCentreEkrana[vybrannaya_kartinka].knopka2())
-                {
-                    kartinkaVCentreEkrana[vybrannaya_kartinka].clickedBlock = true;
-                }
+                kartinkaVCentreEkrana[vybrannaya_kartinka].clickedBlock = true;
+                clicked = true;
+            }
 
-                if ((txMouseButtons() & 1) && kartinkaVCentreEkrana[i].clickedBlock)
-                {
-                    kartinkaVCentreEkrana[vybrannaya_kartinka].x = txMouseX() - kartinkaVCentreEkrana[vybrannaya_kartinka].shirina/2;
-                    kartinkaVCentreEkrana[vybrannaya_kartinka].y = txMouseY() - kartinkaVCentreEkrana[vybrannaya_kartinka].vasota/2;
+            if ((txMouseButtons() & 1) && kartinkaVCentreEkrana[vybrannaya_kartinka].clickedBlock)
+            {
+                kartinkaVCentreEkrana[vybrannaya_kartinka].x = txMouseX() - kartinkaVCentreEkrana[vybrannaya_kartinka].shirina/2;
+                kartinkaVCentreEkrana[vybrannaya_kartinka].y = txMouseY() - kartinkaVCentreEkrana[vybrannaya_kartinka].vasota/2;
 
-                    drawPic(kartinkaVCentreEkrana[i]);
-                }
+                drawPic(kartinkaVCentreEkrana[vybrannaya_kartinka]);
+            }
 
-                if (!(txMouseButtons() & 1) && kartinkaVCentreEkrana[i].clickedBlock)
-                {
-                   kartinkaVCentreEkrana[vybrannaya_kartinka].clickedBlock = false;
-                   vybrannaya_kartinka = -10 ;
-                }
+            if (!(txMouseButtons() & 1) && kartinkaVCentreEkrana[vybrannaya_kartinka].clickedBlock)
+            {
+               kartinkaVCentreEkrana[vybrannaya_kartinka].clickedBlock = false;
+               clicked = false;
             }
 
 
@@ -172,7 +177,7 @@ int main()
                   if (kartinkaVCentreEkrana[i].x + kartinkaVCentreEkrana[i].shirina > 1000)
                    {
                    kartinkaVCentreEkrana[i].x = txGetExtentX()- VARIANTS_WIDTH - kartinkaVCentreEkrana[i].shirina;
-                   }
+                    }
                   if (kartinkaVCentreEkrana[i].y + kartinkaVCentreEkrana[i].vasota > txGetExtentY())
                   {
                   kartinkaVCentreEkrana[i].y = txGetExtentY()- kartinkaVCentreEkrana[i].vasota;
@@ -224,6 +229,7 @@ int main()
             kartinkaVCentreEkrana[vybrannaya_kartinka] = kartinkaVCentreEkrana[last_num_obj - 1];
             last_num_obj -= 1 ;
             vybrannaya_kartinka = - 100 ;
+            clicked = false;
            }
 
 
