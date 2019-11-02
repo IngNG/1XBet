@@ -6,7 +6,7 @@
 //integer constant that mean lenght of pictures array
 const int PICT_LEN = 14;
 const int START_PAGE = 0;
-
+const int COLICHEs = 6;
 void drawPeremennya(int x, int y, int perem)
 {
 	char str[100];
@@ -26,32 +26,32 @@ int main()
     txCreateWindow(1200, 800);
     HDC background = txLoadImage("Pics\\Background2.bmp");
 
-    const int VARIANTS_WIDTH = 150;
+    const int VARIANTS_LEFT = txGetExtentX() - 150;
 
     bool exitProgram = false;
     int last_num_obj = 0;
     int bylo_kartinok = 0;
 
-    char* selected_category = "1";
+    char* selected_category = "";
     int pageNumber = 0;
 
-    Picture kartinkaVCentreEkrana[1000];
+    Picture kartincaUP[1000];
 
     Picture pic[PICT_LEN];
-    pic[0] = {1090, 110,  75, 190, "Pics\\Furniture\\Divan1.bmp",  "Divan"};
-    pic[1] = {1090, 320,  75, 190, "Pics\\Furniture\\Divan2.bmp",  "Divan"};
-    pic[2] = {1090, 110,  75, 190, "Pics\\Cover\\Cover1.bmp",      "Cover"};
-    pic[3] = {1090, 320,  75, 190, "Pics\\Cover\\Cover3.bmp",      "Cover"};
-    pic[4] = {1070, 580, 120,  50, "Pics\\Furniture\\Divan3.bmp",  "Divan"};
-    pic[5] = {1070, 640, 120,  50, "Pics\\Furniture\\Divan4.bmp",  "Divan"};
-    pic[6] = {1090, 110, 100, 100, "Pics\\Furniture\\кресло1.bmp", "Chair"};
-    pic[7] = {1090, 220, 100, 100, "Pics\\Furniture\\кресло2.bmp", "Chair"};
-    pic[8] = {1090, 330, 100, 100, "Pics\\Furniture\\кресло3.bmp", "Chair"};
-    pic[9] = {1090, 440, 100, 100, "Pics\\Furniture\\Stul1.bmp",   "Chair"};
-    pic[10] ={1090, 550, 100, 100, "Pics\\Furniture\\Stul2.bmp",   "Chair"};
-    pic[11] ={1090, 110,  75,  75, "Pics\\Wall\\brick.bmp",        "Wall"};
-    pic[12] ={1090, 320,  75,  75, "Pics\\Wall\\mel.bmp",          "Wall"};
-    pic[13] ={1090, 580,  75,  75, "Pics\\Wall\\wood.bmp",         "Wall"};
+     pic[0] = {1090, 110,  75, 190, "Pics\\Furniture\\Divan1.bmp",  "Divan"};
+     pic[1] = {1090, 320,  75, 190, "Pics\\Furniture\\Divan2.bmp",  "Divan"};
+     pic[2] = {1090, 110,  75, 190, "Pics\\Cover\\Cover1.bmp",      "Cover"};
+     pic[3] = {1090, 320,  75, 190, "Pics\\Cover\\Cover3.bmp",      "Cover"};
+     pic[4] = {1070, 580, 120,  50, "Pics\\Furniture\\Divan3.bmp",  "Divan"};
+     pic[5] = {1070, 640, 120,  50, "Pics\\Furniture\\Divan4.bmp",  "Divan"};
+     pic[6] = {1090, 110, 100, 100, "Pics\\Furniture\\кресло1.bmp", "Chair"};
+     pic[7] = {1090, 220, 100, 100, "Pics\\Furniture\\кресло2.bmp", "Chair"};
+     pic[8] = {1090, 330, 100, 100, "Pics\\Furniture\\кресло3.bmp", "Chair"};
+     pic[9] = {1090, 440, 100, 100, "Pics\\Furniture\\Stul1.bmp",   "Chair"};
+     pic[10] ={1090, 550, 100, 100, "Pics\\Furniture\\Stul2.bmp",   "Chair"};
+     pic[11] ={1090, 110,  75,  75, "Pics\\Wall\\brick.bmp",        "Wall"};
+	 pic[12] ={1090, 320,  75,  75, "Pics\\Wall\\mel.bmp",          "Wall"};
+     pic[13] ={1090, 580,  75,  75, "Pics\\Wall\\wood.bmp",         "Wall"};
 
     for (int i = 0; i < PICT_LEN; i++)
     {
@@ -86,7 +86,7 @@ int main()
     mainMenu[3] = {500, 420, 680, 470, "Информация", "Cейчас найдём",        "Поиск"};
     mainMenu[4] = {500, 470, 680, 520,  "Выйти"};
 
-    Knopka topMenu[6];
+    Knopka topMenu[COLICHEs];
     topMenu[0] = {55,20,180,70,"диваны","Divan" };
     topMenu[1] = {255,20,380,70,"койка", "Divan"};
     topMenu[2] = {455,20,580,70,"стены", "Wall"};
@@ -103,57 +103,57 @@ int main()
 
         if (pageNumber == START_PAGE)
         {
-            txBitBlt (txDC(), 0, 0, 1200, 800, background, 0, 0);
+            txBitBlt (txDC(), 0, 0, txGetExtentX(), txGetExtentY(), background, 0, 0);
             txSetFillColor(TX_WHITE);
             txSetColor(TX_WHITE);
 
             txSelectFont("Arial", 40);
             txDrawText(300,100,900,150,"Создай свою квартиру");
 
-            for (int n = 0; n < 5; n++)
+		for (int n = 0; n < 5; n++)
             {
                 mainMenu[n].drawButton();
                 mainMenu[n].showMessage();
             }
 
-            if (knopka(mainMenu[0].x + 20,mainMenu[0].y))
+		if (knopka(mainMenu[0].x + 20,mainMenu[0].y))
             {
                 pageNumber = 1;
             }
-            if (knopka(mainMenu[4].x + 20,mainMenu[4].y))
+		if (knopka(mainMenu[4].x + 20,mainMenu[4].y))
             {
                 exitProgram = true;
             }
             //continued
-            if (knopka(mainMenu[1].x + 20,mainMenu[1].y))
+		if (knopka(mainMenu[1].x + 20,mainMenu[1].y))
             {
                 last_num_obj = bylo_kartinok;
                 pageNumber = 1;
             }
         }
 
-        if (pageNumber == 1)
+	if (pageNumber == 1)
         {
             //mouse
-            for (int i = 0; i < last_num_obj ; i++)
+		for (int i = 0; i < last_num_obj ; i++)
             {
-                if (kartinkaVCentreEkrana[vybrannaya_kartinka].knopka2())
+			    if (kartincaUP[vybrannaya_kartinka].knopka2())
                 {
-                    kartinkaVCentreEkrana[vybrannaya_kartinka].clickedBlock = true;
+                     kartincaUP[vybrannaya_kartinka].clickedBlock = true;
                 }
 
-                if ((txMouseButtons() & 1) && kartinkaVCentreEkrana[i].clickedBlock)
+                if ((txMouseButtons() & 1) && kartincaUP[i].clickedBlock)
                 {
-                    kartinkaVCentreEkrana[vybrannaya_kartinka].x = txMouseX() - kartinkaVCentreEkrana[vybrannaya_kartinka].shirina/2;
-                    kartinkaVCentreEkrana[vybrannaya_kartinka].y = txMouseY() - kartinkaVCentreEkrana[vybrannaya_kartinka].vasota/2;
+                    kartincaUP[vybrannaya_kartinka].x = txMouseX() - kartincaUP[vybrannaya_kartinka].shirina/2;
+                    kartincaUP[vybrannaya_kartinka].y = txMouseY() - kartincaUP[vybrannaya_kartinka].vasota/2;
 
-                    drawPic(kartinkaVCentreEkrana[i]);
+                    drawPic(kartincaUP[i]);
                 }
 
-                if (!(txMouseButtons() & 1) && kartinkaVCentreEkrana[i].clickedBlock)
+                if (!(txMouseButtons() & 1) && kartincaUP[i].clickedBlock)
                 {
-                   kartinkaVCentreEkrana[vybrannaya_kartinka].clickedBlock = false;
-                   vybrannaya_kartinka = -10 ;
+                    kartincaUP[vybrannaya_kartinka].clickedBlock = false;
+                    vybrannaya_kartinka = -10 ;
                 }
             }
 
@@ -161,67 +161,67 @@ int main()
        //granica
          for (int i = 0; i < last_num_obj ; i++)
          {
-                  if (kartinkaVCentreEkrana[i].x < 10)
-                  {
-                   kartinkaVCentreEkrana[i].x = 10 ;
-                  }
-                  if (kartinkaVCentreEkrana[i].y < 100)
-                  {
-                  kartinkaVCentreEkrana[i].y = 100;
-                   }
-                  if (kartinkaVCentreEkrana[i].x + kartinkaVCentreEkrana[i].shirina > 1000)
-                   {
-                   kartinkaVCentreEkrana[i].x = txGetExtentX()- VARIANTS_WIDTH - kartinkaVCentreEkrana[i].shirina;
-                   }
-                  if (kartinkaVCentreEkrana[i].y + kartinkaVCentreEkrana[i].vasota > txGetExtentY())
-                  {
-                  kartinkaVCentreEkrana[i].y = txGetExtentY()- kartinkaVCentreEkrana[i].vasota;
-                  }
+				if (kartincaUP[i].x < 10)
+				{
+					kartincaUP[i].x = 10 ;
+				}
+				if (kartincaUP[i].y < 100)
+				{
+					kartincaUP[i].y = 100;
+				}
+				if (kartincaUP[i].x   +   kartincaUP[i].shirina    >    VARIANTS_LEFT)
+				{
+					kartincaUP[i].x         =     VARIANTS_LEFT    -    kartincaUP[i].shirina;
+				}
+				if (kartincaUP[i].y + kartincaUP[i].vasota > txGetExtentY())
+				{
+					kartincaUP[i].y = txGetExtentY()- kartincaUP[i].vasota;
+				}
         }
 
-            txBitBlt(txDC(), 0, 0, txGetExtentX(), 800, background, 0, 0);
+            txBitBlt(txDC(), 0, 0, txGetExtentX(), txGetExtentY(), background, 0, 0);
 
             txSetFillColor(TX_GRAY);
 			txSetColor(TX_WHITE);
-            txRectangle(10, 100, 1200 - VARIANTS_WIDTH, txGetExtentY() - 2);
+            txRectangle(10, 100, VARIANTS_LEFT, txGetExtentY() - 2);
 
-            if (knopka(1200 - VARIANTS_WIDTH,30))
-            {
-               pageNumber = START_PAGE;
-               bylo_kartinok = last_num_obj;
-               last_num_obj = 0;
+			if (knopka(VARIANTS_LEFT,30))
+			{
+				pageNumber = START_PAGE;
+				bylo_kartinok = last_num_obj;
+				last_num_obj = 0;
             }
 
             //peremeshenie
            for(int i = 0; i < last_num_obj; i++)
            {
-            if(kartinkaVCentreEkrana[i].knopka2())
-            {
-              vybrannaya_kartinka = i;
-            }
+				if(kartincaUP[i].knopka2())
+				{
+					vybrannaya_kartinka = i;
+				}
            }
 
            if(vybrannaya_kartinka >= 0 && GetAsyncKeyState(VK_LEFT))
            {
-            kartinkaVCentreEkrana[vybrannaya_kartinka].x -= 3;
+            kartincaUP[vybrannaya_kartinka].x -= 3;
            }
 
            if(vybrannaya_kartinka >= 0 && GetAsyncKeyState(VK_RIGHT))
            {
-            kartinkaVCentreEkrana[vybrannaya_kartinka].x += 3;
+				kartincaUP[vybrannaya_kartinka].x += 3;
            }
            if(vybrannaya_kartinka >= 0 && GetAsyncKeyState(VK_UP))
            {
-            kartinkaVCentreEkrana[vybrannaya_kartinka].y -= 3;
+				kartincaUP[vybrannaya_kartinka].y -= 3;
            }
            if(vybrannaya_kartinka >= 0 && GetAsyncKeyState(VK_DOWN))
            {
-            kartinkaVCentreEkrana[vybrannaya_kartinka].y += 3;
+            kartincaUP[vybrannaya_kartinka].y += 3;
            }
 
            if(vybrannaya_kartinka >= 0 && GetAsyncKeyState(VK_DELETE))
            {
-            kartinkaVCentreEkrana[vybrannaya_kartinka] = kartinkaVCentreEkrana[last_num_obj - 1];
+            kartincaUP[vybrannaya_kartinka] = kartincaUP[last_num_obj - 1];
             last_num_obj -= 1 ;
             vybrannaya_kartinka = - 100 ;
            }
@@ -229,41 +229,41 @@ int main()
 
 
             //Top buttons
-            for (int n = 0; n < 6; n++)
+            for (int n = 0; n < COLICHEs; n++)
             {
 				txSetColor(TX_WHITE);
                 if (topMenu[n].textMessage == selected_category)
-                {
-				txSetColor(TX_RED);
-                }
+                              {
+				                 txSetColor(TX_RED);
+							  }
                 topMenu[n].drawButton();
             }
 
             //Right pictures 
-            for (int i = 0; i < PICT_LEN; i++)
+            for (int i = 0; i < PICT_LEN; i++)						//Для всех картинок
             {
-                if (pic[i].category == selected_category)
+                if (pic[i].category == selected_category)		//У которых правильная категория
                 {
-                    drawPic(pic[i]);
+                    drawPic(pic[i]);                                               //Нарисовать их
                 }
             }
 
             for (int i = 0; i < last_num_obj; i++)
             {
-                if (kartinkaVCentreEkrana[i].visible)
-                {
-                if (i == vybrannaya_kartinka)
-                {
-                Picture vk = kartinkaVCentreEkrana[i];
+                if (kartincaUP[i].visible)
+                          {
+                               if (i == vybrannaya_kartinka)
+                          {
+                Picture vk = kartincaUP[i];
 
                 txSetColor(TX_RED, 3);
 					txRectangle (vk.x-2, vk.y-2, vk.x + vk.shirina+2, vk.y + vk.vasota+2);
-                }
-                    drawPic(kartinkaVCentreEkrana[i]);
-                }
+						}
+                          drawPic(kartincaUP[i]);
+                        }
             }
 
-            for (int n = 0; n < 5; n++)
+            for (int n = 0; n < COLICHEs; n++)
             {
                 if (knopka(topMenu[n].x,topMenu[n].y))
                 {
@@ -278,7 +278,7 @@ int main()
                     int x = random (10,  1050 - pic[i].shirina);
                     int y = random (100, 800 - pic[i].vasota);
 
-                    kartinkaVCentreEkrana[last_num_obj] = {
+                    kartincaUP[last_num_obj] = {
                         x,
                         y,
                         pic[i].shirina,
@@ -301,11 +301,11 @@ int main()
             }
         }
         /*
-       drawPeremennya(100,100,kartinkaVCentreEkrana[0].src_shirina );
-       drawPeremennya(200,100,kartinkaVCentreEkrana[0].clickedBlock );
+       drawPeremennya(100,100,kartincaUP[0].src_shirina );
+       drawPeremennya(200,100,kartincaUP[0].clickedBlock );
 
-       drawPeremennya(100,140,kartinkaVCentreEkrana[1].src_shirina );
-       drawPeremennya(200,140,kartinkaVCentreEkrana[1].clickedBlock );
+       drawPeremennya(100,140,kartincaUP[1].src_shirina );
+       drawPeremennya(200,140,kartincaUP[1].clickedBlock );
            */
 
         txSleep(10);
