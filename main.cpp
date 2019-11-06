@@ -6,7 +6,8 @@
 //integer constant that mean lenght of pictures array
 const int PICT_LEN = 19;
 const int START_PAGE = 0;
-const int MENU_PAGE = 1;
+const int MAIN_PAGE = 1;
+const int MENU_INFO = 3;
 const int COLICHEs = 6;
 
 void drawPeremennya(int x, int y, int perem)
@@ -91,7 +92,7 @@ int main()
     mainMenu[0] = {500, 270, 680, 320, "Начать"};
     mainMenu[1] = {500, 320, 680, 370, "Продолжить"};
     mainMenu[2] = {500, 370, 680, 420, "Настройки",  "Настройки недоступны", "Ошибка"};
-    mainMenu[3] = {500, 420, 680, 470, "Информация", "Cейчас найдём",        "Поиск"};
+    mainMenu[3] = {500, 420, 680, 470, "Информация"};//, "ну такое",        "Поиск"};
     mainMenu[4] = {500, 470, 680, 520, "Выйти"};
 
     Knopka topMenu[COLICHEs];
@@ -126,7 +127,12 @@ int main()
 
             if (knopka(mainMenu[0].x + 20,mainMenu[0].y))
             {
-                pageNumber = 1;
+                pageNumber = MAIN_PAGE;
+            }
+            if (knopka(mainMenu[3].x + 20,mainMenu[3].y))
+            {
+            	txMessageBox("уверенны");
+                pageNumber = MENU_INFO;
             }
             if (knopka(mainMenu[4].x + 20,mainMenu[4].y))
             {
@@ -136,11 +142,38 @@ int main()
             if (knopka(mainMenu[1].x + 20,mainMenu[1].y))
             {
                 last_num_obj = bylo_kartinok;
-                pageNumber = 1;
+                pageNumber = MAIN_PAGE;
             }
         }
 
-        if (pageNumber == MENU_PAGE)
+		else if (pageNumber == MENU_INFO)
+        {
+            txBitBlt (txDC(), 0, 0, txGetExtentX(), txGetExtentY(), background, 0, 0);
+            txSetFillColor(TX_WHITE);
+            txSetColor(TX_BLACK);
+
+			txSelectFont("Arial", 40);
+			txRectangle(300, 100, 900, 470);
+            txDrawText(300,100,900,700,
+					"информация\n"
+					"создатели: Чираков Даниил Павлович\n"
+					"Боровков АНдрей Владимирович\n"
+					"проект написан по мативам игры\n"
+					"Sim Siti\n"
+					"только в этом проекте вы будете редактировать\n"
+					"квартиру, а не город\n"
+					"УДАЧНОГО РЕДАКТИРОВАНИЯ"
+					);
+
+            txSetColor(TX_WHITE);
+			mainMenu[4].drawButton();
+            if (knopka(mainMenu[4].x + 20,mainMenu[4].y))
+            {
+                pageNumber = MAIN_PAGE;
+            }
+        }
+
+        else if (pageNumber == MAIN_PAGE)
         {
             //mouse
             if (kartincaUP[vybrannaya_kartinka].knopka2() && !clicked)
@@ -162,6 +195,14 @@ int main()
                kartincaUP[vybrannaya_kartinka].clickedBlock = false;
                clicked = false;
             }
+
+            txBitBlt (txDC(), 0, 0, txGetExtentX(), txGetExtentY(), background, 0, 0);
+            txSetFillColor(TX_WHITE);
+            txSetColor(TX_WHITE);
+
+            txSelectFont("Arial", 40);
+            txDrawText(300,100,900,150,"Создай ");
+
 
 
 			//granica
