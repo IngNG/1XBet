@@ -4,10 +4,9 @@
 #include "files.cpp"
 
 //integer constant that mean lenght of pictures array
-const int PICT_LEN = 19;
+const int PICT_LEN = 18;
 const int START_PAGE = 0;
-const int MAIN_PAGE = 1;
-const int MENU_INFO = 3;
+const int MENU_PAGE = 1;
 const int COLICHEs = 6;
 
 void drawPeremennya(int x, int y, int perem)
@@ -35,35 +34,38 @@ int main()
     int last_num_obj = 0;
     int bylo_kartinok = 0;
 
-    char* selected_category = "1";
+    string selected_category = "1";
     int pageNumber = 0;
 
     Picture kartincaUP[1000];
 
     Picture pic[PICT_LEN];
-    pic[0] = {1090, 110,  75, 190, "Pics\\Furniture\\Divan1.bmp",  "Divan"};
-    pic[1] = {1090, 320,  75, 190, "Pics\\Furniture\\Divan2.bmp",  "Divan"};
+    pic[0] = {1090, 110,  75, 190, "Pics\\Divan\\Divan1.bmp"};
+    pic[1] = {1090, 320,  75, 190, "Pics\\Divan\\Divan2.bmp",  "Divan"};
     pic[2] = {1090, 110,  75, 190, "Pics\\Cover\\Cover1.bmp",      "Cover"};
     pic[3] = {1090, 320,  75, 190, "Pics\\Cover\\Cover3.bmp",      "Cover"};
-    pic[4] = {1070, 580, 120,  50, "Pics\\Furniture\\Divan3.bmp",  "Divan"};
-    pic[5] = {1070, 640, 120,  50, "Pics\\Furniture\\Divan4.bmp",  "Divan"};
-    pic[6] = {1090, 110, 100, 100, "Pics\\Furniture\\кресло1.bmp", "Chair"};
-    pic[7] = {1090, 220, 100, 100, "Pics\\Furniture\\кресло2.bmp", "Chair"};
-    pic[8] = {1090, 330, 100, 100, "Pics\\Furniture\\кресло3.bmp", "Chair"};
-    pic[9] = {1090, 440, 100, 100, "Pics\\Furniture\\Stul1.bmp",   "Chair"};
-    pic[10] ={1090, 550, 100, 100, "Pics\\Furniture\\Stul2.bmp",   "Chair"};
-    pic[11] ={1090, 110,  75,  75, "Pics\\Wall\\brick.bmp",        "Wall"};
-    pic[12] ={1090, 320,  75,  75, "Pics\\Wall\\mel.bmp",          "Wall"};
-    pic[13] ={1090, 580,  75,  75, "Pics\\Wall\\wood.bmp",         "Wall"};
-    pic[14] ={1090, 560,  129,165, "Pics\\кровать.bmp" ,           "Krovat"};
-    pic[15] ={1090, 110, 100, 100, "Pics\\bed1.bmp",               "Krovat"};
-    pic[16] ={1090, 320, 100, 100, "Pics\\bed2.bmp",               "Krovat"};
-    pic[17] ={1090, 640, 100, 100, "Pics\\bed3.bmp",               "Krovat"};
-    pic[18] ={1090, 710, 100, 100, "Pics\\bed4.bmp",               "Krovat"};
+    pic[4] = {1070, 580, 120,  50, "Pics\\Divan\\Divan3.bmp",  "Divan"};
+    pic[5] = {1070, 640, 120,  50, "Pics\\Divan\\Divan4.bmp",  "Divan"};
+    pic[6] = {1090, 110, 100, 100, "Pics\\Chair\\кресло1.bmp", "Chair"};
+    pic[7] = {1090, 220, 100, 100, "Pics\\Chair\\кресло2.bmp", "Chair"};
+    pic[8] = {1090, 330, 100, 100, "Pics\\Chair\\кресло3.bmp", "Chair"};
+    pic[9] = {1090, 440, 100, 100, "Pics\\Chair\\Stul1.bmp",   "Chair"};
+    pic[10] ={1090, 550, 100, 100, "Pics\\Chair\\Stul2.bmp",   "Chair"};
+    pic[11] ={1090, 110,  75,  75, "Pics\\Wall\\brick.bmp"};
+    pic[12] ={1090, 320,  75,  75, "Pics\\Wall\\mel.bmp"};
+    pic[13] ={1090, 580,  75,  75, "Pics\\Wall\\wood.bmp"};
+    pic[14] ={1090, 560,  100,120, "Pics\\Krovat\\кровать.bmp" ,           "Krovat"};
+    pic[15] ={1090, 110, 100, 100, "Pics\\Krovat\\bed1.bmp",               "Krovat"};
+    pic[16] ={1090, 320, 100, 100, "Pics\\Krovat\\bed2.bmp",               "Krovat"};
+    pic[17] ={1090, 690, 100, 100, "Pics\\Krovat\\bed4.bmp",               "Krovat"};
 
 
     for (int i = 0; i < PICT_LEN; i++)
     {
+        string stroka = pic[i].adress;
+        int pos1 = stroka.find("\\") ;
+        int pos2 = stroka.find("\\", pos1+ 1) ;
+        pic[i].category=  stroka.substr(pos1 +1, pos2- pos1 - 1);
 		pic[i].img = txLoadImage(pic[i].adress.c_str());
 		pic[i].src_shirina = get_width(pic[i].adress.c_str());
 		pic[i].src_vasota=get_height (pic[i].adress.c_str());
@@ -92,7 +94,7 @@ int main()
     mainMenu[0] = {500, 270, 680, 320, "Начать"};
     mainMenu[1] = {500, 320, 680, 370, "Продолжить"};
     mainMenu[2] = {500, 370, 680, 420, "Настройки",  "Настройки недоступны", "Ошибка"};
-    mainMenu[3] = {500, 420, 680, 470, "Информация"};//, "ну такое",        "Поиск"};
+    mainMenu[3] = {500, 420, 680, 470, "Информация", "Cейчас найдём",        "Поиск"};
     mainMenu[4] = {500, 470, 680, 520, "Выйти"};
 
     Knopka topMenu[COLICHEs];
@@ -127,12 +129,7 @@ int main()
 
             if (knopka(mainMenu[0].x + 20,mainMenu[0].y))
             {
-                pageNumber = MAIN_PAGE;
-            }
-            if (knopka(mainMenu[3].x + 20,mainMenu[3].y))
-            {
-            	txMessageBox("уверенны");
-                pageNumber = MENU_INFO;
+                pageNumber = 1;
             }
             if (knopka(mainMenu[4].x + 20,mainMenu[4].y))
             {
@@ -142,38 +139,11 @@ int main()
             if (knopka(mainMenu[1].x + 20,mainMenu[1].y))
             {
                 last_num_obj = bylo_kartinok;
-                pageNumber = MAIN_PAGE;
+                pageNumber = 1;
             }
         }
 
-		else if (pageNumber == MENU_INFO)
-        {
-            txBitBlt (txDC(), 0, 0, txGetExtentX(), txGetExtentY(), background, 0, 0);
-            txSetFillColor(TX_WHITE);
-            txSetColor(TX_BLACK);
-
-			txSelectFont("Arial", 40);
-			txRectangle(300, 100, 900, 470);
-            txDrawText(300,100,900,700,
-					"информация\n"
-					"создатели: Чираков Даниил Павлович\n"
-					"Боровков АНдрей Владимирович\n"
-					"проект написан по мативам игры\n"
-					"Sim Siti\n"
-					"только в этом проекте вы будете редактировать\n"
-					"квартиру, а не город\n"
-					"УДАЧНОГО РЕДАКТИРОВАНИЯ"
-					);
-
-            txSetColor(TX_WHITE);
-			mainMenu[4].drawButton();
-            if (knopka(mainMenu[4].x + 20,mainMenu[4].y))
-            {
-                pageNumber = MAIN_PAGE;
-            }
-        }
-
-        else if (pageNumber == MAIN_PAGE)
+        if (pageNumber == MENU_PAGE)
         {
             //mouse
             if (kartincaUP[vybrannaya_kartinka].knopka2() && !clicked)
@@ -195,14 +165,6 @@ int main()
                kartincaUP[vybrannaya_kartinka].clickedBlock = false;
                clicked = false;
             }
-
-            txBitBlt (txDC(), 0, 0, txGetExtentX(), txGetExtentY(), background, 0, 0);
-            txSetFillColor(TX_WHITE);
-            txSetColor(TX_WHITE);
-
-            txSelectFont("Arial", 40);
-            txDrawText(300,100,900,150,"Создай ");
-
 
 
 			//granica
