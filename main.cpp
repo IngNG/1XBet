@@ -35,36 +35,40 @@ int main()
     int last_num_obj = 0;
     int bylo_kartinok = 0;
 
-    char* selected_category = "1";
+    string selected_category = "1";
     int pageNumber = 0;
 
     Picture kartincaUP[1000];
 
     Picture pic[PICT_LEN];
-    pic[0] = {1090, 110,  75, 190, "Pics\\Furniture\\Divan1.bmp",  "Divan"};
-    pic[1] = {1090, 320,  75, 190, "Pics\\Furniture\\Divan2.bmp",  "Divan"};
-    pic[2] = {1090, 110,  75, 190, "Pics\\Cover\\Cover1.bmp",      "Cover"};
-    pic[3] = {1090, 320,  75, 190, "Pics\\Cover\\Cover3.bmp",      "Cover"};
-    pic[4] = {1070, 580, 120,  50, "Pics\\Furniture\\Divan3.bmp",  "Divan"};
-    pic[5] = {1070, 640, 120,  50, "Pics\\Furniture\\Divan4.bmp",  "Divan"};
-    pic[6] = {1090, 110, 100, 100, "Pics\\Furniture\\кресло1.bmp", "Chair"};
-    pic[7] = {1090, 220, 100, 100, "Pics\\Furniture\\кресло2.bmp", "Chair"};
-    pic[8] = {1090, 330, 100, 100, "Pics\\Furniture\\кресло3.bmp", "Chair"};
-    pic[9] = {1090, 440, 100, 100, "Pics\\Furniture\\Stul1.bmp",   "Chair"};
-    pic[10] ={1090, 550, 100, 100, "Pics\\Furniture\\Stul2.bmp",   "Chair"};
-    pic[11] ={1090, 110,  75,  75, "Pics\\Wall\\brick.bmp",        "Wall"};
-    pic[12] ={1090, 320,  75,  75, "Pics\\Wall\\mel.bmp",          "Wall"};
-    pic[13] ={1090, 580,  75,  75, "Pics\\Wall\\wood.bmp",         "Wall"};
-    pic[14] ={1090, 560,  129,165, "Pics\\кровать.bmp" ,           "Krovat"};
-    pic[15] ={1090, 110, 100, 100, "Pics\\bed1.bmp",               "Krovat"};
-    pic[16] ={1090, 320, 100, 100, "Pics\\bed2.bmp",               "Krovat"};
-    pic[17] ={1090, 640, 100, 100, "Pics\\bed3.bmp",               "Krovat"};
-    pic[18] ={1090, 710, 100, 100, "Pics\\bed4.bmp",               "Krovat"};
+    pic[0] = {1090, 110,  75, 190, "Pics\\Divan\\Divan1.bmp"};
+    pic[1] = {1090, 320,  75, 190, "Pics\\Divan\\Divan2.bmp"};
+    pic[2] = {1090, 110,  75, 190, "Pics\\Cover\\Cover1.bmp"};
+    pic[3] = {1090, 320,  75, 190, "Pics\\Cover\\Cover3.bmp"};
+    pic[4] = {1070, 580, 120,  50, "Pics\\Divan\\Divan3.bmp"};
+    pic[5] = {1070, 640, 120,  50, "Pics\\Divan\\Divan4.bmp"};
+    pic[6] = {1090, 110, 100, 100, "Pics\\Chair\\кресло1.bmp"};
+    pic[7] = {1090, 220, 100, 100, "Pics\\Chair\\кресло2.bmp"};
+    pic[8] = {1090, 330, 100, 100, "Pics\\Chair\\кресло3.bmp"};
+    pic[9] = {1090, 440, 100, 100, "Pics\\Chair\\Stul1.bmp"};
+    pic[10] ={1090, 550, 100, 100, "Pics\\Chair\\Stul2.bmp"};
+    pic[11] ={1090, 110,  75,  75, "Pics\\Wall\\brick.bmp"};
+    pic[12] ={1090, 320,  75,  75, "Pics\\Wall\\mel.bmp"};
+    pic[13] ={1090, 580,  75,  75, "Pics\\Wall\\wood.bmp"};
+    pic[14] ={1090, 110,  100,120, "Pics\\Krovat\\кровать.bmp"};
+    pic[15] ={1090, 230, 100, 100, "Pics\\Krovat\\bed1.bmp"};
+    pic[16] ={1090, 350, 100, 100, "Pics\\Krovat\\bed2.bmp"};
+    pic[17] ={1090, 460, 100, 100, "Pics\\Krovat\\bed3.bmp"};
+    pic[18] ={1090, 580, 100, 100, "Pics\\Krovat\\bed4.bmp"};
 
 
     for (int i = 0; i < PICT_LEN; i++)
     {
-		pic[i].img = txLoadImage(pic[i].adress.c_str());
+        string stroka = pic[i].adress;
+        int pos1 = stroka.find("\\") ;
+        int pos2 = stroka.find("\\", pos1+ 1) ;
+        pic[i].category=  stroka.substr(pos1 +1, pos2- pos1 - 1);
+     	pic[i].img = txLoadImage(pic[i].adress.c_str());
 		pic[i].src_shirina = get_width(pic[i].adress.c_str());
 		pic[i].src_vasota=get_height (pic[i].adress.c_str());
 		pic[i].visible = true;
@@ -176,13 +180,13 @@ int main()
         else if (pageNumber == MAIN_PAGE)
         {
             //mouse
-            if (kartincaUP[vybrannaya_kartinka].knopka2() && !clicked)
+            if (vybrannaya_kartinka >= 0 && kartincaUP[vybrannaya_kartinka].knopka2() && !clicked)
             {
                 kartincaUP[vybrannaya_kartinka].clickedBlock = true;
                 clicked = true;
             }
 
-            if ((txMouseButtons() & 1) && kartincaUP[vybrannaya_kartinka].clickedBlock)
+            if (vybrannaya_kartinka >= 0 && (txMouseButtons() & 1) && kartincaUP[vybrannaya_kartinka].clickedBlock)
             {
                 kartincaUP[vybrannaya_kartinka].x = txMouseX() - kartincaUP[vybrannaya_kartinka].shirina/2;
                 kartincaUP[vybrannaya_kartinka].y = txMouseY() - kartincaUP[vybrannaya_kartinka].vasota/2;
@@ -190,7 +194,7 @@ int main()
                 drawPic(kartincaUP[vybrannaya_kartinka]);
             }
 
-            if (!(txMouseButtons() & 1) && kartincaUP[vybrannaya_kartinka].clickedBlock)
+            if (vybrannaya_kartinka >= 0 && !(txMouseButtons() & 1) && kartincaUP[vybrannaya_kartinka].clickedBlock)
             {
                kartincaUP[vybrannaya_kartinka].clickedBlock = false;
                clicked = false;

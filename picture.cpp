@@ -7,7 +7,7 @@ struct Picture
     int shirina;
     int vasota;
     string adress;
-    char* category;
+    string category;
     HDC img;
     int src_shirina;
     int src_vasota;

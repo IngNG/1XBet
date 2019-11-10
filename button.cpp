@@ -22,7 +22,7 @@ struct Knopka
 	int x2;
 	int y2;
 	const char* text;
-	char* textMessage;
+	string textMessage;
 	const char* headerMessage;
 
     void drawButton()
@@ -32,15 +32,15 @@ struct Knopka
 
     void showMessage()
     {
-        if (knopka(x,y) and textMessage != "" and textMessage != nullptr)
+        if (knopka(x,y) and textMessage != "")
         {
             if (headerMessage != "" and headerMessage != nullptr)
             {
-                txMessageBox(textMessage, headerMessage);
+                txMessageBox(textMessage.c_str(), headerMessage);
             }
             else
             {
-                txMessageBox(textMessage);
+                txMessageBox(textMessage.c_str());
             }
         }
     }
