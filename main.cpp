@@ -9,6 +9,8 @@ const int START_PAGE = 0;
 const int MAIN_PAGE = 1;
 const int MENU_INFO = 3;
 const int COLICHEs = 6;
+const int MENU_OPSHIONS = 1;
+
 
 void drawPeremennya(int x, int y, int perem)
 {
@@ -34,6 +36,7 @@ int main()
     bool exitProgram = false;
     int last_num_obj = 0;
     int bylo_kartinok = 0;
+    int mysic_vkl_vkl = 0;
 
     string selected_category = "1";
     int pageNumber = 0;
@@ -117,12 +120,13 @@ int main()
     cout << sum;
     txSleep(1000);
     */
-    Knopka mainMenu[5];
+    Knopka mainMenu[6];
     mainMenu[0] = {500, 270, 680, 320, "Начать"};
     mainMenu[1] = {500, 320, 680, 370, "Продолжить"};
     mainMenu[2] = {500, 370, 680, 420, "Настройки",  "Настройки недоступны", "Ошибка"};
     mainMenu[3] = {500, 420, 680, 470, "Информация"};//, "ну такое",        "Поиск"};
     mainMenu[4] = {500, 470, 680, 520, "Выйти"};
+    mainMenu[5] = {500, 520, 680, 570, "муз_off/on"};
 
     Knopka topMenu[COLICHEs];
     topMenu[0] = {55,20,180,70,"диваны","Divan" };
@@ -148,7 +152,7 @@ int main()
             txSelectFont("Arial", 40);
             txDrawText(300,100,900,150,"Создай свою квартиру");
 
-            for (int n = 0; n < 5; n++)
+            for (int n = 0; n < 6; n++)
             {
                 mainMenu[n].drawButton();
                 mainMenu[n].showMessage();
@@ -171,9 +175,46 @@ int main()
             if (knopka(mainMenu[1].x + 20,mainMenu[1].y))
             {
                 last_num_obj = bylo_kartinok;
+                pageNumber = MAIN_PAGE; аапппипаооп
+            }
+
+			if (knopka(mainMenu[5].x,mainMenu[5].y))
+			{
+				if (mysic_vkl_vё1kl == 0)
+				{
+					txPlaySound("on_fon.wav");
+					mysic_vkl_vkl = 1;
+					txSleep(200);
+				}
+				else if (mysic_vkl_vkl == 1)
+				{
+					txPlaySound(NULL);
+					mysic_vkl_vkl = 0;
+					txSleep(200);
+				}
+			}
+        }
+
+        else if (pageNumber == MENU_OPSHIONS)
+        {
+            txBitBlt (txDC(), 0, 0, txGetExtentX(), txGetExtentY(), background, 0, 0);
+            txSetFillColor(TX_WHITE);
+            txSetColor(TX_BLACK);
+
+			txSelectFont("Arial", 40);
+			txRectangle(300, 100, 900, 470);
+            txDrawText(300,100,900,700,
+					"музыка");
+
+            txSetColor(TX_WHITE);
+			mainMenu[3].drawButton();
+            if (knopka(mainMenu[3].x + 20,mainMenu[3].y))
+            {
                 pageNumber = MAIN_PAGE;
             }
         }
+
+
 
 		else if (pageNumber == MENU_INFO)
         {
@@ -374,13 +415,14 @@ int main()
                 }
             }
 
-            for (int n = 0; n < 5; n++)
+            for (int n = 0; n < 6; n++)
             {
                 if (knopka(topMenu[n].x,topMenu[n].y))
                 {
                     selected_category = topMenu[n].textMessage;
                 }
             }
+
 
             for (int i = 0; i < PICT_LEN; i++)
             {
