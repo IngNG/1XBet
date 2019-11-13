@@ -4,7 +4,7 @@
 #include "files.cpp"
 
 //integer constant that mean lenght of pictures array
-const int PICT_LEN = 19;
+const int PICT_LEN = 20;
 const int START_PAGE = 0;
 const int MAIN_PAGE = 1;
 const int MENU_INFO = 3;
@@ -41,25 +41,27 @@ int main()
     Picture kartincaUP[1000];
 
     Picture pic[PICT_LEN];
-    pic[0] = {1090, 110,  75, 190, "Pics\\Divan\\Divan1.bmp"};
-    pic[1] = {1090, 320,  75, 190, "Pics\\Divan\\Divan2.bmp"};
-    pic[2] = {1090, 110,  75, 190, "Pics\\Cover\\Cover1.bmp"};
-    pic[3] = {1090, 320,  75, 190, "Pics\\Cover\\Cover3.bmp"};
-    pic[4] = {1070, 580, 120,  50, "Pics\\Divan\\Divan3.bmp"};
-    pic[5] = {1070, 640, 120,  50, "Pics\\Divan\\Divan4.bmp"};
-    pic[6] = {1090, 110, 100, 100, "Pics\\Chair\\кресло1.bmp"};
-    pic[7] = {1090, 220, 100, 100, "Pics\\Chair\\кресло2.bmp"};
-    pic[8] = {1090, 330, 100, 100, "Pics\\Chair\\кресло3.bmp"};
-    pic[9] = {1090, 440, 100, 100, "Pics\\Chair\\Stul1.bmp"};
-    pic[10] ={1090, 550, 100, 100, "Pics\\Chair\\Stul2.bmp"};
-    pic[11] ={1090, 110,  75,  75, "Pics\\Wall\\brick.bmp"};
-    pic[12] ={1090, 320,  75,  75, "Pics\\Wall\\mel.bmp"};
-    pic[13] ={1090, 580,  75,  75, "Pics\\Wall\\wood.bmp"};
-    pic[14] ={1090, 110,  100,120, "Pics\\Krovat\\кровать.bmp"};
-    pic[15] ={1090, 230, 100, 100, "Pics\\Krovat\\bed1.bmp"};
-    pic[16] ={1090, 350, 100, 100, "Pics\\Krovat\\bed2.bmp"};
-    pic[17] ={1090, 460, 100, 100, "Pics\\Krovat\\bed3.bmp"};
-    pic[18] ={1090, 580, 100, 100, "Pics\\Krovat\\bed4.bmp"};
+    pic[0] = {1090, 110,  "Pics\\Divan\\Divan1.bmp"};
+    pic[1] = {1090, 320,  "Pics\\Divan\\Divan2.bmp"};
+    pic[4] = {1070, 580, "Pics\\Divan\\Divan3.bmp"};
+    pic[5] = {1070, 640,  "Pics\\Divan\\Divan4.bmp"};
+
+    pic[2] = {1090, 110,  "Pics\\Cover\\Cover1.bmp"};
+    pic[3] = {1090, 320,  "Pics\\Cover\\Cover3.bmp"};
+    pic[6] = {1090, 110, "Pics\\Chair\\кресло1.bmp"};
+    pic[7] = {1090, 220, "Pics\\Chair\\кресло2.bmp"};
+    pic[8] = {1090, 330, "Pics\\Chair\\кресло3.bmp"};
+    pic[9] = {1090, 440, "Pics\\Chair\\Stul1.bmp"};
+    pic[10] ={1090, 550, "Pics\\Chair\\Stul2.bmp"};
+    pic[11] ={1090, 110, "Pics\\Wall\\brick.bmp"};
+    pic[12] ={1090, 320,  "Pics\\Wall\\mel.bmp"};
+    pic[13] ={1090, 580,  "Pics\\Wall\\wood.bmp"};
+    pic[14] ={1090, 110,  "Pics\\Krovat\\кровать.bmp"};
+    pic[15] ={1090, 230, "Pics\\Krovat\\bed1.bmp"};
+    pic[16] ={1090, 350, "Pics\\Krovat\\bed2.bmp"};
+    pic[17] ={1090, 460, "Pics\\Krovat\\bed3.bmp"};
+    pic[18] ={1090, 580, "Pics\\Krovat\\bed4.bmp"};
+    pic[19] = {1090, 540,  "Pics\\Cover\\Cover2.bmp"};
 
 
     for (int i = 0; i < PICT_LEN; i++)
@@ -72,6 +74,29 @@ int main()
 		pic[i].src_shirina = get_width(pic[i].adress.c_str());
 		pic[i].src_vasota=get_height (pic[i].adress.c_str());
 		pic[i].visible = true;
+
+		//4to-t0
+
+		if ((pic[i].category == "Divan" || pic[i].category == "Cover") &&
+            pic[i].src_shirina > pic[i].src_vasota)
+		{
+            pic[i].shirina = 120;
+            pic[i].vasota = 50;
+		}
+		if ((pic[i].category == "Divan" || pic[i].category == "Cover") &&
+            pic[i].src_shirina <= pic[i].src_vasota)
+		{
+            pic[i].shirina = 75;
+            pic[i].vasota = 190;
+		}
+
+		if (pic[i].category == "Chair" ||
+            pic[i].category == "Wall" ||
+            pic[i].category == "Krovat")
+		{
+            pic[i].shirina = 100;
+            pic[i].vasota = 100;
+		}
     }
     /*int sum = 0;
     for (int i = 0; i < PICT_LEN; i++)
@@ -208,7 +233,6 @@ int main()
             txDrawText(300,100,900,150,"Создай ");
 
 
-
 			//granica
 			for (int i = 0; i < last_num_obj ; i++)
 			{
@@ -278,6 +302,44 @@ int main()
 				clicked = false;
 			}
 
+
+
+            //granica kartinok
+
+			for (int i = 0; i < last_num_obj ; i++)
+			{
+                for (int k = 0; k < last_num_obj ; k++)
+                {
+                    if (k != i &&
+                        kartincaUP[i].x < kartincaUP[k].x + kartincaUP[k].shirina  &&
+                        kartincaUP[k].x < kartincaUP[i].x + kartincaUP[i].shirina  &&
+                        kartincaUP[i].y < kartincaUP[k].y + kartincaUP[k].vasota &&
+                         kartincaUP[k].y < kartincaUP[i].y + kartincaUP[i].vasota)
+                    {
+                        txTextOut(100, 100, "столкнулись");
+
+                        if (kartincaUP[i].x < kartincaUP[k].x)
+                        {
+                            kartincaUP[k].x = kartincaUP[i].x + kartincaUP[i].shirina;
+                        }
+                        else if (kartincaUP[i].x > kartincaUP[k].x)
+                        {
+                            kartincaUP[i].x = kartincaUP[k].x + kartincaUP[k].shirina;
+                        }
+                        else if (kartincaUP[i].y < kartincaUP[k].y)
+                        {
+                            kartincaUP[k].y = kartincaUP[i].y + kartincaUP[i].vasota;
+                        }
+                        else if (kartincaUP[i].y > kartincaUP[k].y)
+                        {
+                            kartincaUP[i].y = kartincaUP[k].y + kartincaUP[k].vasota;
+                        }
+                    }
+                }
+			}
+
+
+
             //Top buttons
             for (int n = 0; n < COLICHEs; n++)
             {
@@ -330,9 +392,9 @@ int main()
                     kartincaUP[last_num_obj] = {
                         x,
                         y,
+                        pic[i].adress,
                         pic[i].shirina,
                         pic[i].vasota,
-                        pic[i].adress,
                         pic[i].category,
                         pic[i].img,
                         pic[i].src_shirina,
