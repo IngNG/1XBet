@@ -1,3 +1,7 @@
+#include <string>
+#include "TXLib.h"
+
+using namespace std;
 
 int get_height(string adress)
 {

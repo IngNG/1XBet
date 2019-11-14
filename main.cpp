@@ -4,12 +4,14 @@
 #include "files.cpp"
 
 //integer constant that mean lenght of pictures array
-const int PICT_LEN = 20;
+const int PICT_LEN = 21;
+
 const int START_PAGE = 0;
 const int MAIN_PAGE = 1;
+const int MENU_OPSHIONS = 2;
 const int MENU_INFO = 3;
+
 const int COLICHEs = 6;
-const int MENU_OPSHIONS = 1;
 
 
 void drawPeremennya(int x, int y, int perem)
@@ -44,27 +46,28 @@ int main()
     Picture kartincaUP[1000];
 
     Picture pic[PICT_LEN];
-    pic[0] = {1090, 110,  "Pics\\Divan\\Divan1.bmp"};
-    pic[1] = {1090, 320,  "Pics\\Divan\\Divan2.bmp"};
-    pic[4] = {1070, 580, "Pics\\Divan\\Divan3.bmp"};
-    pic[5] = {1070, 640,  "Pics\\Divan\\Divan4.bmp"};
+    pic[0] = {110,  "Pics\\Divan\\Divan1.bmp"};
+    pic[1] = {320,  "Pics\\Divan\\Divan2.bmp"};
+    pic[4] = {580, "Pics\\Divan\\Divan3.bmp"};
+    pic[5] = {640,  "Pics\\Divan\\Divan4.bmp"};
 
-    pic[2] = {1090, 110,  "Pics\\Cover\\Cover1.bmp"};
-    pic[3] = {1090, 320,  "Pics\\Cover\\Cover3.bmp"};
-    pic[6] = {1090, 110, "Pics\\Chair\\кресло1.bmp"};
-    pic[7] = {1090, 220, "Pics\\Chair\\кресло2.bmp"};
-    pic[8] = {1090, 330, "Pics\\Chair\\кресло3.bmp"};
-    pic[9] = {1090, 440, "Pics\\Chair\\Stul1.bmp"};
-    pic[10] ={1090, 550, "Pics\\Chair\\Stul2.bmp"};
-    pic[11] ={1090, 110, "Pics\\Wall\\brick.bmp"};
-    pic[12] ={1090, 320,  "Pics\\Wall\\mel.bmp"};
-    pic[13] ={1090, 580,  "Pics\\Wall\\wood.bmp"};
-    pic[14] ={1090, 110,  "Pics\\Krovat\\кровать.bmp"};
-    pic[15] ={1090, 230, "Pics\\Krovat\\bed1.bmp"};
-    pic[16] ={1090, 350, "Pics\\Krovat\\bed2.bmp"};
-    pic[17] ={1090, 460, "Pics\\Krovat\\bed3.bmp"};
-    pic[18] ={1090, 580, "Pics\\Krovat\\bed4.bmp"};
-    pic[19] = {1090, 540,  "Pics\\Cover\\Cover2.bmp"};
+    pic[2] = {110,  "Pics\\Cover\\Cover1.bmp"};
+    pic[3] = {320,  "Pics\\Cover\\Cover3.bmp"};
+    pic[6] = {110, "Pics\\Chair\\кресло1.bmp"};
+    pic[7] = {220, "Pics\\Chair\\кресло2.bmp"};
+    pic[8] = {330, "Pics\\Chair\\кресло3.bmp"};
+    pic[9] = {440, "Pics\\Chair\\Stul1.bmp"};
+    pic[10] ={550, "Pics\\Chair\\Stul2.bmp"};
+    pic[11] ={110, "Pics\\Wall\\brick.bmp"};
+    pic[12] ={320,  "Pics\\Wall\\mel.bmp"};
+    pic[13] ={580,  "Pics\\Wall\\wood.bmp"};
+    pic[14] ={110,  "Pics\\Krovat\\кровать.bmp"};
+    pic[15] ={230, "Pics\\Krovat\\bed1.bmp"};
+    pic[16] ={350, "Pics\\Krovat\\bed2.bmp"};
+    pic[17] ={460, "Pics\\Krovat\\bed3.bmp"};
+    pic[18] ={580, "Pics\\Krovat\\bed4.bmp"};
+    pic[19] = {540,  "Pics\\Cover\\Cover2.bmp"};
+    pic[20] = {640,  "Pics\\Cover\\Cover2.bmp"};
 
 
     for (int i = 0; i < PICT_LEN; i++)
@@ -80,25 +83,24 @@ int main()
 
 		//4to-t0
 
-		if ((pic[i].category == "Divan" || pic[i].category == "Cover") &&
-            pic[i].src_shirina > pic[i].src_vasota)
+
+		if (pic[i].src_shirina > 1.3* pic[i].src_vasota)
 		{
             pic[i].shirina = 120;
             pic[i].vasota = 50;
+            pic[i].x = 1070;
 		}
-		if ((pic[i].category == "Divan" || pic[i].category == "Cover") &&
-            pic[i].src_shirina <= pic[i].src_vasota)
+		else if (1.3 * pic[i].src_shirina < pic[i].src_vasota)
 		{
             pic[i].shirina = 75;
             pic[i].vasota = 190;
+            pic[i].x = 1090;
 		}
-
-		if (pic[i].category == "Chair" ||
-            pic[i].category == "Wall" ||
-            pic[i].category == "Krovat")
+		else
 		{
             pic[i].shirina = 100;
             pic[i].vasota = 100;
+            pic[i].x = 1090;
 		}
     }
     /*int sum = 0;
@@ -175,12 +177,12 @@ int main()
             if (knopka(mainMenu[1].x + 20,mainMenu[1].y))
             {
                 last_num_obj = bylo_kartinok;
-                pageNumber = MAIN_PAGE; аапппипаооп
+                pageNumber = MAIN_PAGE;
             }
 
 			if (knopka(mainMenu[5].x,mainMenu[5].y))
 			{
-				if (mysic_vkl_vё1kl == 0)
+				if (mysic_vkl_vkl == 0)
 				{
 					txPlaySound("on_fon.wav");
 					mysic_vkl_vkl = 1;
@@ -432,9 +434,9 @@ int main()
                     int y = random (100, txGetExtentY() - pic[i].vasota);
 
                     kartincaUP[last_num_obj] = {
-                        x,
                         y,
                         pic[i].adress,
+                        x,
                         pic[i].shirina,
                         pic[i].vasota,
                         pic[i].category,

@@ -2,11 +2,11 @@
 
 struct Picture
 {
-    int x;
     int y;
+    string adress;
+    int x;
     int shirina;
     int vasota;
-    string adress;
     string category;
     HDC img;
     int src_shirina;
