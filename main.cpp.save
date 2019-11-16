@@ -38,6 +38,7 @@ int main()
     const int VARIANTS_LEFT = txGetExtentX() - 150;
 
     bool exitProgram = false;
+    int last_num_obj = 0;
     int bylo_kartinok = 0;
     int mysic_vkl_vkl = 0;
 
@@ -45,9 +46,35 @@ int main()
     int pageNumber = 0;
 
     Picture kartincaUP[1000];
+    ifstream file ("123.txt");
+    string stroka_x;
+    string stroka_y;
+    string stroka_adress;
 
-    int last_num_obj = readFromFile(kartincaUP);
 
+
+    while (file.good())
+    {
+        getline(file,stroka_x);
+        getline(file,stroka_y);
+        getline(file,stroka_adress);
+
+         kartincaUP[last_num_obj] = {
+            atoi(stroka_y.c_str()),
+            stroka_adress,
+            atoi(stroka_x.c_str()),
+            0,
+            0,
+            "",
+            txLoadImage(stroka_adress.c_str()),
+            0,
+            0,
+            true
+        };
+        last_num_obj = last_num_obj + 1;
+    }
+
+    file.close();
 
     for (int i = 0; i < last_num_obj; i++)
     {
@@ -420,10 +447,24 @@ int main()
 
 
             //Top buttons
-            risovatKnopki(COLICHEs, topMenu,selected_category);
+            for (int n = 0; n < COLICHEs; n++)
+            {
+				txSetColor(TX_WHITE);
+                if (topMenu[n].textMessage == selected_category)
+                {
+					txSetColor(TX_RED);
+                }
+                topMenu[n].drawButton();
+            }
 
             //Right pictures 
-            risovatkartinky(selected_category, PICT_LEN, pic);
+            for (int i = 0; i < PICT_LEN; i++)
+            {
+                if (pic[i].category == selected_category)
+                {
+                    drawPic(pic[i]);
+                }
+            }
 
             for (int i = 0; i < last_num_obj; i++)
             {
@@ -498,7 +539,16 @@ int main()
     }
 
 
-    saveToFile( last_num_obj,  kartincaUP);
+    ofstream file1 ("1234.txt");
+    
+    for (int i = 0; i < last_num_obj; i++)
+    {
+    file1 << kartincaUP[i].x << endl;
+    file1 << kartincaUPi].y << endl;
+     file1 << kartincaUP[i].adress << endl;
+     }
+
+    file1.close();
 
     return 0;
 }

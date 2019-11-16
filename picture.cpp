@@ -53,3 +53,15 @@ void drawPic(Picture vk)
                           vk.img, 0, 0, vk.src_shirina, vk.src_vasota,
                           TX_WHITE);
 }
+
+void risovatkartinky(string selected_category,int PICT_LEN, Picture pic[])
+{
+      for (int i = 0; i < PICT_LEN; i++)
+            {
+                if (pic[i].category == selected_category)
+                {
+                    drawPic(pic[i]);
+                }
+            }
+
+}
