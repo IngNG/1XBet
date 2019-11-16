@@ -46,15 +46,15 @@ struct Knopka
     }
 };
 
-void risovatKnopki(const int COLICHEs, Knopka topMenu[],string selected_category)
+void risovatKnopki(const int COLICHEs, Knopka topMenu[],selected_category)
 {
-        for (int n = 0; n < COLICHEs; n++)
-        {
-            txSetColor(TX_WHITE);
-            if (topMenu[n].textMessage == selected_category)
+            for (int n = 0; n < COLICHEs; n++)
             {
-                txSetColor(TX_RED);
+				txSetColor(TX_WHITE);
+                if (topMenu[n].textMessage == selected_category)
+                {
+					txSetColor(TX_RED);
+                }
+                topMenu[n].drawButton();
             }
-            topMenu[n].drawButton();
-        }
 }

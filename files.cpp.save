@@ -62,13 +62,6 @@ int readFromFile(Picture kartincaUP[])
     }
 
     file.close();
-
-
-    return last_num_obj;
-}
-
- void saveToFile(int last_num_obj, Picture kartincaUP[])
- {
     ofstream file1 ("123.txt");
 
     for (int i = 0; i < last_num_obj; i++)
@@ -79,5 +72,8 @@ int readFromFile(Picture kartincaUP[])
      }
 
     file1.close();
+
+
+    return last_num_obj;
 }
 
