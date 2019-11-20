@@ -3,10 +3,13 @@
 #include "picture.cpp"
 #include "files.cpp"
 #include <fstream>
+#include <iostream>
+#include <string>
+#include  "dirent.h"
+
+
 using namespace std;
 
-//integer constant that mean lenght of pictures array
-const int PICT_LEN = 21;
 
 const int START_PAGE = 0;
 const int MAIN_PAGE = 1;
@@ -83,30 +86,95 @@ int main()
 
 
 
-    Picture pic[PICT_LEN];
-    pic[0] = {110,  "Pics\\Divan\\Divan1.bmp"};
-    pic[1] = {320,  "Pics\\Divan\\Divan2.bmp"};
-    pic[4] = {580, "Pics\\Divan\\Divan3.bmp"};
-    pic[5] = {640,  "Pics\\Divan\\Divan4.bmp"};
+    Picture pic[1000];
 
-    pic[2] = {110,  "Pics\\Cover\\Cover1.bmp"};
-    pic[3] = {320,  "Pics\\Cover\\Cover3.bmp"};
-    pic[6] = {110, "Pics\\Chair\\кресло1.bmp"};
-    pic[7] = {220, "Pics\\Chair\\кресло2.bmp"};
-    pic[8] = {330, "Pics\\Chair\\кресло3.bmp"};
-    pic[9] = {440, "Pics\\Chair\\Stul1.bmp"};
-    pic[10] ={550, "Pics\\Chair\\Stul2.bmp"};
-    pic[11] ={110, "Pics\\Wall\\brick.bmp"};
-    pic[12] ={320,  "Pics\\Wall\\mel.bmp"};
-    pic[13] ={580,  "Pics\\Wall\\wood.bmp"};
-    pic[14] ={110,  "Pics\\Krovat\\кровать.bmp"};
-    pic[15] ={230, "Pics\\Krovat\\bed1.bmp"};
-    pic[16] ={350, "Pics\\Krovat\\bed2.bmp"};
-    pic[17] ={460, "Pics\\Krovat\\bed3.bmp"};
-    pic[18] ={580, "Pics\\Krovat\\bed4.bmp"};
-    pic[19] = {540,  "Pics\\Cover\\Cover2.bmp"};
-    pic[20] = {640,  "Pics\\Cover\\Cover2.bmp"};
 
+ int PICT_LEN = 0;
+
+
+    DIR *dir;
+    struct dirent *ent;
+    if ((dir = opendir ("Pics\\Krovat")) != NULL)
+    {
+      while ((ent = readdir (dir)) != NULL)
+      {
+        if ((string)ent->d_name != "." &&
+            (string)ent->d_name != "..`")
+        {
+            pic[PICT_LEN] = { "Pics\\Krovat\\" + (string)ent->d_name };
+            PICT_LEN = PICT_LEN + 1;
+        }
+      }
+      closedir (dir);
+    }
+
+
+    if ((dir = opendir ("Pics\\Divan")) != NULL)
+    {
+      while ((ent = readdir (dir)) != NULL)
+      {
+        if ((string)ent->d_name != "." &&
+            (string)ent->d_name != "..`")
+        {
+            pic[PICT_LEN] = { "Pics\\Divan\\" + (string)ent->d_name };
+            PICT_LEN = PICT_LEN + 1;
+        }
+      }
+      closedir (dir);
+      }
+
+
+    if ((dir = opendir ("Pics\\Chair")) != NULL)
+    {
+      while ((ent = readdir (dir)) != NULL)
+      {
+        if ((string)ent->d_name != "." &&
+            (string)ent->d_name != "..`")
+        {
+            pic[PICT_LEN] = { "Pics\\Chair\\" + (string)ent->d_name };
+            PICT_LEN = PICT_LEN + 1;
+        }
+      }
+      closedir (dir);
+      }
+
+
+
+    if ((dir = opendir ("Pics\\Cover")) != NULL)
+    {
+      while ((ent = readdir (dir)) != NULL)
+      {
+        if ((string)ent->d_name != "." &&
+            (string)ent->d_name != "..`")
+        {
+            pic[PICT_LEN] = { "Pics\\Cover\\" + (string)ent->d_name };
+            PICT_LEN = PICT_LEN + 1;
+        }
+      }
+      closedir (dir);
+      }
+
+    if ((dir = opendir ("Pics\\Wall")) != NULL)
+    {
+      while ((ent = readdir (dir)) != NULL)
+      {
+        if ((string)ent->d_name != "." &&
+            (string)ent->d_name != "..`")
+        {
+            pic[PICT_LEN] = { "Pics\\Wall\\" + (string)ent->d_name };
+            PICT_LEN = PICT_LEN + 1;
+        }
+      }
+      closedir (dir);
+     }
+
+    Knopka topMenu[COLICHEs];
+    topMenu[0] = {55,20,180,70,"диваны","Divan" };
+    topMenu[1] = {255,20,380,70,"койка", "Krovat"};
+    topMenu[2] = {455,20,580,70,"стены", "Wall"};
+    topMenu[3] = {655,20,780,70,"кресло","Chair"};
+    topMenu[4] = {855,20,980,70,"ковры","Cover"};
+    topMenu[5] = {1055,20,1180,70,"выход",""};
 
     for (int i = 0; i < PICT_LEN; i++)
     {
@@ -119,6 +187,15 @@ int main()
 		pic[i].src_vasota=get_height (pic[i].adress.c_str());
 		pic[i].visible = true;
 
+        for (int k = 0; k < COLICHEs; k = k + 1)
+        {
+                if(pic[i].category == topMenu[k].category)
+                {
+                    pic[i].y = 100 + topMenu[k].count_pics * 130;
+                    topMenu[k].count_pics = topMenu[k].count_pics + 1;
+                }
+		}
+
 		//4to-t0
 		if (pic[i].src_shirina > 1.3* pic[i].src_vasota)
 		{
@@ -128,8 +205,8 @@ int main()
 		}
 		else if (1.3 * pic[i].src_shirina < pic[i].src_vasota)
 		{
-            pic[i].shirina = 75;
-            pic[i].vasota = 190;
+            pic[i].shirina = 50;
+            pic[i].vasota = 120;
             pic[i].x = 1090;
 		}
 		else
@@ -166,13 +243,6 @@ int main()
     mainMenu[4] = {500, 470, 680, 520, "¬ыйти"};
     mainMenu[5] = {500, 520, 680, 570, "муз_off/on"};
 
-    Knopka topMenu[COLICHEs];
-    topMenu[0] = {55,20,180,70,"диваны","Divan" };
-    topMenu[1] = {255,20,380,70,"койка", "Krovat"};
-    topMenu[2] = {455,20,580,70,"стены", "Wall"};
-    topMenu[3] = {655,20,780,70,"кресло","Chair"};
-    topMenu[4] = {855,20,980,70,"ковры","Cover"};
-    topMenu[5] = {1055,20,1180,70,"выход",""};
 
 
     int vybrannaya_kartinka  = -100;
@@ -443,7 +513,7 @@ int main()
             {
                 if (knopka(topMenu[n].x,topMenu[n].y))
                 {
-                    selected_category = topMenu[n].textMessage;
+                    selected_category = topMenu[n].category;
                 }
             }
 
@@ -456,9 +526,9 @@ int main()
                     int y = random (100, txGetExtentY() - pic[i].vasota);
 
                     kartincaUP[last_num_obj] = {
-                        y,
                         pic[i].adress,
                         x,
+                        y,
                         pic[i].shirina,
                         pic[i].vasota,
                         pic[i].category,
