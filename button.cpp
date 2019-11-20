@@ -22,8 +22,9 @@ struct Knopka
 	int x2;
 	int y2;
 	const char* text;
-	string textMessage;
+	string category;
 	const char* headerMessage;
+	int count_pics;
 
     void drawButton()
     {
@@ -32,15 +33,15 @@ struct Knopka
 
     void showMessage()
     {
-        if (knopka(x,y) and textMessage != "")
+        if (knopka(x,y) and category != "")
         {
             if (headerMessage != "" and headerMessage != nullptr)
             {
-                txMessageBox(textMessage.c_str(), headerMessage);
+                txMessageBox(category.c_str(), headerMessage);
             }
             else
             {
-                txMessageBox(textMessage.c_str());
+                txMessageBox(category.c_str());
             }
         }
     }
@@ -51,7 +52,7 @@ void risovatKnopki(const int COLICHEs, Knopka topMenu[],string selected_category
         for (int n = 0; n < COLICHEs; n++)
         {
             txSetColor(TX_WHITE);
-            if (topMenu[n].textMessage == selected_category)
+            if (topMenu[n].category == selected_category)
             {
                 txSetColor(TX_RED);
             }

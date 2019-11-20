@@ -46,9 +46,9 @@ int readFromFile(Picture kartincaUP[])
             getline(file,stroka_adress);
 
              kartincaUP[last_num_obj] = {
-                atoi(stroka_y.c_str()),
                 stroka_adress,
                 atoi(stroka_x.c_str()),
+                atoi(stroka_y.c_str()),
                 0,
                 0,
                 "",

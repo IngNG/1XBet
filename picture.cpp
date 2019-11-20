@@ -2,9 +2,9 @@
 
 struct Picture
 {
-    int y;
     string adress;
     int x;
+    int y;
     int shirina;
     int vasota;
     string category;
