@@ -1,8 +1,36 @@
+#pragma once
 #include <string>
 #include <fstream>
 #include "TXLib.h"
-
+#include <Windows.h>
+#include <string>
 using namespace std;
+
+string selectFile(HWND hWnd, bool save) {
+	const int SIZE = 100;
+	char nameFile[SIZE];
+	OPENFILENAMEA ofn;
+	ZeroMemory(&ofn, sizeof(ofn));
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner = hWnd;
+	ofn.lpstrFile = nameFile;
+	ofn.lpstrFile[0] = '\0';
+	ofn.nMaxFile = SIZE;
+	ofn.nFilterIndex = 1;
+	ofn.lpstrFileTitle = NULL;
+	ofn.lpstrInitialDir = NULL;
+	ofn.Flags = OFN_CREATEPROMPT;
+
+    if (save) {
+        GetSaveFileNameA(&ofn);
+        }
+	else  {
+        GetOpenFileNameA(&ofn);
+        }
+	return nameFile;
+}
+
+
 
 int get_height(string adress)
 {
@@ -29,7 +57,9 @@ int get_width(string adress)
 int readFromFile(Picture kartincaUP[])
 {
     int last_num_obj = 0;
-    ifstream file ("123.txt");
+
+	string filename = selectFile(txWindow(), false);
+    ifstream file (filename);
     string stroka_x;
     string stroka_y;
     string stroka_adress;
@@ -69,7 +99,7 @@ int readFromFile(Picture kartincaUP[])
 
  void saveToFile(int last_num_obj, Picture kartincaUP[])
  {
-    ofstream file1 ("123.txt");
+    ofstream file1 (selectFile(txWindow(), true));
 
     for (int i = 0; i < last_num_obj; i++)
     {
@@ -77,6 +107,10 @@ int readFromFile(Picture kartincaUP[])
         file1 << kartincaUP[i].y << endl;
          file1 << kartincaUP[i].adress << endl;
      }
+
+
+		txEnd();
+		txSleep(10);
 
     file1.close();
 }

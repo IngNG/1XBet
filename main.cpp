@@ -38,6 +38,7 @@ int main()
     txCreateWindow(1200, 800);
     HDC background = txLoadImage("Pics\\Background2.bmp");
 
+    SetWindowTextA(txWindow(), "Конструктор квартиры");
     const int VARIANTS_LEFT = txGetExtentX() - 150;
 
     bool exitProgram = false;
@@ -49,8 +50,8 @@ int main()
 
     Picture kartincaUP[1000];
 
-    int last_num_obj = readFromFile(kartincaUP);
-
+    int last_num_obj;
+    last_num_obj = readFromFile(kartincaUP);
 
     for (int i = 0; i < last_num_obj; i++)
     {
@@ -168,6 +169,7 @@ int main()
       closedir (dir);
      }
 
+
     Knopka topMenu[COLICHEs];
     topMenu[0] = {55,20,180,70,"диваны","Divan" };
     topMenu[1] = {255,20,380,70,"койка", "Krovat"};
@@ -268,7 +270,9 @@ int main()
 
             if (knopka(mainMenu[0].x + 20,mainMenu[0].y))
             {
-                pageNumber = MAIN_PAGE;
+                 int last_num_obj;
+                 last_num_obj = readFromFile(kartincaUP);
+                 pageNumber = MAIN_PAGE;
             }
             if (knopka(mainMenu[3].x + 20,mainMenu[3].y))
             {
@@ -566,7 +570,6 @@ int main()
     {
         txDeleteDC(pic[i].img);
     }
-
 
     saveToFile( last_num_obj,  kartincaUP);
 
