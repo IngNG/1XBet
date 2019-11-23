@@ -19,38 +19,8 @@ const int MENU_INFO = 3;
 const int COLICHEs = 6;
 
 
-void drawPeremennya(int x, int y, int perem)
+void zapolnitKartinki(int last_num_obj,Picture kartincaUP[])
 {
-	char str[100];
-	sprintf(str, "%d", perem);
-	txTextOut(x, y, str);
-}
-void drawPeremennya(int x, int y, bool perem)
-{
-	if (perem == true)
-		txTextOut(x, y, "true");
-	else
-		txTextOut(x, y, "true");
-}
-
-int main()
-{
-    txCreateWindow(1200, 800);
-    HDC background = txLoadImage("Pics\\Background2.bmp");
-
-    const int VARIANTS_LEFT = txGetExtentX() - 150;
-
-    bool exitProgram = false;
-    int bylo_kartinok = 0;
-    int mysic_vkl_vkl = 0;
-
-    string selected_category = "1";
-    int pageNumber = 0;
-
-    Picture kartincaUP[1000];
-
-    int last_num_obj = readFromFile(kartincaUP);
-
 
     for (int i = 0; i < last_num_obj; i++)
     {
@@ -81,15 +51,45 @@ int main()
 		}
     }
 
+}
 
+void drawPeremennya(int x, int y, int perem)
+{
+	char str[100];
+	sprintf(str, "%d", perem);
+	txTextOut(x, y, str);
+}
+void drawPeremennya(int x, int y, bool perem)
+{
+	if (perem == true)
+		txTextOut(x, y, "true");
+	else
+		txTextOut(x, y, "true");
+}
 
+int main()
+{
+    txCreateWindow(1200, 800);
+    HDC background = txLoadImage("Pics\\Background2.bmp");
 
+    const int VARIANTS_LEFT = txGetExtentX() - 150;
+
+    bool exitProgram = false;
+    int mysic_vkl_vkl = 0;
+
+    string selected_category = "1";
+    int pageNumber = 0;
+
+    Picture kartincaUP[1000];
+
+    int last_num_obj = 0;
+    int bylo_kartinok = last_num_obj;
 
 
     Picture pic[1000];
 
 
- int PICT_LEN = 0;
+    int PICT_LEN = 0;
 
 
     DIR *dir;
@@ -269,6 +269,10 @@ int main()
             if (knopka(mainMenu[0].x + 20,mainMenu[0].y))
             {
                 pageNumber = MAIN_PAGE;
+                last_num_obj = readFromFile(kartincaUP);
+                bylo_kartinok =  pageNumber;
+                zapolnitKartinki(last_num_obj, kartincaUP);
+
             }
             if (knopka(mainMenu[3].x + 20,mainMenu[3].y))
             {
@@ -334,8 +338,8 @@ int main()
 			txRectangle(300, 100, 900, 470);
             txDrawText(300,100,900,700,
 					"информация\n"
-					"создатели: Чираков Даниил Павлович\n"
-					"Боровков АНдрей Владимирович\n"
+					"создатели: Чираков Даниил \n"
+					"Боровков Андрей Владимирович\n"
 					"проект написан по мативам игры\n"
 					"Sim Siti\n"
 					"только в этом проекте вы будете редактировать\n"
@@ -545,6 +549,7 @@ int main()
             if (GetAsyncKeyState(VK_ESCAPE))
             {
                 exitProgram = true;
+                bylo_kartinok = last_num_obj;
             }
         }
         /*
@@ -568,7 +573,7 @@ int main()
     }
 
 
-    saveToFile( last_num_obj,  kartincaUP);
+    saveToFile( bylo_kartinok,  kartincaUP);
 
     return 0;
 }
