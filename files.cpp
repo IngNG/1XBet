@@ -1,8 +1,31 @@
+#pragma once
 #include <string>
 #include <fstream>
 #include "TXLib.h"
+#include "Windows.h"
 
 using namespace std;
+
+
+string selectFile(HWND hWnd)
+{
+	const int SIZE = 100;
+	char nameFile[SIZE];
+	OPENFILENAMEA ofn;
+	ZeroMemory(&ofn, sizeof(ofn));
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner = hWnd;
+	ofn.lpstrFile = nameFile;
+	ofn.lpstrFile[0] = '\0';
+	ofn.nMaxFile = SIZE;
+	ofn.nFilterIndex = 1;
+	ofn.lpstrFileTitle = NULL;
+	ofn.lpstrInitialDir = NULL;
+	ofn.Flags = OFN_CREATEPROMPT;
+
+	GetOpenFileNameA(&ofn);
+	return nameFile;
+}
 
 int get_height(string adress)
 {
@@ -26,13 +49,20 @@ int get_width(string adress)
 }
 
 
+
+
 int readFromFile(Picture kartincaUP[])
 {
     int last_num_obj = 0;
-    ifstream file ("123.txt");
+    setlocale(0,"");
+	string filename = selectFile(txWindow());
+    ifstream file (filename);
     string stroka_x;
     string stroka_y;
     string stroka_adress;
+
+
+
 
 
 

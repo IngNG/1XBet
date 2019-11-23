@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>FlatRedactor build log</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<body>
+<tt>
+Build started on: <u>23-11-2019 at 18:50.33</u><br />
+Build ended on: <u>23-11-2019 at 18:50.34</u><p />
+<b>-------------- Build: Debug in FlatRedactor (compiler: GNU GCC Compiler - Strict + Fast (SINGLE FILES ONLY))---------------</b><br />
+mingw32-g++.exe "C:\Users\Student\Desktop\FlatRedactor-master\main.cpp" -o flatRedactor.exe -mwindows  -Wall -fexceptions  -g<br />
+In file included from C:\Users\Student\Desktop\FlatRedactor-master\main.cpp:2:0:<br />
+C:\Users\Student\Desktop\FlatRedactor-master\button.cpp: In member function 'void Knopka::showMessage()':<br />
+<font color="#0000ff">C:\Users\Student\Desktop\FlatRedactor-master\button.cpp:38:34: warning: comparison with string literal results in unspecified behaviour [-Waddress]</font><br />
+             if (headerMessage != "" and headerMessage != nullptr)<br />
+                                  ^<br />
+C:\Users\Student\Desktop\FlatRedactor-master\main.cpp: In function 'int chtenie(std::string, int)':<br />
+<font color="#ff0000">C:\Users\Student\Desktop\FlatRedactor-master\main.cpp:32:13: error: 'pic' was not declared in this scope</font><br />
+             pic[PICT_LEN] = { adress + (string)ent-&gt;d_name };<br />
+             ^<br />
+C:\Users\Student\Desktop\FlatRedactor-master\main.cpp: In function 'int main()':<br />
+<font color="#ff0000">C:\Users\Student\Desktop\FlatRedactor-master\main.cpp:115:55: error: too few arguments to function 'int chtenie(std::string, int)'</font><br />
+                    PICT_LEN = chtenie("Pics\\Krovat\\") ;<br />
+                                                       ^<br />
+C:\Users\Student\Desktop\FlatRedactor-master\main.cpp:21:5: note: declared here<br />
+ int chtenie(string adress, int PICT_LEN)<br />
+     ^<br />
+<font color="#a00000">Process terminated with status 1 (0 minutes, 1 seconds)</font><br />
+<font color="#a00000">2 errors, 1 warnings (0 minutes, 1 seconds)</font><br />
+</tt>
+</body>
+</html>

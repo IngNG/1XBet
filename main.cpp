@@ -18,6 +18,27 @@ const int MENU_INFO = 3;
 
 const int COLICHEs = 6;
 
+int chtenie(string adress, int PICT_LEN)
+{
+    DIR *dir;
+    struct dirent *ent;
+    if ((dir = opendir (adress.c_str())) != NULL)
+    {
+      while ((ent = readdir (dir)) != NULL)
+      {
+        if ((string)ent->d_name != "." &&
+            (string)ent->d_name != "..`")
+        {
+            pic[PICT_LEN] = { adress + (string)ent->d_name };
+            PICT_LEN = PICT_LEN + 1;
+        }
+      }
+      closedir (dir);
+      }
+
+      return PICT_LEN;
+}
+
 
 void drawPeremennya(int x, int y, int perem)
 {
@@ -91,7 +112,7 @@ int main()
 
  int PICT_LEN = 0;
 
-
+                   PICT_LEN = chtenie("Pics\\Krovat\\") ;
     DIR *dir;
     struct dirent *ent;
     if ((dir = opendir ("Pics\\Krovat")) != NULL)
