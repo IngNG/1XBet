@@ -6,8 +6,8 @@
 #include <string>
 using namespace std;
 
-//save file
-string selectFile(HWND hWnd) {
+string selectFile(HWND hWnd, bool save)
+{
 	const int SIZE = 100;
 	char nameFile[SIZE];
 	OPENFILENAMEA ofn;
@@ -22,9 +22,19 @@ string selectFile(HWND hWnd) {
 	ofn.lpstrInitialDir = NULL;
 	ofn.Flags = OFN_CREATEPROMPT;
 
-	GetOpenFileNameA(&ofn);
+    if (save)
+    {
+        GetSaveFileNameA(&ofn);
+    }
+	else
+	{
+        GetOpenFileNameA(&ofn);
+    }
+
 	return nameFile;
 }
+
+
 
 int get_height(string adress)
 {
@@ -43,7 +53,6 @@ int get_width(string adress)
     fread(info, sizeof(unsigned char), 54, f);
     int width = *(int*)&info[18];
 
-
     return width;
 }
 
@@ -51,13 +60,12 @@ int get_width(string adress)
 int readFromFile(Picture kartincaUP[])
 {
     int last_num_obj = 0;
-    string filename = selectFile(txWindow());
+
+	string filename = selectFile(txWindow(), false);
     ifstream file (filename);
     string stroka_x;
     string stroka_y;
     string stroka_adress;
-
-
 
     while (file.good())
     {
@@ -86,20 +94,19 @@ int readFromFile(Picture kartincaUP[])
 
     file.close();
 
-
     return last_num_obj;
 }
 
- void saveToFile(int last_num_obj, Picture kartincaUP[])
- {
-    ofstream file1 ("123.txt");
+void saveToFile(int last_num_obj, Picture kartincaUP[])
+{
+    ofstream file1 (selectFile(txWindow(), true));
 
     for (int i = 0; i < last_num_obj; i++)
     {
         file1 << kartincaUP[i].x << endl;
         file1 << kartincaUP[i].y << endl;
-         file1 << kartincaUP[i].adress << endl;
-     }
+        file1 << kartincaUP[i].adress << endl;
+    }
 
     file1.close();
 }

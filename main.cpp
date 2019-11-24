@@ -5,7 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include  "dirent.h"
+#include "dirent.h"
 
 
 using namespace std;
@@ -18,10 +18,30 @@ const int MENU_INFO = 3;
 
 const int COLICHEs = 6;
 
+/*
+int chtenie(string adress, int PICT_LEN)
+{
+    DIR *dir;
+    struct dirent *ent;
+    if ((dir = opendir (adress.c_str())) != NULL)
+    {
+      while ((ent = readdir (dir)) != NULL)
+      {
+        if ((string)ent->d_name != "." &&
+            (string)ent->d_name != "..`")
+        {
+            pic[PICT_LEN] = { adress + (string)ent->d_name };
+            PICT_LEN = PICT_LEN + 1;
+        }
+      }
+      closedir (dir);
+      }
 
+      return PICT_LEN;
+}
+*/
 void zapolnitKartinki(int last_num_obj,Picture kartincaUP[])
 {
-
     for (int i = 0; i < last_num_obj; i++)
     {
         string stroka = kartincaUP[i].adress;
@@ -216,34 +236,14 @@ int main()
             pic[i].x = 1090;
 		}
     }
-    /*int sum = 0;
-    for (int i = 0; i < PICT_LEN; i++)
-    {
-        if (pic[i].category == "Cover")
-        sum = sum+1;
-    }
-    int nomer = 0;
-    for (int i = 0; i < PICT_LEN; i++)
-    {
-        if (pic[i].category == "Cover")
-        {
-            pic[i].x =  100 + 600 * sum
-            nomer = nomer+1;
-        }
-    }
 
-    cout << sum;
-    txSleep(1000);
-    */
     Knopka mainMenu[6];
     mainMenu[0] = {500, 270, 680, 320, "Начать"};
     mainMenu[1] = {500, 320, 680, 370, "Продолжить"};
     mainMenu[2] = {500, 370, 680, 420, "Настройки",  "Настройки недоступны", "Ошибка"};
-    mainMenu[3] = {500, 420, 680, 470, "Информация"};//, "ну такое",        "Поиск"};
+    mainMenu[3] = {500, 420, 680, 470, "Информация"};
     mainMenu[4] = {500, 470, 680, 520, "Выйти"};
     mainMenu[5] = {500, 520, 680, 570, "муз_off/on"};
-
-
 
     int vybrannaya_kartinka  = -100;
     bool clicked = false;
@@ -374,8 +374,8 @@ int main()
 
             if (vybrannaya_kartinka >= 0 && !(txMouseButtons() & 1) && kartincaUP[vybrannaya_kartinka].clickedBlock)
             {
-               kartincaUP[vybrannaya_kartinka].clickedBlock = false;
-               clicked = false;
+                kartincaUP[vybrannaya_kartinka].clickedBlock = false;
+                clicked = false;
             }
 
             txBitBlt (txDC(), 0, 0, txGetExtentX(), txGetExtentY(), background, 0, 0);
@@ -384,7 +384,6 @@ int main()
 
             txSelectFont("Arial", 40);
             txDrawText(300,100,900,150,"Создай ");
-
 
 			//granica
 			for (int i = 0; i < last_num_obj ; i++)
@@ -456,9 +455,7 @@ int main()
 			}
 
 
-
             //granica kartinok
-
 			for (int i = 0; i < last_num_obj ; i++)
 			{
                 for (int k = 0; k < last_num_obj ; k++)
@@ -490,7 +487,6 @@ int main()
                     }
                 }
 			}
-
 
 
             //Top buttons
