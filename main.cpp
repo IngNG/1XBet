@@ -570,6 +570,7 @@ int main()
 
 
     saveToFile( bylo_kartinok,  kartincaUP);
+    txMessageBox("Вы сохранились в файл ");
 
     return 0;
 }
