@@ -3,7 +3,7 @@
 bool knopka(int x, int y)
 {
     if (txMouseX() > x       and
-        txMouseX() < x + 180 and
+        txMouseX() < x + 150 and
         txMouseY() > y       and
         txMouseY() < y + 50  and
         txMouseButtons() & 1)
