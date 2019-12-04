@@ -292,6 +292,47 @@ int main()
                 txMessageBox("Сохранено в 1.bmp");
             }
 
+            // копирование
+			if (GetAsyncKeyState(VK_LCONTROL) &&
+				GetAsyncKeyState(VK_LEFT) &&
+				kartincaUP[vybrannaya_kartinka].category == "Wall")
+			{
+				kartincaUP[last_num_obj] = kartincaUP[vybrannaya_kartinka];
+				kartincaUP[last_num_obj].x = kartincaUP[last_num_obj].x - 100;
+
+				last_num_obj++;
+			}
+
+			if (GetAsyncKeyState(VK_LCONTROL) &&
+				GetAsyncKeyState(VK_RIGHT) &&
+				kartincaUP[vybrannaya_kartinka].category == "Wall")
+			{
+				kartincaUP[last_num_obj] = kartincaUP[vybrannaya_kartinka];
+				kartincaUP[last_num_obj].x = kartincaUP[last_num_obj].x + 100;
+
+				last_num_obj++;
+			}
+
+			if (GetAsyncKeyState(VK_LCONTROL) &&
+				GetAsyncKeyState(VK_UP) &&
+				kartincaUP[vybrannaya_kartinka].category == "Wall")
+			{
+				kartincaUP[last_num_obj] = kartincaUP[vybrannaya_kartinka];
+				kartincaUP[last_num_obj].y = kartincaUP[last_num_obj].y - 100;
+
+				last_num_obj++;
+			}
+
+			if (GetAsyncKeyState(VK_LCONTROL) &&
+				GetAsyncKeyState(VK_DOWN) &&
+				kartincaUP[vybrannaya_kartinka].category == "Wall")
+			{
+				kartincaUP[last_num_obj] = kartincaUP[vybrannaya_kartinka];
+				kartincaUP[last_num_obj].y = kartincaUP[last_num_obj].y + 100;
+
+				last_num_obj++;
+			}
+
             //peremeshenie
 			for(int i = 0; i < last_num_obj; i++)
 			{
@@ -353,6 +394,18 @@ int main()
             //Right pictures 
             risovatkartinky(selected_category, PICT_LEN, pic);
 
+            if (selected_category == "Wall")
+            {
+				txSelectFont("Arial", 30);
+				txDrawText(VARIANTS_LEFT,600,1200,800,
+					"Нажмите\n"
+					"NUM2, NUM4,\n"
+					"NUM6, NUM8\n"
+					" и стен \n"
+					"станет\n"
+					"больше");
+            }
+
             for (int i = 0; i < last_num_obj; i++)
             {
                 if (kartincaUP[i].visible)
@@ -375,7 +428,7 @@ int main()
                 }
             }
 
-
+            //Создание новой картинки
             for (int i = 0; i < PICT_LEN; i++)
             {
                 if (selected_category == pic[i].category and pic[i].knopka())
