@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include "dirent.h"
 
 
 using namespace std;
@@ -15,9 +16,62 @@ const int MAIN_PAGE = 1;
 const int MENU_OPSHIONS = 2;
 const int MENU_INFO = 3;
 
-const int COLICHEs = 7;
+const int COLICHEs = 6;
 
+/*
+int chtenie(string adress, int PICT_LEN)
+{
+    DIR *dir;
+    struct dirent *ent;
+    if ((dir = opendir (adress.c_str())) != NULL)
+    {
+      while ((ent = readdir (dir)) != NULL)
+      {
+        if ((string)ent->d_name != "." &&
+            (string)ent->d_name != "..`")
+        {
+            pic[PICT_LEN] = { adress + (string)ent->d_name };
+            PICT_LEN = PICT_LEN + 1;
+        }
+      }
+      closedir (dir);
+      }
 
+      return PICT_LEN;
+}
+*/
+void zapolnitKartinki(int last_num_obj,Picture kartincaUP[])
+{
+    for (int i = 0; i < last_num_obj; i++)
+    {
+        string stroka = kartincaUP[i].adress;
+        int pos1 = stroka.find("\\") ;
+        int pos2 = stroka.find("\\", pos1+ 1) ;
+        kartincaUP[i].category=  stroka.substr(pos1 +1, pos2- pos1 - 1);
+     	kartincaUP[i].img = txLoadImage(kartincaUP[i].adress.c_str());
+		kartincaUP[i].src_shirina = get_width(kartincaUP[i].adress.c_str());
+		kartincaUP[i].src_vasota=get_height (kartincaUP[i].adress.c_str());
+		kartincaUP[i].visible = true;
+
+		//4to-t0
+		if (kartincaUP[i].src_shirina > 1.3* kartincaUP[i].src_vasota)
+		{
+            kartincaUP[i].shirina = 120;
+            kartincaUP[i].vasota = 50;
+		}
+		else if (1.3 * kartincaUP[i].src_shirina < kartincaUP[i].src_vasota)
+		{
+            kartincaUP[i].shirina = 75;
+            kartincaUP[i].vasota = 190;
+		}
+		else
+		{
+            kartincaUP[i].shirina = 100;
+            kartincaUP[i].vasota = 100;
+		}
+    }
+
+}
 
 void drawPeremennya(int x, int y, int perem)
 {
@@ -38,8 +92,6 @@ int main()
     txCreateWindow(1200, 800);
     HDC background = txLoadImage("Pics\\Background2.bmp");
 
-
-
     const int VARIANTS_LEFT = txGetExtentX() - 150;
 
     bool exitProgram = false;
@@ -58,21 +110,91 @@ int main()
 
 
     int PICT_LEN = 0;
-    PICT_LEN = chtenie("Pics\\Krovat\\", PICT_LEN, pic);
-    PICT_LEN = chtenie("Pics\\Divan\\", PICT_LEN,pic);
-    PICT_LEN = chtenie("Pics\\Wall\\", PICT_LEN,pic);
-    PICT_LEN = chtenie("Pics\\Cover\\", PICT_LEN,pic);
-    PICT_LEN = chtenie("Pics\\Chair\\", PICT_LEN,pic);
 
+
+    DIR *dir;
+    struct dirent *ent;
+    if ((dir = opendir ("Pics\\Krovat")) != NULL)
+    {
+      while ((ent = readdir (dir)) != NULL)
+      {
+        if ((string)ent->d_name != "." &&
+            (string)ent->d_name != "..`")
+        {
+            pic[PICT_LEN] = { "Pics\\Krovat\\" + (string)ent->d_name };
+            PICT_LEN = PICT_LEN + 1;
+        }
+      }
+      closedir (dir);
+    }
+
+
+    if ((dir = opendir ("Pics\\Divan")) != NULL)
+    {
+      while ((ent = readdir (dir)) != NULL)
+      {
+        if ((string)ent->d_name != "." &&
+            (string)ent->d_name != "..`")
+        {
+            pic[PICT_LEN] = { "Pics\\Divan\\" + (string)ent->d_name };
+            PICT_LEN = PICT_LEN + 1;
+        }
+      }
+      closedir (dir);
+      }
+
+
+    if ((dir = opendir ("Pics\\Chair")) != NULL)
+    {
+      while ((ent = readdir (dir)) != NULL)
+      {
+        if ((string)ent->d_name != "." &&
+            (string)ent->d_name != "..`")
+        {
+            pic[PICT_LEN] = { "Pics\\Chair\\" + (string)ent->d_name };
+            PICT_LEN = PICT_LEN + 1;
+        }
+      }
+      closedir (dir);
+      }
+
+
+
+    if ((dir = opendir ("Pics\\Cover")) != NULL)
+    {
+      while ((ent = readdir (dir)) != NULL)
+      {
+        if ((string)ent->d_name != "." &&
+            (string)ent->d_name != "..`")
+        {
+            pic[PICT_LEN] = { "Pics\\Cover\\" + (string)ent->d_name };
+            PICT_LEN = PICT_LEN + 1;
+        }
+      }
+      closedir (dir);
+      }
+
+    if ((dir = opendir ("Pics\\Wall")) != NULL)
+    {
+      while ((ent = readdir (dir)) != NULL)
+      {
+        if ((string)ent->d_name != "." &&
+            (string)ent->d_name != "..`")
+        {
+            pic[PICT_LEN] = { "Pics\\Wall\\" + (string)ent->d_name };
+            PICT_LEN = PICT_LEN + 1;
+        }
+      }
+      closedir (dir);
+     }
 
     Knopka topMenu[COLICHEs];
     topMenu[0] = {55,20,180,70,"диваны","Divan" };
-    topMenu[1] = {205,20,330,70,"койка", "Krovat"};
-    topMenu[2] = {355,20,480,70,"стены", "Wall"};
-    topMenu[3] = {505,20,630,70,"кресло","Chair"};
-    topMenu[4] = {655,20,780,70,"ковры","Cover"};
-    topMenu[5] = {805,20,960,70,"cохранить",""};
-    topMenu[6] = {1055,20,1180,70,"выход",""};
+    topMenu[1] = {255,20,380,70,"койка", "Krovat"};
+    topMenu[2] = {455,20,580,70,"стены", "Wall"};
+    topMenu[3] = {655,20,780,70,"кресло","Chair"};
+    topMenu[4] = {855,20,980,70,"ковры","Cover"};
+    topMenu[5] = {1055,20,1180,70,"выход",""};
 
     for (int i = 0; i < PICT_LEN; i++)
     {
@@ -87,11 +209,11 @@ int main()
 
         for (int k = 0; k < COLICHEs; k = k + 1)
         {
-            if(pic[i].category == topMenu[k].category)
-            {
-                pic[i].y = 10 + topMenu[k].count_pics * 130;
-                topMenu[k].count_pics = topMenu[k].count_pics + 1;
-            }
+                if(pic[i].category == topMenu[k].category)
+                {
+                    pic[i].y = 100 + topMenu[k].count_pics * 130;
+                    topMenu[k].count_pics = topMenu[k].count_pics + 1;
+                }
 		}
 
 		//4to-t0
@@ -147,9 +269,10 @@ int main()
             if (knopka(mainMenu[0].x + 20,mainMenu[0].y))
             {
                 pageNumber = MAIN_PAGE;
-                last_num_obj = readFromFile(kartincaUP, pic, PICT_LEN);
+                last_num_obj = readFromFile(kartincaUP);
                 bylo_kartinok =  pageNumber;
                 zapolnitKartinki(last_num_obj, kartincaUP);
+
             }
             if (knopka(mainMenu[3].x + 20,mainMenu[3].y))
             {
@@ -263,7 +386,25 @@ int main()
             txDrawText(300,100,900,150,"Создай ");
 
 			//granica
-			granica(kartincaUP, last_num_obj, VARIANTS_LEFT);
+			for (int i = 0; i < last_num_obj ; i++)
+			{
+				if (kartincaUP[i].x < 10)
+				{
+					kartincaUP[i].x = 10 ;
+				}
+				if (kartincaUP[i].y < 100)
+				{
+					kartincaUP[i].y = 100;
+				}
+				if (kartincaUP[i].x + kartincaUP[i].shirina > VARIANTS_LEFT)
+				{
+					kartincaUP[i].x = VARIANTS_LEFT - kartincaUP[i].shirina;
+				}
+				if (kartincaUP[i].y + kartincaUP[i].vasota > txGetExtentY())
+				{
+					kartincaUP[i].y = txGetExtentY()- kartincaUP[i].vasota;
+				}
+			}
 
             txBitBlt(txDC(), 0, 0, txGetExtentX(), txGetExtentY(), background, 0, 0);
 
@@ -271,25 +412,11 @@ int main()
 			txSetColor(TX_WHITE);
             txRectangle(10, 100, VARIANTS_LEFT, txGetExtentY() - 2);
 
-            //Выход
-            if (knopka(topMenu[6].x,topMenu[6].y))
+            if (knopka(VARIANTS_LEFT,30))
             {
                pageNumber = START_PAGE;
                bylo_kartinok = last_num_obj;
                last_num_obj = 0;
-            }
-
-            //Сохранение
-            if (knopka(topMenu[5].x,topMenu[5].y))
-            {
-                bylo_kartinok = last_num_obj;
-                saveToFile( bylo_kartinok,  kartincaUP);
-            }
-
-            if (GetAsyncKeyState(VK_SNAPSHOT))
-            {
-                ScreenCapture(10,100,1000,700, "1.bmp", txWindow());
-                txMessageBox("Сохранено в 1.bmp");
             }
 
             //peremeshenie
@@ -302,7 +429,22 @@ int main()
 			}
 
 			//peremeshenie strelkami
-			dvigatStrelkami(kartincaUP, vybrannaya_kartinka);
+			if (vybrannaya_kartinka >= 0 && GetAsyncKeyState(VK_LEFT))
+			{
+				kartincaUP[vybrannaya_kartinka].x -= 3;
+			}
+			else if (vybrannaya_kartinka >= 0 && GetAsyncKeyState(VK_RIGHT))
+			{
+				kartincaUP[vybrannaya_kartinka].x += 3;
+			}
+			if (vybrannaya_kartinka >= 0 && GetAsyncKeyState(VK_UP))
+			{
+				kartincaUP[vybrannaya_kartinka].y -= 3;
+			}
+			else if (vybrannaya_kartinka >= 0 && GetAsyncKeyState(VK_DOWN))
+			{
+				kartincaUP[vybrannaya_kartinka].y += 3;
+			}
 
 			if(vybrannaya_kartinka >= 0 && GetAsyncKeyState(VK_DELETE))
 			{
@@ -367,7 +509,7 @@ int main()
                 }
             }
 
-            for (int n = 0; n < COLICHEs; n++)
+            for (int n = 0; n < 6; n++)
             {
                 if (knopka(topMenu[n].x,topMenu[n].y))
                 {
@@ -406,6 +548,13 @@ int main()
                 bylo_kartinok = last_num_obj;
             }
         }
+        /*
+       drawPeremennya(100,100,kartincaUP[0].src_shirina );
+       drawPeremennya(200,100,kartincaUP[0].clickedBlock );
+
+       drawPeremennya(100,140,kartincaUP[1].src_shirina );
+       drawPeremennya(200,140,kartincaUP[1].clickedBlock );
+           */
 
         txSleep(10);
         txEnd();
@@ -419,10 +568,9 @@ int main()
         txDeleteDC(pic[i].img);
     }
 
-    for (int i = 0; i < bylo_kartinok; i++)
-    {
-        txDeleteDC(kartincaUP[i].img);
-    }
+
+    saveToFile( bylo_kartinok,  kartincaUP);
+    txMessageBox("Вы сохранились в файл ");
 
     return 0;
 }
