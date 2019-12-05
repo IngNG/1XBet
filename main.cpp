@@ -17,6 +17,8 @@ const int MENU_INFO = 3;
 
 const int COLICHEs = 7;
 
+const bool DEBUG = false;
+
 
 
 void drawPeremennya(int x, int y, int perem)
@@ -32,6 +34,31 @@ void drawPeremennya(int x, int y, bool perem)
 	else
 		txTextOut(x, y, "true");
 }
+
+void obrysovat_fon(const int VARIANTS_LEFT, Picture kartincaUP[], int last_num_obj, int vybrannaya_kartinka )
+{
+		txSetFillColor(TX_GRAY);
+		txSetColor(TX_WHITE);
+		txRectangle(10, 100, VARIANTS_LEFT, txGetExtentY() - 2);
+
+		for (int k = 0; k < last_num_obj; k++)
+		{
+			if (kartincaUP[k].visible)
+			{
+				if (k == vybrannaya_kartinka)
+				{
+					Picture vk = kartincaUP[k];
+					txSetColor(TX_RED, 3);
+					txRectangle (vk.x-2, vk.y-2, vk.x + vk.shirina+2, vk.y + vk.vasota+2);
+				}
+				drawPic(kartincaUP[k]);
+			}
+		}
+
+}
+
+
+
 
 int main()
 {
@@ -124,6 +151,9 @@ int main()
     mainMenu[5] = {500, 520, 680, 570, "муз_off/on"};
 
     int vybrannaya_kartinka  = -100;
+    int kol_sten = 0;
+	bool vybrana_stena = false;
+
     bool clicked = false;
     while(!exitProgram)
     {
@@ -259,9 +289,6 @@ int main()
             txSetFillColor(TX_WHITE);
             txSetColor(TX_WHITE);
 
-            txSelectFont("Arial", 40);
-            txDrawText(300,100,900,150,"Создай ");
-
 			//granica
 			granica(kartincaUP, last_num_obj, VARIANTS_LEFT);
 
@@ -286,52 +313,12 @@ int main()
                 saveToFile( bylo_kartinok,  kartincaUP);
             }
 
+            //Скриншот
             if (GetAsyncKeyState(VK_SNAPSHOT))
             {
                 ScreenCapture(10,100,1000,700, "1.bmp", txWindow());
                 txMessageBox("Сохранено в 1.bmp");
             }
-
-            // копирование
-			if (GetAsyncKeyState(VK_LCONTROL) &&
-				GetAsyncKeyState(VK_LEFT) &&
-				kartincaUP[vybrannaya_kartinka].category == "Wall")
-			{
-				kartincaUP[last_num_obj] = kartincaUP[vybrannaya_kartinka];
-				kartincaUP[last_num_obj].x = kartincaUP[last_num_obj].x - 100;
-
-				last_num_obj++;
-			}
-
-			if (GetAsyncKeyState(VK_LCONTROL) &&
-				GetAsyncKeyState(VK_RIGHT) &&
-				kartincaUP[vybrannaya_kartinka].category == "Wall")
-			{
-				kartincaUP[last_num_obj] = kartincaUP[vybrannaya_kartinka];
-				kartincaUP[last_num_obj].x = kartincaUP[last_num_obj].x + 100;
-
-				last_num_obj++;
-			}
-
-			if (GetAsyncKeyState(VK_LCONTROL) &&
-				GetAsyncKeyState(VK_UP) &&
-				kartincaUP[vybrannaya_kartinka].category == "Wall")
-			{
-				kartincaUP[last_num_obj] = kartincaUP[vybrannaya_kartinka];
-				kartincaUP[last_num_obj].y = kartincaUP[last_num_obj].y - 100;
-
-				last_num_obj++;
-			}
-
-			if (GetAsyncKeyState(VK_LCONTROL) &&
-				GetAsyncKeyState(VK_DOWN) &&
-				kartincaUP[vybrannaya_kartinka].category == "Wall")
-			{
-				kartincaUP[last_num_obj] = kartincaUP[vybrannaya_kartinka];
-				kartincaUP[last_num_obj].y = kartincaUP[last_num_obj].y + 100;
-
-				last_num_obj++;
-			}
 
             //peremeshenie
 			for(int i = 0; i < last_num_obj; i++)
@@ -363,9 +350,13 @@ int main()
                         kartincaUP[i].x < kartincaUP[k].x + kartincaUP[k].shirina  &&
                         kartincaUP[k].x < kartincaUP[i].x + kartincaUP[i].shirina  &&
                         kartincaUP[i].y < kartincaUP[k].y + kartincaUP[k].vasota &&
-                         kartincaUP[k].y < kartincaUP[i].y + kartincaUP[i].vasota)
+                        kartincaUP[k].y < kartincaUP[i].y + kartincaUP[i].vasota)
                     {
-                        txTextOut(100, 100, "столкнулись");
+                        //Пишем, но не всегда
+						if (DEBUG)
+						{
+							txTextOut(100, 100, "столкнулись");
+						}
 
                         if (kartincaUP[i].x < kartincaUP[k].x)
                         {
@@ -394,18 +385,8 @@ int main()
             //Right pictures 
             risovatkartinky(selected_category, PICT_LEN, pic);
 
-            if (selected_category == "Wall")
-            {
-				txSelectFont("Arial", 30);
-				txDrawText(VARIANTS_LEFT,600,1200,800,
-					"Нажмите\n"
-					"NUM2, NUM4,\n"
-					"NUM6, NUM8\n"
-					" и стен \n"
-					"станет\n"
-					"больше");
-            }
 
+            // тут рисуются выбранные картинки
             for (int i = 0; i < last_num_obj; i++)
             {
                 if (kartincaUP[i].visible)
@@ -420,6 +401,7 @@ int main()
                 }
             }
 
+            //Выбор категории
             for (int n = 0; n < COLICHEs; n++)
             {
                 if (knopka(topMenu[n].x,topMenu[n].y))
@@ -428,7 +410,19 @@ int main()
                 }
             }
 
-            //Создание новой картинки
+            //Подсказка для стен
+            if (selected_category == "Wall")
+            {
+				txSelectFont("Arial", 30);
+				txDrawText(VARIANTS_LEFT,600,1200,800,
+					"Нажмите\n"
+					"NUM2, NUM4,\n"
+					"NUM6, NUM8\n"
+					" и стен \n"
+					"станет\n"
+					"больше");
+            }
+
             for (int i = 0; i < PICT_LEN; i++)
             {
                 if (selected_category == pic[i].category and pic[i].knopka())
@@ -450,8 +444,73 @@ int main()
                     };
 
                     last_num_obj++;
+
+					kol_sten = 0;
+                    if (selected_category == "Wall")
+					{
+						//const char* text = txInputBox("выберите кол-во стен");
+						//kol_sten = atoi(text);
+						vybrana_stena = true;
+					}
                 }
             }
+
+
+
+            if (vybrana_stena &&
+				(	GetAsyncKeyState(VK_NUMPAD2) ||
+					GetAsyncKeyState(VK_NUMPAD4) ||
+					GetAsyncKeyState(VK_NUMPAD6) ||
+					GetAsyncKeyState(VK_NUMPAD8)))
+			{
+					int i = 1;
+					while(GetAsyncKeyState(VK_NUMPAD6))
+					{
+						obrysovat_fon (VARIANTS_LEFT, kartincaUP, last_num_obj, vybrannaya_kartinka);
+
+						kartincaUP[last_num_obj] = kartincaUP[vybrannaya_kartinka];
+						kartincaUP[last_num_obj].x = kartincaUP[last_num_obj].x + 100 * i;
+						last_num_obj++;
+						i = i + 1;
+						txSleep(500);
+					}
+
+						while(GetAsyncKeyState(VK_NUMPAD4))
+						{
+						obrysovat_fon (VARIANTS_LEFT, kartincaUP, last_num_obj, vybrannaya_kartinka);
+
+						kartincaUP[last_num_obj] = kartincaUP[vybrannaya_kartinka];
+						kartincaUP[last_num_obj].x = kartincaUP[last_num_obj].x - 100 * i;
+						last_num_obj++;
+						i = i + 1;
+						txSleep(500);
+						 }
+
+						while(GetAsyncKeyState(VK_NUMPAD8))
+					{
+						obrysovat_fon (VARIANTS_LEFT, kartincaUP, last_num_obj, vybrannaya_kartinka);
+
+						kartincaUP[last_num_obj] = kartincaUP[vybrannaya_kartinka];
+						kartincaUP[last_num_obj].y = kartincaUP[last_num_obj].y - 100 * i;
+						last_num_obj++;
+						i = i + 1;
+						txSleep(500);
+					}
+
+						while(GetAsyncKeyState(VK_NUMPAD2))
+					{
+						obrysovat_fon (VARIANTS_LEFT, kartincaUP, last_num_obj, vybrannaya_kartinka);
+
+						kartincaUP[last_num_obj] = kartincaUP[vybrannaya_kartinka];
+						kartincaUP[last_num_obj].y = kartincaUP[last_num_obj].y + 100 * i;
+						last_num_obj++;
+						i = i + 1;
+						txSleep(500);
+
+					}
+
+					vybrana_stena = false;
+			}
 
             if (GetAsyncKeyState(VK_ESCAPE))
             {
@@ -459,6 +518,12 @@ int main()
                 bylo_kartinok = last_num_obj;
             }
         }
+
+        if (DEBUG)
+		{
+			drawPeremennya(100, 100, txMouseX());
+			drawPeremennya(100, 150, txMouseY());
+		}
 
         txSleep(10);
         txEnd();
