@@ -289,9 +289,6 @@ int main()
             txSetFillColor(TX_WHITE);
             txSetColor(TX_WHITE);
 
-            txSelectFont("Arial", 40);
-            txDrawText(300,100,900,150,"Создай ");
-
 			//granica
 			granica(kartincaUP, last_num_obj, VARIANTS_LEFT);
 
@@ -316,6 +313,7 @@ int main()
                 saveToFile( bylo_kartinok,  kartincaUP);
             }
 
+            //Скриншот
             if (GetAsyncKeyState(VK_SNAPSHOT))
             {
                 ScreenCapture(10,100,1000,700, "1.bmp", txWindow());
@@ -352,8 +350,9 @@ int main()
                         kartincaUP[i].x < kartincaUP[k].x + kartincaUP[k].shirina  &&
                         kartincaUP[k].x < kartincaUP[i].x + kartincaUP[i].shirina  &&
                         kartincaUP[i].y < kartincaUP[k].y + kartincaUP[k].vasota &&
-                         kartincaUP[k].y < kartincaUP[i].y + kartincaUP[i].vasota)
+                        kartincaUP[k].y < kartincaUP[i].y + kartincaUP[i].vasota)
                     {
+                        //Пишем, но не всегда
 						if (DEBUG)
 						{
 							txTextOut(100, 100, "столкнулись");
@@ -402,6 +401,7 @@ int main()
                 }
             }
 
+            //Выбор категории
             for (int n = 0; n < COLICHEs; n++)
             {
                 if (knopka(topMenu[n].x,topMenu[n].y))
@@ -410,6 +410,18 @@ int main()
                 }
             }
 
+            //Подсказка для стен
+            if (selected_category == "Wall")
+            {
+				txSelectFont("Arial", 30);
+				txDrawText(VARIANTS_LEFT,600,1200,800,
+					"Нажмите\n"
+					"NUM2, NUM4,\n"
+					"NUM6, NUM8\n"
+					" и стен \n"
+					"станет\n"
+					"больше");
+            }
 
             for (int i = 0; i < PICT_LEN; i++)
             {
