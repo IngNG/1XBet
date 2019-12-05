@@ -93,13 +93,13 @@ int main()
 
 
     Knopka topMenu[COLICHEs];
-    topMenu[0] = {55,20,180,70,"диваны","Divan" };
-    topMenu[1] = {205,20,330,70,"койка", "Krovat"};
-    topMenu[2] = {355,20,480,70,"стены", "Wall"};
-    topMenu[3] = {505,20,630,70,"кресло","Chair"};
-    topMenu[4] = {655,20,780,70,"ковры","Cover"};
-    topMenu[5] = {805,20,960,70,"cохранить",""};
-    topMenu[6] = {1055,20,1180,70,"выход",""};
+    topMenu[0] = {55,20,180,70,"Г¤ГЁГўГ Г­Г»","Divan" };
+    topMenu[1] = {205,20,330,70,"ГЄГ®Г©ГЄГ ", "Krovat"};
+    topMenu[2] = {355,20,480,70,"Г±ГІГҐГ­Г»", "Wall"};
+    topMenu[3] = {505,20,630,70,"ГЄГ°ГҐГ±Г«Г®","Chair"};
+    topMenu[4] = {655,20,780,70,"ГЄГ®ГўГ°Г»","Cover"};
+    topMenu[5] = {805,20,960,70,"cГ®ГµГ°Г Г­ГЁГІГј",""};
+    topMenu[6] = {1055,20,1180,70,"ГўГ»ГµГ®Г¤",""};
 
     for (int i = 0; i < PICT_LEN; i++)
     {
@@ -143,12 +143,12 @@ int main()
     }
 
     Knopka mainMenu[6];
-    mainMenu[0] = {500, 270, 680, 320, "Начать"};
-    mainMenu[1] = {500, 320, 680, 370, "Продолжить"};
-    mainMenu[2] = {500, 370, 680, 420, "Настройки",  "Настройки недоступны", "Ошибка"};
-    mainMenu[3] = {500, 420, 680, 470, "Информация"};
-    mainMenu[4] = {500, 470, 680, 520, "Выйти"};
-    mainMenu[5] = {500, 520, 680, 570, "муз_off/on"};
+    mainMenu[0] = {500, 270, 680, 320, "ГЌГ Г·Г ГІГј"};
+    mainMenu[1] = {500, 320, 680, 370, "ГЏГ°Г®Г¤Г®Г«Г¦ГЁГІГј"};
+    mainMenu[2] = {500, 370, 680, 420, "ГЌГ Г±ГІГ°Г®Г©ГЄГЁ",  "ГЌГ Г±ГІГ°Г®Г©ГЄГЁ Г­ГҐГ¤Г®Г±ГІГіГЇГ­Г»", "ГЋГёГЁГЎГЄГ "};
+    mainMenu[3] = {500, 420, 680, 470, "Г€Г­ГґГ®Г°Г¬Г Г¶ГЁГї"};
+    mainMenu[4] = {500, 470, 680, 520, "Г‚Г»Г©ГІГЁ"};
+    mainMenu[5] = {500, 520, 680, 570, "Г¬ГіГ§_off/on"};
 
     int vybrannaya_kartinka  = -100;
     int kol_sten = 0;
@@ -166,7 +166,7 @@ int main()
             txSetColor(TX_WHITE);
 
             txSelectFont("Arial", 40);
-            txDrawText(300,100,900,150,"Создай свою квартиру");
+            txDrawText(300,100,900,150,"Г‘Г®Г§Г¤Г Г© Г±ГўГ®Гѕ ГЄГўГ Г°ГІГЁГ°Гі");
 
             for (int n = 0; n < 6; n++)
             {
@@ -183,7 +183,7 @@ int main()
             }
             if (knopka(mainMenu[3].x + 20,mainMenu[3].y))
             {
-            	txMessageBox("уверенны");
+            	txMessageBox("ГіГўГҐГ°ГҐГ­Г­Г»");
                 pageNumber = MENU_INFO;
             }
             if (knopka(mainMenu[4].x + 20,mainMenu[4].y))
@@ -223,7 +223,7 @@ int main()
 			txSelectFont("Arial", 40);
 			txRectangle(300, 100, 900, 470);
             txDrawText(300,100,900,700,
-					"музыка");
+					"Г¬ГіГ§Г»ГЄГ ");
 
             txSetColor(TX_WHITE);
 			mainMenu[3].drawButton();
@@ -244,14 +244,14 @@ int main()
 			txSelectFont("Arial", 40);
 			txRectangle(300, 100, 900, 470);
             txDrawText(300,100,900,700,
-					"информация\n"
-					"создатели: Чираков Даниил \n"
-					"Боровков Андрей Владимирович\n"
-					"проект написан по мативам игры\n"
+					"ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГї\n"
+					"Г±Г®Г§Г¤Г ГІГҐГ«ГЁ: Г—ГЁГ°Г ГЄГ®Гў Г„Г Г­ГЁГЁГ« \n"
+					"ГЃГ®Г°Г®ГўГЄГ®Гў ГЂГ­Г¤Г°ГҐГ© Г‚Г«Г Г¤ГЁГ¬ГЁГ°Г®ГўГЁГ·\n"
+					"ГЇГ°Г®ГҐГЄГІ Г­Г ГЇГЁГ±Г Г­ ГЇГ® Г¬Г ГІГЁГўГ Г¬ ГЁГЈГ°Г»\n"
 					"Sim Siti\n"
-					"только в этом проекте вы будете редактировать\n"
-					"квартиру, а не город\n"
-					"УДАЧНОГО РЕДАКТИРОВАНИЯ"
+					"ГІГ®Г«ГјГЄГ® Гў ГЅГІГ®Г¬ ГЇГ°Г®ГҐГЄГІГҐ ГўГ» ГЎГіГ¤ГҐГІГҐ Г°ГҐГ¤Г ГЄГІГЁГ°Г®ГўГ ГІГј\n"
+					"ГЄГўГ Г°ГІГЁГ°Гі, Г  Г­ГҐ ГЈГ®Г°Г®Г¤\n"
+					"Г“Г„ГЂГ—ГЌГЋГѓГЋ ГђГ…Г„ГЂГЉГ’Г€ГђГЋГ‚ГЂГЌГ€Гџ"
 					);
 
             txSetColor(TX_WHITE);
@@ -298,7 +298,7 @@ int main()
 			txSetColor(TX_WHITE);
             txRectangle(10, 100, VARIANTS_LEFT, txGetExtentY() - 2);
 
-            //Выход
+            //Г‚Г»ГµГ®Г¤
             if (knopka(topMenu[6].x,topMenu[6].y))
             {
                pageNumber = START_PAGE;
@@ -306,18 +306,18 @@ int main()
                last_num_obj = 0;
             }
 
-            //Сохранение
+            //Г‘Г®ГµГ°Г Г­ГҐГ­ГЁГҐ
             if (knopka(topMenu[5].x,topMenu[5].y))
             {
                 bylo_kartinok = last_num_obj;
                 saveToFile( bylo_kartinok,  kartincaUP);
             }
 
-            //Скриншот
+            //Г‘ГЄГ°ГЁГ­ГёГ®ГІ
             if (GetAsyncKeyState(VK_SNAPSHOT))
             {
                 ScreenCapture(10,100,1000,700, "1.bmp", txWindow());
-                txMessageBox("Сохранено в 1.bmp");
+                txMessageBox("Г‘Г®ГµГ°Г Г­ГҐГ­Г® Гў 1.bmp");
             }
 
             //peremeshenie
@@ -352,11 +352,10 @@ int main()
                         kartincaUP[i].y < kartincaUP[k].y + kartincaUP[k].vasota &&
                         kartincaUP[k].y < kartincaUP[i].y + kartincaUP[i].vasota)
                     {
-                        //Пишем, но не всегда
-						if (DEBUG)
-						{
-							txTextOut(100, 100, "столкнулись");
-						}
+                        if (DEBUG)
+                        {
+                          txTextOut(100, 100, "Г±ГІГ®Г«ГЄГ­ГіГ«ГЁГ±Гј");
+                        }
 
                         if (kartincaUP[i].x < kartincaUP[k].x)
                         {
@@ -382,11 +381,11 @@ int main()
             //Top buttons
             risovatKnopki(COLICHEs, topMenu,selected_category);
 
-            //Right pictures 
+            //Right picturesВ 
             risovatkartinky(selected_category, PICT_LEN, pic);
 
 
-            // тут рисуются выбранные картинки
+            // ГІГіГІ Г°ГЁГ±ГіГѕГІГ±Гї ГўГ»ГЎГ°Г Г­Г­Г»ГҐ ГЄГ Г°ГІГЁГ­ГЄГЁ
             for (int i = 0; i < last_num_obj; i++)
             {
                 if (kartincaUP[i].visible)
@@ -401,7 +400,7 @@ int main()
                 }
             }
 
-            //Выбор категории
+            //Г‚Г»ГЎГ®Г° ГЄГ ГІГҐГЈГ®Г°ГЁГЁ
             for (int n = 0; n < COLICHEs; n++)
             {
                 if (knopka(topMenu[n].x,topMenu[n].y))
@@ -410,17 +409,17 @@ int main()
                 }
             }
 
-            //Подсказка для стен
+            //ГЏГ®Г¤Г±ГЄГ Г§ГЄГ  Г¤Г«Гї Г±ГІГҐГ­
             if (selected_category == "Wall")
             {
 				txSelectFont("Arial", 30);
 				txDrawText(VARIANTS_LEFT,600,1200,800,
-					"Нажмите\n"
+					"ГЌГ Г¦Г¬ГЁГІГҐ\n"
 					"NUM2, NUM4,\n"
 					"NUM6, NUM8\n"
-					" и стен \n"
-					"станет\n"
-					"больше");
+					" ГЁ Г±ГІГҐГ­ \n"
+					"Г±ГІГ Г­ГҐГІ\n"
+					"ГЎГ®Г«ГјГёГҐ");
             }
 
             for (int i = 0; i < PICT_LEN; i++)
@@ -448,7 +447,7 @@ int main()
 					kol_sten = 0;
                     if (selected_category == "Wall")
 					{
-						//const char* text = txInputBox("выберите кол-во стен");
+						//const char* text = txInputBox("ГўГ»ГЎГҐГ°ГЁГІГҐ ГЄГ®Г«-ГўГ® Г±ГІГҐГ­");
 						//kol_sten = atoi(text);
 						vybrana_stena = true;
 					}
