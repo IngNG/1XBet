@@ -17,6 +17,8 @@ const int MENU_INFO = 3;
 
 const int COLICHEs = 7;
 
+const bool DEBUG = false;
+
 
 
 void drawPeremennya(int x, int y, int perem)
@@ -32,6 +34,31 @@ void drawPeremennya(int x, int y, bool perem)
 	else
 		txTextOut(x, y, "true");
 }
+
+void obrysovat_fon(const int VARIANTS_LEFT, Picture kartincaUP[], int last_num_obj, int vybrannaya_kartinka )
+{
+		txSetFillColor(TX_GRAY);
+		txSetColor(TX_WHITE);
+		txRectangle(10, 100, VARIANTS_LEFT, txGetExtentY() - 2);
+
+		for (int k = 0; k < last_num_obj; k++)
+		{
+			if (kartincaUP[k].visible)
+			{
+				if (k == vybrannaya_kartinka)
+				{
+					Picture vk = kartincaUP[k];
+					txSetColor(TX_RED, 3);
+					txRectangle (vk.x-2, vk.y-2, vk.x + vk.shirina+2, vk.y + vk.vasota+2);
+				}
+				drawPic(kartincaUP[k]);
+			}
+		}
+
+}
+
+
+
 
 int main()
 {
@@ -124,6 +151,9 @@ int main()
     mainMenu[5] = {500, 520, 680, 570, "муз_off/on"};
 
     int vybrannaya_kartinka  = -100;
+    int kol_sten = 0;
+	bool vybrana_stena = false;
+
     bool clicked = false;
     while(!exitProgram)
     {
@@ -324,7 +354,10 @@ int main()
                         kartincaUP[i].y < kartincaUP[k].y + kartincaUP[k].vasota &&
                          kartincaUP[k].y < kartincaUP[i].y + kartincaUP[i].vasota)
                     {
-                        txTextOut(100, 100, "столкнулись");
+						if (DEBUG)
+						{
+							txTextOut(100, 100, "столкнулись");
+						}
 
                         if (kartincaUP[i].x < kartincaUP[k].x)
                         {
@@ -353,6 +386,8 @@ int main()
             //Right pictures 
             risovatkartinky(selected_category, PICT_LEN, pic);
 
+
+            // тут рисуются выбранные картинки
             for (int i = 0; i < last_num_obj; i++)
             {
                 if (kartincaUP[i].visible)
@@ -397,8 +432,73 @@ int main()
                     };
 
                     last_num_obj++;
+
+					kol_sten = 0;
+                    if (selected_category == "Wall")
+					{
+						//const char* text = txInputBox("выберите кол-во стен");
+						//kol_sten = atoi(text);
+						vybrana_stena = true;
+					}
                 }
             }
+
+
+
+            if (vybrana_stena &&
+				(	GetAsyncKeyState(VK_NUMPAD2) ||
+					GetAsyncKeyState(VK_NUMPAD4) ||
+					GetAsyncKeyState(VK_NUMPAD6) ||
+					GetAsyncKeyState(VK_NUMPAD8)))
+			{
+					int i = 1;
+					while(GetAsyncKeyState(VK_NUMPAD6))
+					{
+						obrysovat_fon (VARIANTS_LEFT, kartincaUP, last_num_obj, vybrannaya_kartinka);
+
+						kartincaUP[last_num_obj] = kartincaUP[vybrannaya_kartinka];
+						kartincaUP[last_num_obj].x = kartincaUP[last_num_obj].x + 100 * i;
+						last_num_obj++;
+						i = i + 1;
+						txSleep(500);
+					}
+
+						while(GetAsyncKeyState(VK_NUMPAD4))
+						{
+						obrysovat_fon (VARIANTS_LEFT, kartincaUP, last_num_obj, vybrannaya_kartinka);
+
+						kartincaUP[last_num_obj] = kartincaUP[vybrannaya_kartinka];
+						kartincaUP[last_num_obj].x = kartincaUP[last_num_obj].x - 100 * i;
+						last_num_obj++;
+						i = i + 1;
+						txSleep(500);
+						 }
+
+						while(GetAsyncKeyState(VK_NUMPAD8))
+					{
+						obrysovat_fon (VARIANTS_LEFT, kartincaUP, last_num_obj, vybrannaya_kartinka);
+
+						kartincaUP[last_num_obj] = kartincaUP[vybrannaya_kartinka];
+						kartincaUP[last_num_obj].y = kartincaUP[last_num_obj].y - 100 * i;
+						last_num_obj++;
+						i = i + 1;
+						txSleep(500);
+					}
+
+						while(GetAsyncKeyState(VK_NUMPAD2))
+					{
+						obrysovat_fon (VARIANTS_LEFT, kartincaUP, last_num_obj, vybrannaya_kartinka);
+
+						kartincaUP[last_num_obj] = kartincaUP[vybrannaya_kartinka];
+						kartincaUP[last_num_obj].y = kartincaUP[last_num_obj].y + 100 * i;
+						last_num_obj++;
+						i = i + 1;
+						txSleep(500);
+
+					}
+
+					vybrana_stena = false;
+			}
 
             if (GetAsyncKeyState(VK_ESCAPE))
             {
@@ -406,6 +506,12 @@ int main()
                 bylo_kartinok = last_num_obj;
             }
         }
+
+        if (DEBUG)
+		{
+			drawPeremennya(100, 100, txMouseX());
+			drawPeremennya(100, 150, txMouseY());
+		}
 
         txSleep(10);
         txEnd();
