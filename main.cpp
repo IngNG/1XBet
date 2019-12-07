@@ -80,8 +80,8 @@ int main()
     int last_num_obj = 0;
     int bylo_kartinok = last_num_obj;
 
-
     Picture pic[1000];
+
 
 
     int PICT_LEN = 0;
@@ -132,13 +132,13 @@ int main()
 		{
             pic[i].shirina = 50;
             pic[i].vasota = 120;
-            pic[i].x = 1090;
+            pic[i].x = 1110;
 		}
 		else
 		{
             pic[i].shirina = 100;
             pic[i].vasota = 100;
-            pic[i].x = 1090;
+            pic[i].x = 1080;
 		}
     }
 
@@ -298,6 +298,9 @@ int main()
 			txSetColor(TX_WHITE);
             txRectangle(10, 100, VARIANTS_LEFT, txGetExtentY() - 2);
 
+
+
+
             //Выход
             if (knopka(topMenu[6].x,topMenu[6].y))
             {
@@ -456,6 +459,31 @@ int main()
             }
 
 
+            //razvorot
+            if (vybrannaya_kartinka >= 0 && GetAsyncKeyState('R'))
+            {
+                string adress = kartincaUP[vybrannaya_kartinka].adress;
+                string category = kartincaUP[vybrannaya_kartinka].category;
+
+                if ( category == "Divan")
+                {
+                    int pos = adress.find(category) ;
+                    adress = adress.replace(pos, category.size(),category + "1");
+
+
+                    int pos2 = adress.find("11");
+                    if (pos2 > 0)
+                        adress = adress.replace(pos2, 2, "");
+
+
+
+                    kartincaUP[vybrannaya_kartinka].adress = adress;
+                    kartincaUP[vybrannaya_kartinka].img = txLoadImage(kartincaUP[vybrannaya_kartinka].adress.c_str());
+
+                    txSleep(700);
+                }
+             }
+
 
             if (vybrana_stena &&
 				(	GetAsyncKeyState(VK_NUMPAD2) ||
@@ -532,12 +560,12 @@ int main()
     txDisableAutoPause();
     txDeleteDC(background);
 
-    for (int i = 0; i < PICT_LEN; i++)
+    for (int i = 0; i < 1000; i++)
     {
         txDeleteDC(pic[i].img);
     }
 
-    for (int i = 0; i < bylo_kartinok; i++)
+    for (int i = 0; i < 1000; i++)
     {
         txDeleteDC(kartincaUP[i].img);
     }
