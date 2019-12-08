@@ -28,6 +28,7 @@ struct Knopka
 
     void drawButton()
     {
+        txSelectFont("Arial", 40);
         txDrawText(x, y, x2, y2, text);
     }
 
