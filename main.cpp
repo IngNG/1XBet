@@ -15,8 +15,6 @@ const int MAIN_PAGE = 1;
 const int MENU_OPSHIONS = 2;
 const int MENU_INFO = 3;
 
-const int COLICHEs = 8;
-
 const bool DEBUG = false;
 
 
@@ -60,6 +58,8 @@ void obrysovat_fon(const int VARIANTS_LEFT, Picture kartincaUP[], int last_num_o
 
 
 
+const int COLICHEs = 9;
+
 int main()
 {
     txCreateWindow(1200, 800);
@@ -81,10 +81,32 @@ int main()
     int last_num_obj = 0;
     int bylo_kartinok = last_num_obj;
 
+
+    Knopka topMenu[COLICHEs];
+    topMenu[8] = {0,0,100,70,"",""};
+    topMenu[0] = {55,20,160,70,"диваны","Divan" };
+    topMenu[1] = {175,20,300,70,"койка", "Krovat"};
+    topMenu[2] = {305,20,420,70,"стены", "Wall"};
+    topMenu[3] = {425,20,530,70,"кресло","Chair"};
+    topMenu[4] = {555,20,680,70,"ковры","Cover"};
+    topMenu[5] = {705,20,860,70,"cохранить",""};
+    topMenu[7] = {860,20,1040,70, "загрузить"};
+    topMenu[6] = {1055,20,1180,70,"выход",""};
+
+    Knopka mainMenu[6];
+    mainMenu[0] = {500, 270, 680, 320, "Начать"};
+    mainMenu[1] = {500, 320, 680, 370, "Продолжить"};
+    mainMenu[2] = {500, 370, 680, 420, "Настройки",  "Настройки недоступны", "Ошибка"};
+    mainMenu[3] = {500, 420, 680, 470, "Информация"};
+    mainMenu[4] = {500, 470, 680, 520, "Выйти"};
+    mainMenu[5] = {500, 520, 680, 570, ""};
+
+
+
+
     Picture pic[1000];
 
-
-
+    //Загрузка картинок справа (адреса)
     int PICT_LEN = 0;
     PICT_LEN = chtenie("Pics\\Krovat\\", PICT_LEN, pic);
     PICT_LEN = chtenie("Pics\\Divan\\", PICT_LEN,pic);
@@ -92,17 +114,7 @@ int main()
     PICT_LEN = chtenie("Pics\\Cover\\", PICT_LEN,pic);
     PICT_LEN = chtenie("Pics\\Chair\\", PICT_LEN,pic);
 
-
-    Knopka topMenu[COLICHEs];
-    topMenu[0] = {55,20,180,70,"диваны","Divan" };
-    topMenu[1] = {205,20,330,70,"койка", "Krovat"};
-    topMenu[2] = {355,20,480,70,"стены", "Wall"};
-    topMenu[3] = {505,20,630,70,"кресло","Chair"};
-    topMenu[4] = {655,20,780,70,"ковры","Cover"};
-    topMenu[5] = {805,20,960,70,"cохранить",""};
-    topMenu[6] = {1055,20,1180,70,"выход",""};
-    topMenu[7] = {0,0,100,70,"",""};
-
+    //Загрузка картинок справа (по адресу находим координаты...)
     for (int i = 0; i < PICT_LEN; i++)
     {
         string stroka = pic[i].adress;
@@ -144,14 +156,6 @@ int main()
 		}
     }
 
-    Knopka mainMenu[6];
-    mainMenu[0] = {500, 270, 680, 320, "Начать"};
-    mainMenu[1] = {500, 320, 680, 370, "Продолжить"};
-    mainMenu[2] = {500, 370, 680, 420, "Настройки",  "Настройки недоступны", "Ошибка"};
-    mainMenu[3] = {500, 420, 680, 470, "Информация"};
-    mainMenu[4] = {500, 470, 680, 520, "Выйти"};
-    mainMenu[5] = {500, 520, 680, 570, ""};
-
     int vybrannaya_kartinka  = -100;
     int kol_sten = 0;
 	bool vybrana_stena = false;
@@ -180,9 +184,8 @@ int main()
             if (knopka(mainMenu[0].x + 20,mainMenu[0].y))
             {
                 pageNumber = MAIN_PAGE;
-                last_num_obj = readFromFile(kartincaUP, pic, PICT_LEN);
-                bylo_kartinok =  pageNumber;
-                zapolnitKartinki(last_num_obj, kartincaUP);
+                bylo_kartinok = 0;
+                last_num_obj = 0;
             }
             if (knopka(mainMenu[3].x + 20,mainMenu[3].y))
             {
@@ -200,6 +203,7 @@ int main()
                 pageNumber = MAIN_PAGE;
             }
 
+            //Музыка вкл/выкл
 			if (knopka(mainMenu[5].x,mainMenu[5].y))
 			{
 				if (mysic_vkl_vkl == 0)
@@ -274,6 +278,7 @@ int main()
                 clicked = true;
             }
 
+            //Выбранная картинка движется за мышкой
             if (vybrannaya_kartinka >= 0 && (txMouseButtons() & 1) && kartincaUP[vybrannaya_kartinka].clickedBlock)
             {
                 kartincaUP[vybrannaya_kartinka].x = txMouseX() - kartincaUP[vybrannaya_kartinka].shirina/2;
@@ -319,6 +324,15 @@ int main()
             {
                 bylo_kartinok = last_num_obj;
                 saveToFile( bylo_kartinok,  kartincaUP);
+            }
+            //zagryzka v igre
+
+            if(knopka(topMenu[7].x,topMenu[7].y))
+            {
+
+                last_num_obj = readFromFile(kartincaUP, pic, PICT_LEN);
+                bylo_kartinok =  pageNumber;
+                zapolnitKartinki(last_num_obj, kartincaUP);
             }
 
             //Скриншот
@@ -433,7 +447,8 @@ int main()
             }
 
 
-			if (knopka(topMenu[7].x,topMenu[7].y))
+            //звук
+			if (knopka(topMenu[8].x,topMenu[8].y))
 			{
 				if (mysic_vkl_vkl == 0)
 				{
@@ -506,7 +521,7 @@ int main()
                     txSleep(700);
                 }
              }
-
+             // передвижение картинки Numпадом(стрелками)
 
             if (vybrana_stena &&
 				(	GetAsyncKeyState(VK_NUMPAD2) ||
