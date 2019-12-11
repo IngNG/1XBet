@@ -15,7 +15,7 @@ const int MAIN_PAGE = 1;
 const int MENU_OPSHIONS = 2;
 const int MENU_INFO = 3;
 
-const int COLICHEs = 7;
+const int COLICHEs = 8;
 
 const bool DEBUG = false;
 
@@ -65,6 +65,7 @@ int main()
     txCreateWindow(1200, 800);
     HDC background = txLoadImage("Pics\\Background2.bmp");
 
+    HDC music = txLoadImage("Pics\\music.bmp");
 
 
     const int VARIANTS_LEFT = txGetExtentX() - 150;
@@ -100,6 +101,7 @@ int main()
     topMenu[4] = {655,20,780,70,"ковры","Cover"};
     topMenu[5] = {805,20,960,70,"cохранить",""};
     topMenu[6] = {1055,20,1180,70,"выход",""};
+    topMenu[7] = {0,0,100,70,"",""};
 
     for (int i = 0; i < PICT_LEN; i++)
     {
@@ -148,7 +150,7 @@ int main()
     mainMenu[2] = {500, 370, 680, 420, "Настройки",  "Настройки недоступны", "Ошибка"};
     mainMenu[3] = {500, 420, 680, 470, "Информация"};
     mainMenu[4] = {500, 470, 680, 520, "Выйти"};
-    mainMenu[5] = {500, 520, 680, 570, "муз_off/on"};
+    mainMenu[5] = {500, 520, 680, 570, ""};
 
     int vybrannaya_kartinka  = -100;
     int kol_sten = 0;
@@ -162,11 +164,12 @@ int main()
         if (pageNumber == START_PAGE)
         {
             txBitBlt (txDC(), 0, 0, txGetExtentX(), txGetExtentY(), background, 0, 0);
-            txSetFillColor(TX_WHITE);
-            txSetColor(TX_WHITE);
+            txTransparentBlt(txDC(), 560 , 525, 58,58, music, 0, 0, TX_WHITE);
 
+            txSetFillColor(TX_WHITE);  -
+            txSetColor(TX_WHITE);
             txSelectFont("Arial", 40);
-            txDrawText(300,100,900,150,"Создай свою квартиру");
+                txDrawText(300,100,900,150,"Создай свою квартиру");
 
             for (int n = 0; n < 6; n++)
             {
@@ -293,6 +296,7 @@ int main()
 			granica(kartincaUP, last_num_obj, VARIANTS_LEFT);
 
             txBitBlt(txDC(), 0, 0, txGetExtentX(), txGetExtentY(), background, 0, 0);
+            txTransparentBlt(txDC(), 0, 20, 58,58, music, 0, 0, TX_WHITE);
 
             txSetFillColor(TX_GRAY);
 			txSetColor(TX_WHITE);
@@ -308,6 +312,7 @@ int main()
                bylo_kartinok = last_num_obj;
                last_num_obj = 0;
             }
+
 
             //Сохранение
             if (knopka(topMenu[5].x,topMenu[5].y))
@@ -417,6 +422,7 @@ int main()
             if (selected_category == "Wall")
             {
 				txSelectFont("Arial", 30);
+				txSetColor(TX_WHITE);
 				txDrawText(VARIANTS_LEFT,600,1200,800,
 					"Нажмите\n"
 					"NUM2, NUM4,\n"
@@ -425,6 +431,23 @@ int main()
 					"станет\n"
 					"больше");
             }
+
+
+			if (knopka(topMenu[7].x,topMenu[7].y))
+			{
+				if (mysic_vkl_vkl == 0)
+				{
+					txPlaySound("on_fon.wav");
+					mysic_vkl_vkl = 1;
+					txSleep(200);
+				}
+				else if (mysic_vkl_vkl == 1)
+				{
+					txPlaySound(NULL);
+					mysic_vkl_vkl = 0;
+					txSleep(200);
+				}
+			}
 
             for (int i = 0; i < PICT_LEN; i++)
             {
