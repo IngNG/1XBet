@@ -56,7 +56,7 @@ int get_width(string adress)
 
     return width;
 }
-
+  //сохранение скриншота
 inline int GetFilePointer(HANDLE FileHandle)
 {
     return SetFilePointer(FileHandle, 0, 0, FILE_CURRENT);
