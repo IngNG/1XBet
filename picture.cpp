@@ -1,3 +1,7 @@
+/*!
+\file
+\brief Главный файл
+*/
 #include "TXLib.h"
 #include "dirent.h"
 #include "files.cpp"
@@ -48,14 +52,14 @@ struct Picture
         return false;
     }
 };
-
+       /// вызов картинок
 void drawPic(Picture vk)
 {
     Win32::TransparentBlt(txDC(), vk.x, vk.y, vk.shirina, vk.vasota,
                           vk.img, 0, 0, vk.src_shirina, vk.src_vasota,
                           TX_WHITE);
 }
-
+  ///рисование картинок
 void risovatkartinky(string selected_category,int PICT_LEN, Picture pic[])
 {
     for (int i = 0; i < PICT_LEN; i++)
@@ -66,7 +70,7 @@ void risovatkartinky(string selected_category,int PICT_LEN, Picture pic[])
         }
     }
 
-}
+}    /// заполнение картинок
 
 void zapolnitKartinki(int last_num_obj, Picture kartincaUP[])
 {
@@ -81,7 +85,7 @@ void zapolnitKartinki(int last_num_obj, Picture kartincaUP[])
 		kartincaUP[i].src_vasota=get_height (kartincaUP[i].adress.c_str());
 		kartincaUP[i].visible = true;
 
-		//4to-t0
+		///4to-t0
 		if (kartincaUP[i].src_shirina > 1.3* kartincaUP[i].src_vasota)
 		{
             kartincaUP[i].shirina = 120;
@@ -99,10 +103,11 @@ void zapolnitKartinki(int last_num_obj, Picture kartincaUP[])
 		}
     }
 }
-
+   /// чтение из файла
 int readFromFile(Picture kartincaUP[], Picture pic[],int PICT_LEN)
 {
     int last_num_obj = 0;
+
 
 	string filename = selectFile(txWindow(), false);
     ifstream file (filename);
@@ -132,8 +137,8 @@ int readFromFile(Picture kartincaUP[], Picture pic[],int PICT_LEN)
                 true
             };
 
-            //Пробежаться по всем pic
-            //Если совпал адрес
+            ///Пробежаться по всем pic
+
 
             for (int i = 0; i < PICT_LEN; i++)
             {
@@ -151,7 +156,7 @@ int readFromFile(Picture kartincaUP[], Picture pic[],int PICT_LEN)
 
     return last_num_obj;
 }
-
+   ///сохранение в файл
 void saveToFile(int last_num_obj, Picture kartincaUP[])
 {
     ofstream file1 (selectFile(txWindow(), true));
@@ -167,6 +172,7 @@ void saveToFile(int last_num_obj, Picture kartincaUP[])
 }
 
 
+ ///граница
 void granica(Picture kartincaUP[], int last_num_obj, int VARIANTS_LEFT)
 {
     for (int i = 0; i < last_num_obj ; i++)
@@ -190,7 +196,7 @@ void granica(Picture kartincaUP[], int last_num_obj, int VARIANTS_LEFT)
     }
 }
 
-
+  ///управление стрелками
 void dvigatStrelkami(Picture kartincaUP[], int vybrannaya_kartinka )
 {
     if (vybrannaya_kartinka >= 0 && GetAsyncKeyState(VK_LEFT))
@@ -210,7 +216,7 @@ void dvigatStrelkami(Picture kartincaUP[], int vybrannaya_kartinka )
         kartincaUP[vybrannaya_kartinka].y += 3;
     }
 }
-
+     ///чтение картинок
 int chtenie(string adress, int PICT_LEN, Picture pic[])
 {
     DIR *dir;

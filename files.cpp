@@ -1,3 +1,7 @@
+/*!
+\file
+\brief  файл
+*/
 #pragma once
 #include <string>
 #include <fstream>
@@ -6,6 +10,7 @@
 #include <string>
 using namespace std;
 
+///  выбор файла
 string selectFile(HWND hWnd, bool save)
 {
 	const int SIZE = 100;
@@ -36,7 +41,7 @@ string selectFile(HWND hWnd, bool save)
 }
 
 
-
+    ///найти высоту по адрессу
 int get_height(string adress)
 {
     unsigned char info[54];
@@ -46,7 +51,7 @@ int get_height(string adress)
 
     return height;
 }
-
+    /// найти ширину по адрессу
 int get_width(string adress)
 {
     unsigned char info[54];
@@ -56,12 +61,12 @@ int get_width(string adress)
 
     return width;
 }
-  //сохранение скриншота
+  ///сохранение скриншота
 inline int GetFilePointer(HANDLE FileHandle)
 {
     return SetFilePointer(FileHandle, 0, 0, FILE_CURRENT);
 }
-
+///сохранение скриншота
 bool SaveBMPFile(char *filename, HBITMAP bitmap, HDC bitmapDC, int width, int height)
 {
     bool Success=0;
@@ -142,7 +147,7 @@ bool SaveBMPFile(char *filename, HBITMAP bitmap, HDC bitmapDC, int width, int he
 
     return 1;
 }
-
+ /// сохранение в файл скриншот
 bool ScreenCapture(int x, int y, int width, int height, char *filename, HWND hwnd)
 {
     HDC hDC= GetDC(hwnd);
