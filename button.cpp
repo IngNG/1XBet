@@ -1,5 +1,10 @@
+/*!
+\file
+\brief  кнопки
+*/
 #include "TXLib.h"
 
+/// передвежение мышкой
 bool knopka(int x, int y)
 {
     if (txMouseX() > x       and
@@ -14,24 +19,31 @@ bool knopka(int x, int y)
 
     return false;
 }
-
+///кнопка
 struct Knopka
 {
+   ///левая граница
 	int x;
+	/// верхняя
 	int y;
+	/// правая
 	int x2;
+	/// нижняя
 	int y2;
+	///текст
 	const char* text;
+	///Категория (стена / диван...)
 	string category;
+	///Текст сообщения при клике
 	const char* headerMessage;
 	int count_pics;
-
+/// рисование кнопки категории
     void drawButton()
     {
         txSelectFont("Arial", 40);
         txDrawText(x, y, x2, y2, text);
     }
-
+   ///показать сообщение
     void showMessage()
     {
         if (knopka(x,y) and category != "")
@@ -47,7 +59,7 @@ struct Knopka
         }
     }
 };
-
+ /// рисование кнопок
 void risovatKnopki(const int COLICHEs, Knopka topMenu[],string selected_category)
 {
         for (int n = 0; n < COLICHEs; n++)

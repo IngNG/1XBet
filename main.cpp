@@ -1,3 +1,8 @@
+/*!
+\file
+\brief Главный файл
+*/
+
 #include "TXLib.h"
 #include "button.cpp"
 #include "picture.cpp"
@@ -18,7 +23,7 @@ const int MENU_INFO = 3;
 const bool DEBUG = false;
 
 
-
+///Вывод переменной на экран
 void drawPeremennya(int x, int y, int perem)
 {
 	char str[100];
@@ -81,7 +86,7 @@ int main()
     int last_num_obj = 0;
     int bylo_kartinok = last_num_obj;
 
-
+   /// кнопки
     Knopka topMenu[COLICHEs];
     topMenu[8] = {0,0,100,70,"",""};
     topMenu[0] = {55,20,160,70,"диваны","Divan" };
@@ -92,7 +97,7 @@ int main()
     topMenu[5] = {705,20,860,70,"cохранить",""};
     topMenu[7] = {860,20,1040,70, "загрузить"};
     topMenu[6] = {1055,20,1180,70,"выход",""};
-
+/// кнопки главного меню
     Knopka mainMenu[6];
     mainMenu[0] = {500, 270, 680, 320, "Начать"};
     mainMenu[1] = {500, 320, 680, 370, "Продолжить"};
@@ -106,7 +111,7 @@ int main()
 
     Picture pic[1000];
 
-    //Загрузка картинок справа (адреса)
+    ///Загрузка картинок справа (адреса)
     int PICT_LEN = 0;
     PICT_LEN = chtenie("Pics\\Krovat\\", PICT_LEN, pic);
     PICT_LEN = chtenie("Pics\\Divan\\", PICT_LEN,pic);
@@ -114,7 +119,7 @@ int main()
     PICT_LEN = chtenie("Pics\\Cover\\", PICT_LEN,pic);
     PICT_LEN = chtenie("Pics\\Chair\\", PICT_LEN,pic);
 
-    //Загрузка картинок справа (по адресу находим координаты...)
+    ///Загрузка картинок справа (по адресу находим координаты...)
     for (int i = 0; i < PICT_LEN; i++)
     {
         string stroka = pic[i].adress;
@@ -135,7 +140,7 @@ int main()
             }
 		}
 
-		//4to-t0
+		///4to-t0
 		if (pic[i].src_shirina > 1.3* pic[i].src_vasota)
 		{
             pic[i].shirina = 120;
@@ -164,7 +169,7 @@ int main()
     while(!exitProgram)
     {
         txBegin();
-
+           /// стартовая страница
         if (pageNumber == START_PAGE)
         {
             txBitBlt (txDC(), 0, 0, txGetExtentX(), txGetExtentY(), background, 0, 0);
@@ -196,14 +201,14 @@ int main()
             {
                 exitProgram = true;
             }
-            //continued
+            ///continued
             if (knopka(mainMenu[1].x + 20,mainMenu[1].y))
             {
                 last_num_obj = bylo_kartinok;
                 pageNumber = MAIN_PAGE;
             }
 
-            //Музыка вкл/выкл
+            ///Музыка вкл/выкл
 			if (knopka(mainMenu[5].x,mainMenu[5].y))
 			{
 				if (mysic_vkl_vkl == 0)
@@ -271,14 +276,14 @@ int main()
 
         else if (pageNumber == MAIN_PAGE)
         {
-            //mouse
+            ///mouse
             if (vybrannaya_kartinka >= 0 && kartincaUP[vybrannaya_kartinka].knopka2() && !clicked)
             {
                 kartincaUP[vybrannaya_kartinka].clickedBlock = true;
                 clicked = true;
             }
 
-            //Выбранная картинка движется за мышкой
+            ///Выбранная картинка движется за мышкой
             if (vybrannaya_kartinka >= 0 && (txMouseButtons() & 1) && kartincaUP[vybrannaya_kartinka].clickedBlock)
             {
                 kartincaUP[vybrannaya_kartinka].x = txMouseX() - kartincaUP[vybrannaya_kartinka].shirina/2;
@@ -297,7 +302,7 @@ int main()
             txSetFillColor(TX_WHITE);
             txSetColor(TX_WHITE);
 
-			//granica
+			///granica
 			granica(kartincaUP, last_num_obj, VARIANTS_LEFT);
 
             txBitBlt(txDC(), 0, 0, txGetExtentX(), txGetExtentY(), background, 0, 0);
@@ -310,7 +315,7 @@ int main()
 
 
 
-            //Выход
+            ///Выход
             if (knopka(topMenu[6].x,topMenu[6].y))
             {
                pageNumber = START_PAGE;
@@ -319,13 +324,13 @@ int main()
             }
 
 
-            //Сохранение
+            ///Сохранение
             if (knopka(topMenu[5].x,topMenu[5].y))
             {
                 bylo_kartinok = last_num_obj;
                 saveToFile( bylo_kartinok,  kartincaUP);
             }
-            //zagryzka v igre
+            ///zagryzka v igre
 
             if(knopka(topMenu[7].x,topMenu[7].y))
             {
@@ -335,14 +340,14 @@ int main()
                 zapolnitKartinki(last_num_obj, kartincaUP);
             }
 
-            //Скриншот
+            ///Скриншот
             if (GetAsyncKeyState(VK_SNAPSHOT))
             {
                 ScreenCapture(10,100,1000,700, "1.bmp", txWindow());
                 txMessageBox("Сохранено в 1.bmp");
             }
 
-            //peremeshenie
+            ///peremeshenie
 			for(int i = 0; i < last_num_obj; i++)
 			{
 				if (kartincaUP[i].knopka2())
@@ -351,7 +356,7 @@ int main()
 				}
 			}
 
-			//peremeshenie strelkami
+			///peremeshenie strelkami
 			dvigatStrelkami(kartincaUP, vybrannaya_kartinka);
 
 			if(vybrannaya_kartinka >= 0 && GetAsyncKeyState(VK_DELETE))
@@ -363,7 +368,7 @@ int main()
 			}
 
 
-            //granica kartinok
+            ///granica kartinok
 			for (int i = 0; i < last_num_obj ; i++)
 			{
                 for (int k = 0; k < last_num_obj ; k++)
@@ -401,14 +406,14 @@ int main()
 			}
 
 
-            //Top buttons
+            ///Top buttons
             risovatKnopki(COLICHEs, topMenu,selected_category);
 
-            //Right pictures 
+            ///Right pictures 
             risovatkartinky(selected_category, PICT_LEN, pic);
 
 
-            // тут рисуются выбранные картинки
+            /// тут рисуются выбранные картинки
             for (int i = 0; i < last_num_obj; i++)
             {
                 if (kartincaUP[i].visible)
@@ -423,7 +428,7 @@ int main()
                 }
             }
 
-            //Выбор категории
+            ///Выбор категории
             for (int n = 0; n < COLICHEs; n++)
             {
                 if (knopka(topMenu[n].x,topMenu[n].y))
@@ -432,7 +437,7 @@ int main()
                 }
             }
 
-            //Подсказка для стен
+            ///Подсказка для стен
             if (selected_category == "Wall")
             {
 				txSelectFont("Arial", 30);
@@ -447,7 +452,7 @@ int main()
             }
 
 
-            //звук
+            ///звук
 			if (knopka(topMenu[8].x,topMenu[8].y))
 			{
 				if (mysic_vkl_vkl == 0)
@@ -497,7 +502,7 @@ int main()
             }
 
 
-            //razvorot
+            ///razvorot
             if (vybrannaya_kartinka >= 0 && GetAsyncKeyState('R'))
             {
                 string adress = kartincaUP[vybrannaya_kartinka].adress;
@@ -521,7 +526,7 @@ int main()
                     txSleep(700);
                 }
              }
-             // передвижение картинки Numпадом(стрелками)
+             /// передвижение картинки Numпадом(стрелками)
 
             if (vybrana_stena &&
 				(	GetAsyncKeyState(VK_NUMPAD2) ||
